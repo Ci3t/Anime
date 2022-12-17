@@ -1,12 +1,20 @@
 import {Router} from 'express'
-import { createUser } from '../controllers/user.js'
+import { createUser, forgetPassword,resetPassword, resendVerifyToken, sendResetPassTokenStatus, verifyEmail, signIn } from '../controllers/user.js'
+import { isValidPassResetToken } from '../middlewares/user.middle.js';
 
-import { userValidtor,validate } from '../middlewares/validator.js';
+import { signInValidator, userValidator,validate, validatePassword } from '../middlewares/validator.js';
+
 
 
 
 
 export const userRoute = Router()
-
-userRoute.post('/create',userValidtor,validate,createUser)
+//! USER ROUTES
+userRoute.post('/create',userValidator,validate,createUser)
+userRoute.post('/sign-in',signInValidator,validate,signIn)
+userRoute.post('/verify-email',verifyEmail)
+userRoute.post('/resend-verify-email',resendVerifyToken)
+userRoute.post('/forget-password',forgetPassword)
+userRoute.post('/verify-pass-resetToken',isValidPassResetToken,sendResetPassTokenStatus)
+userRoute.post('/reset-password',validatePassword,validate,isValidPassResetToken,resetPassword)
 

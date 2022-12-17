@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import dotenv from 'dotenv'
 dotenv.config()
 
-const URL = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.naikq78.mongodb.net/AnimeDB?retryWrites=true&w=majority`
+const URL = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.naikq78.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
 
 mongoose.set('strictQuery', false);
 

@@ -1,5 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
+
+
 const userSchema = Schema({
     name:{
         type:String,
@@ -16,6 +18,11 @@ const userSchema = Schema({
     password:{
         type:String,
         required:true
+    },
+    isVerified:{
+        type:Boolean,
+        required:true,
+        default:false
     }
 })
 
@@ -26,6 +33,12 @@ userSchema.pre('save',async function(next){
 
     next();
 })
+
+userSchema.methods.comparePassword= async function(password){
+
+    const result = await bcrypt.compare(password, this.password)
+    return result
+ }
 
 export const User = mongoose.model('User',userSchema)
 
