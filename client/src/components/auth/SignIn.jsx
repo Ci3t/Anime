@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 import Container from '../Container'
 import CustomLink from '../form/CustomLink'
 import FormInput from '../form/FormInput'
@@ -7,10 +8,13 @@ import Submit from '../form/Submit'
 import Title from '../form/Title'
 
 function SignIn() {
+
+  
+  
   return (
-    <div className='fixed inset-0 bg-main -z-10 flex justify-center items-center'>
+    <div className='fixed inset-0 dark:bg-main -z-10 flex justify-center items-center'>
       <Container>
-        <form className='bg-second rounder p-6 w-72 space-y-6'>
+        <form className='dark:bg-second rounder p-6 w-72 space-y-6'>
           <Title>
             Sign In
           </Title>

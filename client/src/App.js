@@ -9,12 +9,17 @@ import EmailVerification from './components/auth/EmailVerification';
 import ForgetPassword from './components/auth/ForgetPassword';
 import ConfirmPassword from './components/auth/ConfirmPassword';
 
+
 function App() {
+
+  
+  
   return (
     <>
       <Navbar/>
     <Routes>
       <Route path='/' element={<Home/>}/>
+      
       <Route path='/auth/signin' element={<SignIn/>}/>
       <Route path='/auth/signup' element={<SignUp/>}/>
       <Route path='/auth/verification' element={<EmailVerification/>}/>
