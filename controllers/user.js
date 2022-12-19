@@ -25,7 +25,11 @@ export const createUser = async(req,res)=>{
     const verifyEmailOTP = verificationOTP(newUser)
 
     res.status(201).json({
-        message:"Please Check your Email For Verification Code"
+       user:{
+        id:newUser._id,
+        name: newUser.name,
+        email: newUser.email
+       }
     })
 
 };
@@ -52,7 +56,9 @@ export const verifyEmail = async (req,res)=>{
     await user.save();
     await emailVerifyToken.findByIdAndDelete(token._id);
    const userVerified = verifiedOTP(user)
-    res.json({message:'Your Email is verified'})
+   const jwtToken = jwt.sign({userId:user._id},process.env.JWT_SECRET_KEY_S)
+
+    res.json({user:{id:user._id,name:user.name,email:user.email,token:jwtToken},message:'Your Email is verified'})
 }
 
 export const resendVerifyToken = async(req,res)=>{

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-
+import { useNavigate, useLocation } from "react-router-dom";
+import { verifyUserEmail } from "../../api/auth";
+import { useNotification } from "../../hooks/themeHook";
 import Container from "../Container";
 import CustomLink from "../form/CustomLink";
 import FormInput from "../form/FormInput";
@@ -8,56 +10,92 @@ import Title from "../form/Title";
 
 const OTP_LENGTH = 6;
 
+const isValidOTP = (otp) => {
+  let valid = false;
+
+  for (let val of otp) {
+    valid = !isNaN(parseInt(val));
+    if (!valid) break;
+  }
+  return valid;
+};
+
 function EmailVerification() {
   const [otp, setOtp] = useState(new Array(OTP_LENGTH).fill(""));
   const [activeOtpIndex, setActiveOtpIndex] = useState(0);
 
-  const inputRef = useRef()
+  const inputRef = useRef();
 
-  const focusNextInputField = (index) =>{
-    setActiveOtpIndex(index+1)
-  }
-  const focusPrevInputField = (index) =>{
+  const navigate = useNavigate();
+
+  const {updateNotification} = useNotification()
+
+  const { state } = useLocation();
+
+  const user = state?.user;
+
+
+
+  const focusNextInputField = (index) => {
+    setActiveOtpIndex(index + 1);
+  };
+  const focusPrevInputField = (index) => {
     let nextIndex;
-    const diff = index - 1
-    nextIndex = diff !== 0? diff : 0
-    setActiveOtpIndex(nextIndex)
-  }
+    const diff = index - 1;
+    nextIndex = diff !== 0 ? diff : 0;
+    setActiveOtpIndex(nextIndex);
+  };
 
   const handleOtpChange = ({ target }, index) => {
     const { value } = target;
 
-    const newOtp = [...otp]
-    newOtp[index] = value.substring(value.length -1, value.length)
-    
-    if(!value) focusPrevInputField(index)
-    else  focusNextInputField(index)
-    
+    const newOtp = [...otp];
+    newOtp[index] = value.substring(value.length - 1, value.length);
+
+    if (!value) focusPrevInputField(index);
+    else focusNextInputField(index);
+
     setOtp([...newOtp]);
   };
 
-  const handleKeyDown =  ({key}, index) => {
+  const handleKeyDown = ({ key }, index) => {
+    if (key === "Backspace") {
+      focusPrevInputField(++index);
 
-    
-    if(key === 'Backspace'){
-        focusPrevInputField(++index)
-
-        console.log(index);
-       
-       
+     
     }
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!isValidOTP(otp)) return updateNotification('error',"Invalid OTP");
+
+    const { error, message } = await verifyUserEmail({
+      OTP: otp.join(''),
+      userId: user.id,
+    });
+    
+    if (error) return updateNotification('error',error);
+
+    updateNotification('success',message);
   };
 
   useEffect(() => {
-
-    inputRef.current?.focus()
+    inputRef.current?.focus();
   }, [activeOtpIndex]);
+
+  useEffect(() => {
+    if (!user) navigate("/not-found");
+  }, []);
 
   return (
     <div className="fixed inset-0 bg-main -z-10 flex justify-center items-center">
       <Container>
-        <form className="bg-second rounder p-6  space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-second rounder p-6  space-y-6"
+        >
           <div>
             <Title>Please enter the OTP Code to verify your account</Title>
             <p className="text-center text-dark-subtle">
@@ -68,7 +106,7 @@ function EmailVerification() {
             {otp.map((_, index) => {
               return (
                 <input
-                ref={activeOtpIndex === index? inputRef :null}
+                  ref={activeOtpIndex === index ? inputRef : null}
                   key={index}
                   value={otp[index] || ""}
                   onChange={(e) => {
@@ -84,7 +122,7 @@ function EmailVerification() {
             })}
           </div>
 
-          <Submit value="Send Link" />
+          <Submit value="Verify" />
         </form>
       </Container>
     </div>
