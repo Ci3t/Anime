@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createUser } from "../../api/auth";
 import { useNavigate } from "react-router-dom";
 import Container from "../Container";
@@ -6,17 +6,18 @@ import CustomLink from "../form/CustomLink";
 import FormInput from "../form/FormInput";
 import Submit from "../form/Submit";
 import Title from "../form/Title";
-import { useNotification } from "../../hooks/themeHook";
+import { useAuth, useNotification } from "../../hooks/themeHook";
+import { isValidEmail } from "../utils/helper";
 
 const validateUserInfo = ({ name, email, password }) => {
-  const isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+ 
   const isValidName = /^[a-z A-z]+$/;
 
   if (!name.trim()) return { ok: false, error: "Name is Missing" };
   if (!isValidName.test(name)) return { ok: false, error: "Invalid Name" };
 
   if (!email.trim()) return { ok: false, error: "Email is Missing" };
-  if (!isValidEmail.test(email)) return { ok: false, error: "Email Invalid" };
+  if (!isValidEmail(email)) return { ok: false, error: "Email Invalid" };
 
   if (!password.trim()) return { ok: false, error: "Password is Missing" };
   if (password.length < 8)
@@ -27,6 +28,9 @@ const validateUserInfo = ({ name, email, password }) => {
 function SignUp() {
   const navigate = useNavigate()
 
+
+  const {authInfo} = useAuth()
+  const { isLoggedIn} = authInfo
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -54,6 +58,12 @@ function SignUp() {
     });
   };
 
+
+  
+  useEffect(()=>{
+
+    if(isLoggedIn) navigate('/')
+  },[isLoggedIn])
   const { name, email, password } = userInfo;
   return (
     <div className="fixed inset-0 bg-main -z-10 flex justify-center items-center">

@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { verifyUserEmail } from "../../api/auth";
-import { useNotification } from "../../hooks/themeHook";
+import { useAuth, useNotification } from "../../hooks/themeHook";
 import Container from "../Container";
-import CustomLink from "../form/CustomLink";
-import FormInput from "../form/FormInput";
+
 import Submit from "../form/Submit";
 import Title from "../form/Title";
 
@@ -25,7 +24,8 @@ function EmailVerification() {
   const [activeOtpIndex, setActiveOtpIndex] = useState(0);
 
   const inputRef = useRef();
-
+const {isAuth,authInfo} =useAuth()
+const {isLoggedIn} = authInfo
   const navigate = useNavigate();
 
   const {updateNotification} = useNotification()
@@ -71,7 +71,7 @@ function EmailVerification() {
 
     if (!isValidOTP(otp)) return updateNotification('error',"Invalid OTP");
 
-    const { error, message } = await verifyUserEmail({
+    const { error, message,user: userResponse } = await verifyUserEmail({
       OTP: otp.join(''),
       userId: user.id,
     });
@@ -79,6 +79,8 @@ function EmailVerification() {
     if (error) return updateNotification('error',error);
 
     updateNotification('success',message);
+    localStorage.setItem('auth-token',userResponse.token)
+    isAuth()
   };
 
   useEffect(() => {
@@ -87,7 +89,8 @@ function EmailVerification() {
 
   useEffect(() => {
     if (!user) navigate("/not-found");
-  }, []);
+    if (isLoggedIn) navigate("/");
+  }, [user,isLoggedIn]);
 
   return (
     <div className="fixed inset-0 bg-main -z-10 flex justify-center items-center">

@@ -4,21 +4,21 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ThemeProvider from './components/context/ThemeProvider';
-import NotificationProvider from './components/context/NotificationProvider';
+
+import ContextProviders from './components/context';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
   <BrowserRouter>
-  <NotificationProvider>
+ 
 
-  <ThemeProvider>
+  <ContextProviders>
 
     <App />
-  </ThemeProvider>
-  </NotificationProvider>
+  </ContextProviders>
+ 
   </BrowserRouter>
   // </React.StrictMode>
 );
