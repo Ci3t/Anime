@@ -1,8 +1,14 @@
 import React from 'react'
+import NotVerified from './components/navbar/NotVerified'
+
 
 function Home() {
+
+
   return (
-    <div>Home</div>
+    <>
+    <NotVerified/>
+    </>
   )
 }
 

@@ -58,7 +58,7 @@ export const verifyEmail = async (req,res)=>{
    const userVerified = verifiedOTP(user)
    const jwtToken = jwt.sign({userId:user._id},process.env.JWT_SECRET_KEY_S)
 
-    res.json({user:{id:user._id,name:user.name,email:user.email,token:jwtToken},message:'Your Email is verified'})
+    res.json({user:{id:user._id,name:user.name,email:user.email,token:jwtToken,isVerified: user.isVerified},message:'Your Email is verified'})
 }
 
 export const resendVerifyToken = async(req,res)=>{
@@ -133,9 +133,9 @@ try{
     
     if(!matched) return sendError(res,'Email/Password mismatch');
     
-    const {_id,name} = user
+    const {_id,name,isVerified} = user
     const jwtToken = jwt.sign({userId:user._id},process.env.JWT_SECRET_KEY_S)
-    res.json({user:{id:_id,name,email,token:jwtToken}})
+    res.json({user:{id:_id,name,email,token:jwtToken,isVerified}})
 }catch(error){
     sendError(res,error.message)
 }

@@ -36,13 +36,15 @@ function NotificationProvider({children}) {
         },3000)
 
     }
+
+    console.log(classes);
   return (
     <NotificationContext.Provider value={{updateNotification}}>
         {children}
        {notification &&  <div className="fixed left-1/2 -translate-x-1/2 top-24  ">
-        <div className='shadow-md shadow-gray-400 bg-red-400 rounded bounce-custom'>
+        <div className= {`${classes} shadow-md shadow-gray-400  rounded bounce-custom`}>
 
-          <p className={classes + 'text-white  px-4 py-1 font-semibold '}>{notification}</p>
+          <p className={ 'text-white  px-4 py-1 font-semibold '}>{notification}</p>
         </div>
         </div>}
     </NotificationContext.Provider>

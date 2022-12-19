@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { verifyUserEmail } from "../../api/auth";
+import { resendEmailVerification, verifyUserEmail } from "../../api/auth";
 import { useAuth, useNotification } from "../../hooks/themeHook";
 import Container from "../Container";
 
@@ -25,7 +25,9 @@ function EmailVerification() {
 
   const inputRef = useRef();
 const {isAuth,authInfo} =useAuth()
-const {isLoggedIn} = authInfo
+const {isLoggedIn, profile} = authInfo
+
+const isVerified = profile?.isVerified
   const navigate = useNavigate();
 
   const {updateNotification} = useNotification()
@@ -58,6 +60,14 @@ const {isLoggedIn} = authInfo
     setOtp([...newOtp]);
   };
 
+  const handleOTPResend = async()=>{
+
+   const {error,message} = await resendEmailVerification(user.id)
+   if(error) return updateNotification('error',error)
+
+   updateNotification('success',message)
+  }
+
   const handleKeyDown = ({ key }, index) => {
     if (key === "Backspace") {
       focusPrevInputField(++index);
@@ -89,8 +99,8 @@ const {isLoggedIn} = authInfo
 
   useEffect(() => {
     if (!user) navigate("/not-found");
-    if (isLoggedIn) navigate("/");
-  }, [user,isLoggedIn]);
+    if (isLoggedIn && isVerified) navigate("/");
+  }, [user,isLoggedIn,isVerified]);
 
   return (
     <div className="fixed inset-0 bg-main -z-10 flex justify-center items-center">
@@ -124,8 +134,11 @@ const {isLoggedIn} = authInfo
               );
             })}
           </div>
+            <div>
 
           <Submit value="Verify" />
+          <button onClick={handleOTPResend} type="button" className="dark:text-white text-blue-500 font-semibold hover:underline mt-2">I don't have OTP</button>
+            </div>
         </form>
       </Container>
     </div>
