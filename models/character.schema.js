@@ -27,7 +27,7 @@ const characterSchema = Schema({
     }
 },{timestamps:true})
 
-
+characterSchema.index({name:'text'})
 
 export const Character = mongoose.model('Character',characterSchema)
 

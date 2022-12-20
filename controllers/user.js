@@ -133,9 +133,9 @@ try{
     
     if(!matched) return sendError(res,'Email/Password mismatch');
     
-    const {_id,name,isVerified} = user
+    const {_id,name,role,isVerified} = user
     const jwtToken = jwt.sign({userId:user._id},process.env.JWT_SECRET_KEY_S)
-    res.json({user:{id:_id,name,email,token:jwtToken,isVerified}})
+    res.json({user:{id:_id,name,email,role,token:jwtToken,isVerified}})
 }catch(error){
     sendError(res,error.message)
 }

@@ -1,10 +1,18 @@
 import {Router} from 'express'
-import { createChar,updateChar } from '../controllers/character.js'
+import { createChar,updateChar,removeChar, searchCharacter,getLatestCharacters,getSingleChar } from '../controllers/character.js'
+import { isAdmin, isAuth, isMod } from '../middlewares/auth.js'
 import { uploadImage } from '../middlewares/multer.js'
 import { characterInfoValidator, validate } from '../middlewares/validator.js'
 export const characterRoute = Router()
 
 
-characterRoute.post('/create',uploadImage.single('avatar'),characterInfoValidator,validate,createChar)
+characterRoute.post('/create',isAuth,isAdmin,uploadImage.single('avatar'),characterInfoValidator,validate,createChar)
 
-characterRoute.post('/update/:charId',uploadImage.single('avatar'),characterInfoValidator,validate,updateChar)
+characterRoute.post('/update/:charId',isAuth,isAdmin,uploadImage.single('avatar'),characterInfoValidator,validate,updateChar)
+
+characterRoute.delete('/:charId',isAuth,isAdmin,removeChar)
+
+characterRoute.get('/search',isAuth,isAdmin,searchCharacter)
+characterRoute.get('/latest-uploads',isAuth,isAdmin,getLatestCharacters)
+
+characterRoute.get('/single/:id',getSingleChar)
