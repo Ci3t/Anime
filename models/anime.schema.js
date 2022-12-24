@@ -22,7 +22,7 @@ const animeSchema = Schema(
       required: true,
       enum: ["public", "private"],
     },
-    genre: {
+    genres: {
       type: [String],
       required: true,
       enum: genres,
@@ -36,6 +36,7 @@ const animeSchema = Schema(
         character: {
           type: Schema.Types.ObjectId,
           ref: "Character",
+          roleAs:String,
           leadChar: Boolean,
         },
       },
@@ -44,6 +45,7 @@ const animeSchema = Schema(
       type: Object,
       url: { type: String, required: true },
       public_id: { type: String, required: true },
+      responsive:[URL],
       required: true,
     },
     trailer: {
