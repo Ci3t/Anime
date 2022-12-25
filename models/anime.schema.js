@@ -22,6 +22,10 @@ const animeSchema = Schema(
       required: true,
       enum: ["public", "private"],
     },
+    type:{
+      type:String,
+      required:true
+    },
     genres: {
       type: [String],
       required: true,
@@ -34,7 +38,7 @@ const animeSchema = Schema(
     cast: [
       {
         character: {
-          type: Schema.Types.ObjectId,
+          type: mongoose.Types.ObjectId,
           ref: "Character",
           roleAs:String,
           leadChar: Boolean,

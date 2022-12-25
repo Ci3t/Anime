@@ -19,3 +19,5 @@ const animeInfo = {
 
 
 {url:"https://res.cloudinary.com/dkvjoubvz/video/upload/v1671900244/ff4g5fpny6obl10xlp6e.mp4",public_id:"ff4g5fpny6obl10xlp6e",}
+
+{"url":"https://res.cloudinary.com/dkvjoubvz/video/upload/v1671900244/ff4g5fpny6obl10xlp6e.mp4","public_id":"ff4g5fpny6obl10xlp6e"}

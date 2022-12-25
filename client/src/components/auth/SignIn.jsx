@@ -51,10 +51,10 @@ function SignIn() {
  
   };
 
-  useEffect(()=>{
+  // useEffect(()=>{
 
-    if(isLoggedIn) navigate('/')
-  },[isLoggedIn])
+  //   if(isLoggedIn) navigate('/')
+  // },[isLoggedIn])
 
   return (
     <div className="fixed inset-0 dark:bg-main -z-10 flex justify-center items-center">

@@ -58,7 +58,7 @@ export const verifyEmail = async (req,res)=>{
    const userVerified = verifiedOTP(user)
    const jwtToken = jwt.sign({userId:user._id},process.env.JWT_SECRET_KEY_S)
 
-    res.json({user:{id:user._id,name:user.name,email:user.email,token:jwtToken,isVerified: user.isVerified},message:'Your Email is verified'})
+    res.json({user:{id:user._id,name:user.name,email:user.email,token:jwtToken,isVerified: user.isVerified,role:user.role},message:'Your Email is verified'})
 }
 
 export const resendVerifyToken = async(req,res)=>{
