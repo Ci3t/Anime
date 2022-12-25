@@ -12,7 +12,7 @@ function AdminNav() {
     <div className='flex'>
     <AdminNavbar/>
     <div className="flex-1 p-2 max-w-screen-xl">
-        <AdminHeader/>
+        <AdminHeader onAddAnimeClick={()=>{console.log('animee')}}/>
     <Routes>
         
     <Route path='/' element={<Dashboard/>}/>
