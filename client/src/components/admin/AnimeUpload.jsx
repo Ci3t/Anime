@@ -7,19 +7,29 @@ import { useNotification } from "../../hooks/themeHook";
 function AnimeUpload() {
   const [videoSelected, setVideoSelected] = useState(false);
   const [videoUploaded, setVideoUploaded] = useState(false);
+  const [videoInfo, setVideoInfo] = useState({});
   const [uploadProgress, setUploadProgress] = useState(0);
   const { updateNotification } = useNotification();
-  const handleChange = async (file) => {
+
+const handleUploadTrailer = async(data)=>{
+
+    const {error,secure_url,public_id} = await uploadTrailer(data,setUploadProgress);
+    if(error) return updateNotification('error',error)
+
+    console.log(secure_url);
+
+        setVideoUploaded(true)
+    setVideoInfo({secure_url,public_id})
+}
+
+  const handleChange =  (file) => {
     const formData = new FormData();
     formData.append("video", file);
 
     setVideoSelected(true)
-    const res = await uploadTrailer(formData,setUploadProgress);
-    if(!res.error){
-        setVideoUploaded(true)
-    }
+   handleUploadTrailer(formData)
   };
-
+console.log(videoInfo);
   const handleTypeError = (error) => {
     updateNotification("error", error);
   };
