@@ -3,6 +3,7 @@ import { FileUploader } from "react-drag-drop-files";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { uploadTrailer } from "../../api/anime";
 import { useNotification } from "../../hooks/themeHook";
+import AnimeForm from "./AnimeForm";
 
 function AnimeUpload() {
   const [videoSelected, setVideoSelected] = useState(false);
@@ -48,12 +49,14 @@ console.log(videoInfo);
 
      
 
-        <UploadProgress visible={!videoUploaded && videoSelected} message={getUploadProgressValue()} width={uploadProgress}/>
+        {/* <UploadProgress visible={!videoUploaded && videoSelected} message={getUploadProgressValue()} width={uploadProgress}/>
         <TrailerSelector
           visible={!videoSelected}
           onTypeError={handleTypeError}
           handleChange={handleChange}
-        />
+        /> */}
+
+        <AnimeForm/>
       </div>
     </div>
   );
