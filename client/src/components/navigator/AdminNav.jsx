@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
+import AdminHeader from '../admin/AdminHeader'
 import AdminNavbar from '../admin/AdminNavbar'
 import Animes from '../admin/Animes'
 import Characters from '../admin/Characters'
@@ -11,7 +12,7 @@ function AdminNav() {
     <div className='flex'>
     <AdminNavbar/>
     <div className="flex-1 p-2 max-w-screen-xl">
-
+        <AdminHeader/>
     <Routes>
         
     <Route path='/' element={<Dashboard/>}/>
