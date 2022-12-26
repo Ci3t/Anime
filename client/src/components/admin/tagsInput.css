@@ -40,3 +40,7 @@
     --tw-ring-shadow:none
 
 }
+
+.pMargin-0>p{
+    margin: 0;
+}

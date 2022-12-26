@@ -1,4 +1,5 @@
 import React from 'react'
+import LiveSearch from './LiveSearch'
 import TagsInput from './TagsInput'
 
 function AnimeForm() {
@@ -26,7 +27,13 @@ function AnimeForm() {
 <textarea id="description"  className="block pt-3 px-0 w-full text-sm text-gray-900 bg-transparent border-b-2 border-t-0 border-x-0 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 resize-none peer"  placeholder="Enter Anime Story..."></textarea>
  
     </div>
-        <TagsInput/>
+        
+        
+        <TagsInput name='tags'/>
+     <div>
+
+     <LiveSearch/>
+     </div>
      </div>
         <div className="w-[30%] h-5 bg-blue-400"></div>
     </form>
