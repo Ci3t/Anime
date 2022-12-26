@@ -106,7 +106,7 @@ const SearchResult = ({
   }, [focusIndex]);
   if (!visible) return null;
   return (
-    <div className="absolute right-0 left-0 top-10 bg-white shadow-md mt-1 space-y-2 p-2 max-h-64 overflow-auto pMargin-0 custom-scroll-bar">
+    <div className="absolute z-50 right-0 left-0 top-10 bg-white shadow-md mt-1 space-y-2 p-2 max-h-64 overflow-auto pMargin-0 custom-scroll-bar">
       {results.map((result, index) => {
         const getSelectedClass = () => {
           return selectedResultStyle ? selectedResultStyle : "bg-dark-subtle";
@@ -115,7 +115,7 @@ const SearchResult = ({
         return (
           <ResultCard
             ref={index === focusIndex ? resultContainer : null}
-            key={result.id}
+            key={index.toString()}
             item={result}
             renderItem={renderItem}
             resultContainerStyle={resultContainerStyle}

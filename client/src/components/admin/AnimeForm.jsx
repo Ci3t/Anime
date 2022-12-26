@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import CastForm from "../form/CastForm";
 import Submit from "../form/Submit";
+import CastModel from "../modals/CastModel";
+import ModalContainer from "../modals/ModalContainer";
 import LiveSearch from "./LiveSearch";
 import TagsInput from "./TagsInput";
 
-const results = [
+export const results = [
   {
     id: "1",
     avatar:
@@ -42,6 +45,24 @@ const results = [
   },
 ];
 
+
+export const renderItem =(result) => {
+    return (
+      <div
+        key={result.id}
+        className="flex space-x-2 rounded overflow-hidden"
+      >
+        <img
+          className="w-16 h-16 object-cover"
+          src={result.avatar}
+          alt={result.name}
+        />
+        <p className="text-black font-semibold">{result.name}</p>
+      </div>
+    );
+  }
+
+
 const defaultAnimeInfo = {
     title:'',
     description:'',
@@ -58,6 +79,8 @@ const defaultAnimeInfo = {
 function AnimeForm() {
 
     const [animeInfo,setAnimeInfo] = useState({...defaultAnimeInfo})
+    const [showCastModal,setShowCastModal] = useState(false)
+    const [showModal,setShowModal] = useState(false)
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(animeInfo);
@@ -70,26 +93,24 @@ function AnimeForm() {
    
     setAnimeInfo({...animeInfo,tags})
   };
+  const updateCast = (castInfo) => {
+   const {cast} = animeInfo
+    setAnimeInfo({...animeInfo,cast:[...cast,castInfo]})
+  };
+  const hideCastModel = (castInfo) => {
+    setShowCastModal(false)
+    
+};
+const displayCastModel = (castInfo) => {
+      setShowCastModal(true)
+ 
+  };
+console.log(animeInfo);
 
-  const renderItem =(result) => {
-    return (
-      <div
-        key={result.key}
-        className="flex space-x-2 rounded overflow-hidden"
-      >
-        <img
-          className="w-16 h-16 object-cover"
-          src={result.avatar}
-          alt={result.name}
-        />
-        <p className="text-black font-semibold">{result.name}</p>
-      </div>
-    );
-  }
-
-
-  const {title,description} = animeInfo
+  const {title,description,cast} = animeInfo
   return (
+    <>
+   
     <form onSubmit={handleSubmit} className="flex space-x-3 ">
       <div className="relative z-0 mb-6  group w-[70%] space-x-3">
         <div>
@@ -125,22 +146,66 @@ function AnimeForm() {
             className="block pt-3 px-0 w-full text-sm text-gray-900 bg-transparent border-b-2 border-t-0 border-x-0 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 resize-none peer"
             placeholder="Enter Anime Story..."
           ></textarea>
+          <button type="button" onClick={()=>setShowModal(true)}>Close</button>
         </div>
 
         <TagsInput name="tags" onChange={updateTags} />
-        <div>
+        {/* <div>
           <LiveSearch
             results={results}
             renderItem={renderItem}
             name='search'
             onSelect={(result)=>console.log(result)}
           />
+        </div> */}
+        <div className="mt-3">
+
+        <LabelWithBadge badge={cast.length} >Add Characters</LabelWithBadge>
+        <ViewAllBtn onClick={displayCastModel} visible={cast.length}>ViewAll</ViewAllBtn>
+        <CastForm onSubmit={updateCast}/>
         </div>
         <Submit value={'upload'}/>
       </div>
       <div className="w-[30%] h-5 bg-blue-400"></div>
     </form>
+
+    <CastModel
+    onClose={hideCastModel}
+    visible={showCastModal}
+    cast={cast}
+    />
+
+    <ModalContainer visible={showModal} onClose={()=>setShowModal(false)} >
+        <div className="p-20 bg-red-200"></div>
+    </ModalContainer>
+    </>
   );
 }
 
+const LabelWithBadge = ({children,htmlFor,badge = 0})=>{
+
+  const RenderBadge = ()=>{
+    if(!badge) return null;
+    return(
+        <span className="bg-light-subtle absolute top-0 right-0 w-5 h-5 rounded-full flex justify-center items-center text-black translate-x-2 -translate-y-1 text-xs">{badge <=9? badge: '9+'}</span>
+    )
+   
+  }
+
+  return(
+    <div className="relative">
+        <label htmlFor={htmlFor}>{children}</label>
+        <RenderBadge/>
+    </div>
+)
+}
+
+const ViewAllBtn =({visible,children,onClick})=>{
+    if(!visible) return null
+   return (
+
+       <button onClick={onClick} className='bg-second text-white hover:underline transition'> {children} </button>
+       )
+  
+}
 export default AnimeForm;
