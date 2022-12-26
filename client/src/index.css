@@ -45,6 +45,30 @@
   }
 }
 
+
+
+.custom-scroll-bar::-webkit-scrollbar {
+  width: 2px;
+  height: 5px;
+}
+
+/* Track */
+.custom-scroll-bar::-webkit-scrollbar-track {
+  background: #303030; 
+}
+ 
+/* Handle */
+.custom-scroll-bar::-webkit-scrollbar-thumb {
+  background: rgb(223, 221, 221); 
+  border-radius: 10em;
+  
+}
+
+/* Handle on hover */
+.custom-scroll-bar::-webkit-scrollbar-thumb:hover {
+  background: rgb(160, 86, 245); 
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
