@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./tagsInput.css";
 import {AiOutlineClose} from 'react-icons/ai'
 
-function TagsInput() {
+function TagsInput({name,onChange}) {
     const [tag ,setTag] = useState('')
     const [tags ,setTags] = useState([])
 
@@ -13,6 +13,8 @@ function TagsInput() {
         const {value} = target
         
         if(value !== ',') setTag(value)
+
+        onChange(tags);
     }
     const removeTag = (removeTag)=>{
         
