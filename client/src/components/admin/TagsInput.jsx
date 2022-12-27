@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./tagsInput.css";
 import {AiOutlineClose} from 'react-icons/ai'
 
-function TagsInput({name,onChange}) {
+function TagsInput({name,onChange,value}) {
     const [tag ,setTag] = useState('')
     const [tags ,setTags] = useState([])
 
@@ -48,6 +48,9 @@ function TagsInput({name,onChange}) {
         tagsInput.current.classList.add('TagsInputContainerBlurColor')
         tagsInput.current.classList.remove('TagsInputContainerFocusColor')
     }
+    useEffect(()=>{
+        if(value) setTags(value)
+    },[value])
 
     useEffect(()=>{
         inputRef.current.scrollIntoView()

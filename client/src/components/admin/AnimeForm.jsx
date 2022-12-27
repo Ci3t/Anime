@@ -97,7 +97,7 @@ function AnimeForm() {
    const {cast} = animeInfo
     setAnimeInfo({...animeInfo,cast:[...cast,castInfo]})
   };
-  const hideCastModel = (castInfo) => {
+  const hideCastModel = () => {
     setShowCastModal(false)
     
 };
@@ -105,13 +105,20 @@ const displayCastModel = (castInfo) => {
       setShowCastModal(true)
  
   };
+const handleCharacterRemove = (profileId) => {
+      const {cast} = animeInfo
+      const newCast = cast.filter(({profile})=> profile.id !== profileId);
+      if(!newCast.length) hideCastModel()
+      setAnimeInfo({...animeInfo,cast:[...newCast]})
+ 
+  };
 console.log(animeInfo);
 
-  const {title,description,cast} = animeInfo
+  const {title,description,cast,tags} = animeInfo
   return (
     <>
    
-    <form onSubmit={handleSubmit} className="flex space-x-3 ">
+    <div  className="flex space-x-3 ">
       <div className="relative z-0 mb-6  group w-[70%] space-x-3">
         <div>
           <input
@@ -146,10 +153,12 @@ console.log(animeInfo);
             className="block pt-3 px-0 w-full text-sm text-gray-900 bg-transparent border-b-2 border-t-0 border-x-0 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 resize-none peer"
             placeholder="Enter Anime Story..."
           ></textarea>
-          <button type="button" onClick={()=>setShowModal(true)}>Close</button>
+          {/* <button type="button" onClick={()=>setShowModal(true)}>Close</button> */}
         </div>
 
-        <TagsInput name="tags" onChange={updateTags} />
+        <TagsInput value={tags} name="tags" onChange={updateTags} />
+
+       
         {/* <div>
           <LiveSearch
             results={results}
@@ -160,19 +169,20 @@ console.log(animeInfo);
         </div> */}
         <div className="mt-3">
 
-        <LabelWithBadge badge={cast.length} >Add Characters</LabelWithBadge>
+        <LabelWithBadge  badge={cast.length} >Add Characters</LabelWithBadge>
         <ViewAllBtn onClick={displayCastModel} visible={cast.length}>ViewAll</ViewAllBtn>
         <CastForm onSubmit={updateCast}/>
         </div>
-        <Submit value={'upload'}/>
+        <Submit onClick={handleSubmit} value={'upload'} type={'button'} />
       </div>
       <div className="w-[30%] h-5 bg-blue-400"></div>
-    </form>
+    </div>
 
     <CastModel
     onClose={hideCastModel}
     visible={showCastModal}
     cast={cast}
+    onRemoveClick={handleCharacterRemove}
     />
 
     <ModalContainer visible={showModal} onClose={()=>setShowModal(false)} >
@@ -193,7 +203,7 @@ const LabelWithBadge = ({children,htmlFor,badge = 0})=>{
   }
 
   return(
-    <div className="relative">
+    <div className="relative pb-2">
         <label htmlFor={htmlFor}>{children}</label>
         <RenderBadge/>
     </div>
@@ -204,7 +214,7 @@ const ViewAllBtn =({visible,children,onClick})=>{
     if(!visible) return null
    return (
 
-       <button onClick={onClick} className='bg-second text-white hover:underline transition'> {children} </button>
+       <button type="button" onClick={onClick} className='bg-second text-white hover:underline transition'> {children} </button>
        )
   
 }

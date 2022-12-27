@@ -33,7 +33,7 @@ function CastModel({
                             </div>
                             {leadChar && <AiOutlineCheck/>}
                             </div>
-                            <button onClick={()=>{onRemoveClick(id)}} className='bg-black hover:opacity-80 transition p-w'>
+                            <button onClick={()=>{onRemoveClick(id)}} className=' hover:opacity-80 transition p-w'>
                             <AiOutlineClose/>
                             </button>
                         </div>

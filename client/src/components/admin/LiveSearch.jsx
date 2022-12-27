@@ -31,7 +31,12 @@ function LiveSearch({
     }, 100);
   };
   const handleSelection = (selectedItem) => {
-    onSelect(selectedItem);
+
+    if(selectedItem) {
+      onSelect(selectedItem);
+      closeSearch()
+    }
+    
   };
   const handleKeyDown = ({ key }) => {
     let nextCount;
@@ -51,6 +56,7 @@ function LiveSearch({
 
     if (key === "Enter") return handleSelection(results[focusIndex]);
     setFocusIndex(nextCount);
+    if (key === "Escape") return closeSearch()
   };
 
   return (
