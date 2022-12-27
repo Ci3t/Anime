@@ -53,7 +53,7 @@ function TagsInput({name,onChange,value}) {
     },[value])
 
     useEffect(()=>{
-        inputRef.current.scrollIntoView()
+        inputRef.current?.scrollIntoView(false)
     },[tag])
 
     const Tag = ({children,onClick}) =>{

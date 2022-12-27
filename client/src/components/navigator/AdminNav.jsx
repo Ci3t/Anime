@@ -1,18 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import AdminHeader from '../admin/AdminHeader'
 import AdminNavbar from '../admin/AdminNavbar'
 import Animes from '../admin/Animes'
+import AnimeUpload from '../admin/AnimeUpload'
 import Characters from '../admin/Characters'
 import Dashboard from '../admin/Dashboard'
 import NotFound from '../NotFound'
 
 function AdminNav() {
+  const [showAnimeUploadModel,setShowAnimeUploadModel] = useState(false)
+
+  const hideAnimeUploadModel =()=>{
+    setShowAnimeUploadModel(false)
+  }
+  const displayAnimeUploadModel =()=>{
+    setShowAnimeUploadModel(true)
+  }
   return (
+    <>
     <div className='flex'>
     <AdminNavbar/>
     <div className="flex-1 p-2 max-w-screen-xl">
-        <AdminHeader onAddAnimeClick={()=>{console.log('animee')}}/>
+        <AdminHeader onAddAnimeClick={displayAnimeUploadModel}/>
     <Routes>
         
     <Route path='/' element={<Dashboard/>}/>
@@ -23,6 +33,8 @@ function AdminNav() {
   </Routes>
     </div>
     </div>
+    <AnimeUpload visible={showAnimeUploadModel} onClose={hideAnimeUploadModel} />
+    </>
   )
 }
 

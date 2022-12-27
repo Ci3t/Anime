@@ -3,9 +3,10 @@ import { FileUploader } from "react-drag-drop-files";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { uploadTrailer } from "../../api/anime";
 import { useNotification } from "../../hooks/themeHook";
+import ModalContainer from "../modals/ModalContainer";
 import AnimeForm from "./AnimeForm";
 
-function AnimeUpload() {
+function AnimeUpload({visible,onClose}) {
   const [videoSelected, setVideoSelected] = useState(false);
   const [videoUploaded, setVideoUploaded] = useState(false);
   const [videoInfo, setVideoInfo] = useState({});
@@ -44,21 +45,23 @@ console.log(videoInfo);
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center">
-      <div className="dark:bg-main bg-white rounded w-[45rem] h-[40rem] overflow-auto custom-scroll-bar p-2">
-
+    // <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center">
+    //   <div className="dark:bg-main bg-white rounded w-[45rem] h-[40rem] overflow-auto custom-scroll-bar p-2">
+    <ModalContainer visible={visible} onClose={onClose} >
+      
+<AnimeForm/>
      
+      </ModalContainer>
 
-        {/* <UploadProgress visible={!videoUploaded && videoSelected} message={getUploadProgressValue()} width={uploadProgress}/>
-        <TrailerSelector
-          visible={!videoSelected}
-          onTypeError={handleTypeError}
-          handleChange={handleChange}
-        /> */}
+        // {/* <UploadProgress visible={!videoUploaded && videoSelected} message={getUploadProgressValue()} width={uploadProgress}/>
+        // <TrailerSelector
+        //   visible={!videoSelected}
+        //   onTypeError={handleTypeError}
+        //   handleChange={handleChange}
+        // /> */}
 
-        <AnimeForm/>
-      </div>
-    </div>
+    //   </div>
+    // </div>
   );
 }
 

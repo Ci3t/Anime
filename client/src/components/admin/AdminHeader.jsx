@@ -30,11 +30,16 @@ function AdminHeader({onAddAnimeClick,onAddCharacterClick}) {
     // },[visible])
 
     // ref={container}
+
+    const handleClick =(fn)=>{
+      fn()
+      onClose()
+    }
     if (!visible) return null;
     return (
       <div className="absolute right-0 top-12 flex flex-col space-y-3 p-5 dark:bg-main bg-main drop-shadow-lg rounded animate-scale">
         {options.map(({title,onClick})=>{
-            return <Option onClick={onClick}>{title}</Option>
+            return <Option onClick={()=>handleClick(onClick)}>{title}</Option>
         })}
       </div>
     );
