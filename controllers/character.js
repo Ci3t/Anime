@@ -90,7 +90,7 @@ export const searchCharacter = async (req,res)=>{
    const result = await Character.find({$text:{$search:`"${query.name}"`}})
 
    const characters = result.map(char => formatCharacter(char))
-   res.json(characters)
+   res.json({results:characters})
 
 }
 export const getLatestCharacters = async (req,res)=>{
