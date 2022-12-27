@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { GiSpinningSword } from "react-icons/gi";
 import { useNotification } from "../../hooks/themeHook";
 import PosterSelector from "../admin/PosterSelector";
 import Selector from "../admin/Selector";
@@ -28,7 +29,7 @@ const validateChar = ({avatar,name,about,gender})=>{
     return {error:null};
 }
 
-function CharacterForm({ title, btnTitle,onSubmit }) {
+function CharacterForm({ title, btnTitle,busy,onSubmit }) {
   const [charInfo, setCharInfo] = useState({ ...defaultCharInfo });
   const [selectedAvatarUI, setSelectedAvatarUI] = useState("");
 
@@ -70,10 +71,10 @@ function CharacterForm({ title, btnTitle,onSubmit }) {
       <div className="flex justify-between items-center mb-2">
         <h1 className="font-semibold text-xl text-main">{title}</h1>
         <button
-          className="px-3 py-1 bg-main text-white hover:opacity-80 tranisiton"
+          className="h-8 w-24 bg-main text-white hover:opacity-80 tranisiton flex items-center justify-center"
           type="submit"
         >
-          {btnTitle}
+          {busy ? <GiSpinningSword className='animate-spin'/> :btnTitle }
         </button>
       </div>
         {/* <img className='w-36 h-36 aspect-square object-cover rounded mr-3' src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="a" /> */}

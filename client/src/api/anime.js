@@ -1,7 +1,8 @@
+import { catchError, getToken } from "../components/utils/helper"
 import client from "./client"
 
 export const uploadTrailer = async(formData,onUploadProgress) =>{
-    const token = localStorage.getItem('auth-token')
+    const token = getToken()
     try{
 
         const {data} = await client.post('/anime/upload-trailer',formData,{
@@ -15,10 +16,7 @@ export const uploadTrailer = async(formData,onUploadProgress) =>{
         })
         return data
     }catch(error){
-        const {response} = error
-        if(response?.data) return response.data
-
-        return {error:error.message || error}
+        return catchError(error)
      
     }
 
