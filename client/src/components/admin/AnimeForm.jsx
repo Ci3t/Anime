@@ -208,7 +208,7 @@ console.log(animeInfo);
         <Submit onClick={handleSubmit} value={'upload'} type={'button'} />
       </div>
       <div className="w-[30%] h-5 ">
-        <PosterSelector name='poster' onChange={handleChange} selectedPoster={selectedPosterUI} accept='image/jpg,image/jpeg,image/png' />
+        <PosterSelector name='poster' label='Select Poster' onChange={handleChange} selectedPoster={selectedPosterUI} accept='image/jpg,image/jpeg,image/png' />
 
         <GenresSelector badge={genres.length} onClick={displayGenresModel}/>
 

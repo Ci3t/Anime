@@ -6,7 +6,7 @@ function CharacterUpload({visible,onClose}) {
   return (
     <ModalContainer visible={visible} onClose={onClose} ignoreContainer>
 
-      <CharacterForm title='Create New Actor' btnTitle='Create' />
+      <CharacterForm title='Add New Character' btnTitle='Create' />
     </ModalContainer>
   )
 }
