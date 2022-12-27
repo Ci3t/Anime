@@ -3,8 +3,9 @@ import ModalContainer from "./ModalContainer";
 import { genres } from "../utils/genres";
 import { useState } from "react";
 import Submit from "../form/Submit";
+import { useEffect } from "react";
 
-function GenresModal({ visible, onClose, onSubmit }) {
+function GenresModal({ visible, onClose, onSubmit,previousSelection }) {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const handleGenresSelector = (gen) => {
     let newGenres = [];
@@ -20,9 +21,14 @@ function GenresModal({ visible, onClose, onSubmit }) {
     onClose();
   };
   const handleClose = () => {
-    setSelectedGenres([]);
+    setSelectedGenres(previousSelection);
     onClose();
   };
+
+  useEffect(()=>{
+    setSelectedGenres(previousSelection);
+
+  },[])
   return (
     <ModalContainer visible={visible} onClose={handleClose}>
       <div className="flex flex-col justify-between h-full">

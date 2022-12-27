@@ -4,9 +4,12 @@ import Submit from "../form/Submit";
 import CastModel from "../modals/CastModel";
 import GenresModal from "../modals/GenresModal";
 import ModalContainer from "../modals/ModalContainer";
+import { genres } from "../utils/genres";
+import { languageOptions, statusOptions, typeOptions } from "../utils/options";
 import GenresSelector from "./GenresSelector";
 import LiveSearch from "./LiveSearch";
 import PosterSelector from "./PosterSelector";
+import Selector from "./Selector";
 import TagsInput from "./TagsInput";
 
 export const results = [
@@ -113,6 +116,10 @@ function AnimeForm() {
    const {cast} = animeInfo
     setAnimeInfo({...animeInfo,cast:[...cast,castInfo]})
   };
+  const updateGenres = (genres) => {
+ 
+    setAnimeInfo({...animeInfo,genres})
+  };
   const hideCastModel = () => {
     setShowCastModal(false)
     
@@ -138,7 +145,7 @@ const handleCharacterRemove = (profileId) => {
   };
 console.log(animeInfo);
 
-  const {title,description,cast,tags} = animeInfo
+  const {title,description,cast,tags,genres,type,language,status} = animeInfo
   return (
     <>
    
@@ -203,7 +210,11 @@ console.log(animeInfo);
       <div className="w-[30%] h-5 ">
         <PosterSelector name='poster' onChange={handleChange} selectedPoster={selectedPosterUI} accept='image/jpg,image/jpeg,image/png' />
 
-        <GenresSelector onClick={displayGenresModel}/>
+        <GenresSelector badge={genres.length} onClick={displayGenresModel}/>
+
+        <Selector value={type} name='type' onChange={handleChange} options={typeOptions} label='Type'/>
+        <Selector value={language} name='language' onChange={handleChange} options={languageOptions} label='Language'/>
+        <Selector value={status} name='status' onChange={handleChange} options={statusOptions} label='Status'/>
 
       </div>
     </div>
@@ -218,6 +229,8 @@ console.log(animeInfo);
     <GenresModal
     visible={showGenresModal}
     onClose={hideGenresModel}
+    onSubmit={updateGenres}
+    previousSelection={genres}
     />
 
     <ModalContainer visible={showModal} onClose={()=>setShowModal(false)} >
