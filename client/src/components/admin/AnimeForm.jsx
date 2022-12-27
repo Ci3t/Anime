@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import CastForm from "../form/CastForm";
 import Submit from "../form/Submit";
 import CastModel from "../modals/CastModel";
+import GenresModal from "../modals/GenresModal";
 import ModalContainer from "../modals/ModalContainer";
+import GenresSelector from "./GenresSelector";
 import LiveSearch from "./LiveSearch";
+import PosterSelector from "./PosterSelector";
 import TagsInput from "./TagsInput";
 
 export const results = [
@@ -81,12 +84,25 @@ function AnimeForm() {
     const [animeInfo,setAnimeInfo] = useState({...defaultAnimeInfo})
     const [showCastModal,setShowCastModal] = useState(false)
     const [showModal,setShowModal] = useState(false)
+    const [showGenresModal,setShowGenresModal] = useState(false)
+    const [selectedPosterUI,setSelectedPosterUI] = useState('')
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(animeInfo);
   };
+
+  const updatePosterUI = (file) => {
+    const url = URL.createObjectURL(file)
+    setSelectedPosterUI(url)
+  }
   const handleChange = ({target}) => {
-    const {value,name} = target
+    const {value,name,files} = target
+
+    if(name === 'poster'){
+      const poster = files[0]
+      updatePosterUI(poster)
+      setAnimeInfo({...animeInfo,poster})
+    }
     setAnimeInfo({...animeInfo,[name]:value})
   };
   const updateTags = (tags) => {
@@ -101,8 +117,16 @@ function AnimeForm() {
     setShowCastModal(false)
     
 };
-const displayCastModel = (castInfo) => {
+const displayCastModel = () => {
       setShowCastModal(true)
+ 
+  };
+  const hideGenresModel = () => {
+    setShowGenresModal(false)
+    
+};
+const displayGenresModel = () => {
+    setShowGenresModal(true)
  
   };
 const handleCharacterRemove = (profileId) => {
@@ -176,7 +200,12 @@ console.log(animeInfo);
         <input type="date" className="border-2 rounded p-1 w-auto mt-3 mb-2" onChange={handleChange} name='releaseDate' />
         <Submit onClick={handleSubmit} value={'upload'} type={'button'} />
       </div>
-      <div className="w-[30%] h-5 bg-blue-400"></div>
+      <div className="w-[30%] h-5 ">
+        <PosterSelector name='poster' onChange={handleChange} selectedPoster={selectedPosterUI} accept='image/jpg,image/jpeg,image/png' />
+
+        <GenresSelector onClick={displayGenresModel}/>
+
+      </div>
     </div>
 
     <CastModel
@@ -184,6 +213,11 @@ console.log(animeInfo);
     visible={showCastModal}
     cast={cast}
     onRemoveClick={handleCharacterRemove}
+    />
+
+    <GenresModal
+    visible={showGenresModal}
+    onClose={hideGenresModel}
     />
 
     <ModalContainer visible={showModal} onClose={()=>setShowModal(false)} >
