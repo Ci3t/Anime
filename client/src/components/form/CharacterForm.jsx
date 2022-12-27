@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNotification } from "../../hooks/themeHook";
 import PosterSelector from "../admin/PosterSelector";
 import Selector from "../admin/Selector";
 
@@ -16,10 +17,22 @@ const genderOptions =
     {title:'Female',value:'female'},
     {title:'Other',value:'other'},
 ]
-function CharacterForm({ title, btnTitle }) {
+
+const validateChar = ({avatar,name,about,gender})=>{
+    if(!name.trim()) return {error:'Character name is missing!'}
+    if(!about.trim()) return {error:'About Section is empty!'}
+    if(!gender.trim()) return {error:'Character gender is missing!'}
+
+    if(avatar && !avatar.type?.startsWith('image')) return {error:'Invalid Image/ avatar file!'}
+
+    return {error:null};
+}
+
+function CharacterForm({ title, btnTitle,onSubmit }) {
   const [charInfo, setCharInfo] = useState({ ...defaultCharInfo });
   const [selectedAvatarUI, setSelectedAvatarUI] = useState("");
 
+  const {updateNotification} = useNotification()
   
   const updatePosterUI = (file) => {
     const url = URL.createObjectURL(file)
@@ -40,7 +53,14 @@ function CharacterForm({ title, btnTitle }) {
 
   const handleSubmit = (e)=>{
         e.preventDefault()
-        console.log(charInfo);
+        const {error} = validateChar(charInfo)
+        if(error) return updateNotification ('error',error)
+        const formData = new FormData();
+        for(let key in charInfo){
+            if(key) formData.append(key,charInfo[key])
+        }
+        onSubmit(formData)
+
   }
 
   const {name,about,gender} = charInfo

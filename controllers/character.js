@@ -20,7 +20,7 @@ export const createChar = async(req,res)=>{
    }
 
   await newCharacter.save()
-  res.status(201).json(formatCharacter(newCharacter))
+  res.status(201).json({character:formatCharacter(newCharacter)})
 
 
 }
