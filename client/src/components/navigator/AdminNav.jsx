@@ -6,10 +6,12 @@ import Animes from '../admin/Animes'
 import AnimeUpload from '../admin/AnimeUpload'
 import Characters from '../admin/Characters'
 import Dashboard from '../admin/Dashboard'
+import CharacterUpload from '../modals/CharacterUpload'
 import NotFound from '../NotFound'
 
 function AdminNav() {
   const [showAnimeUploadModel,setShowAnimeUploadModel] = useState(false)
+  const [showCharUploadModel,setShowCharUploadModel] = useState(false)
 
   const hideAnimeUploadModel =()=>{
     setShowAnimeUploadModel(false)
@@ -17,12 +19,18 @@ function AdminNav() {
   const displayAnimeUploadModel =()=>{
     setShowAnimeUploadModel(true)
   }
+  const hideCharUploadModel =()=>{
+    setShowCharUploadModel(false)
+  }
+  const displayCharUploadModel =()=>{
+    setShowCharUploadModel(true)
+  }
   return (
     <>
     <div className='flex'>
     <AdminNavbar/>
     <div className="flex-1 p-2 max-w-screen-xl">
-        <AdminHeader onAddAnimeClick={displayAnimeUploadModel}/>
+        <AdminHeader onAddAnimeClick={displayAnimeUploadModel} onAddCharacterClick={displayCharUploadModel} />
     <Routes>
         
     <Route path='/' element={<Dashboard/>}/>
@@ -34,6 +42,7 @@ function AdminNav() {
     </div>
     </div>
     <AnimeUpload visible={showAnimeUploadModel} onClose={hideAnimeUploadModel} />
+    <CharacterUpload visible={showCharUploadModel} onClose={hideCharUploadModel} />
     </>
   )
 }
