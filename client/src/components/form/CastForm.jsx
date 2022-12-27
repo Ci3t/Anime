@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { useNotification } from "../../hooks/themeHook";
-import { renderItem, results } from "../admin/AnimeForm";
+import React, { useEffect, useState } from "react";
+import {  charSearch } from "../../api/character";
+import { useNotification, useSearch } from "../../hooks/themeHook";
+import { renderItem, } from "../admin/AnimeForm";
 import LiveSearch from "../admin/LiveSearch";
 
 const defaultCastInfo = {
@@ -11,8 +12,11 @@ const defaultCastInfo = {
 
 function CastForm({onSubmit}) {
   const [castInfo, setCastInfo] = useState({ ...defaultCastInfo });
+  const [profiles, setProfiles] = useState([]);
 
   const {updateNotification} = useNotification()
+
+ const {handleSearch,resetSearch,results,updateFun} = useSearch()
 
   const handleOnChange = ({target}) =>{
     const {checked,name,value} = target
@@ -22,12 +26,31 @@ function CastForm({onSubmit}) {
     setCastInfo({...castInfo,[name]:value});
     
   }
+
+  // console.log(results);
+  const handleProfileChange = ({target})=>{
+    const {value} = target
+    const {profile} = castInfo
+    profile.name = value;
+    
+    setCastInfo({...castInfo,...profile})
+    // setProfiles(results)
+   handleSearch(charSearch,value,setProfiles)
+ 
+
+    
+    
+    
+  }
+useEffect(()=>{
+
+},[profiles])
+
   const handleProfileSelect = (profile) =>{
     
-
     setCastInfo({...castInfo,profile});
-
   }
+
   const handleSubmit = () =>{
     const {  profile, roleAs } = castInfo;
 
@@ -35,14 +58,16 @@ function CastForm({onSubmit}) {
     if(!roleAs.trim()) return updateNotification('error','Role is Missing');
 
     onSubmit(castInfo);
-    setCastInfo({...defaultCastInfo})
+    setCastInfo({...defaultCastInfo,profile:{name:''}})
+
+    resetSearch()
+    setProfiles([])
 
     // setCastInfo({...castInfo,profile});
 
-    
-    
 
   }
+ 
 
   const { leadChar, profile, roleAs } = castInfo;
   return (
@@ -56,7 +81,7 @@ function CastForm({onSubmit}) {
         title="Set as lead character"
       />
 
-      <LiveSearch value={profile.name} results={results} onSelect={handleProfileSelect} renderItem={renderItem}/>
+      <LiveSearch onChange={handleProfileChange} value={profile.name} results={profiles} onSelect={handleProfileSelect} renderItem={renderItem} visible={profiles.length} />
       <span className="text-light-subtle font-semibold">as</span>
 
       <div className="flex-grow">

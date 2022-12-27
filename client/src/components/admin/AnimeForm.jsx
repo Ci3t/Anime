@@ -1,55 +1,20 @@
 import React, { useState } from "react";
+import { useSearch } from "../../hooks/themeHook";
 import CastForm from "../form/CastForm";
 import Submit from "../form/Submit";
+import LabelWithBadge from "../LabelWithBadge";
 import CastModel from "../modals/CastModel";
 import GenresModal from "../modals/GenresModal";
 import ModalContainer from "../modals/ModalContainer";
 import { genres } from "../utils/genres";
 import { languageOptions, statusOptions, typeOptions } from "../utils/options";
+import ViewAllBtn from "../ViewAllBtn";
 import GenresSelector from "./GenresSelector";
 import LiveSearch from "./LiveSearch";
 import PosterSelector from "./PosterSelector";
 import Selector from "./Selector";
 import TagsInput from "./TagsInput";
 
-export const results = [
-  {
-    id: "1",
-    avatar:
-      "https://plus.unsplash.com/premium_photo-1664202526374-4cb370cbc29f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    name: "John Doe",
-  },
-  {
-    id: "2",
-    avatar:
-      "https://plus.unsplash.com/premium_photo-1664202526475-8f43ee70166d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    name: "Jane Doe",
-  },
-  {
-    id: "3",
-    avatar:
-      "https://plus.unsplash.com/premium_photo-1664202526793-fca03a9cab29?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    name: "Jax Doe",
-  },
-  {
-    id: "4",
-    avatar:
-      "https://plus.unsplash.com/premium_photo-1664202526374-4cb370cbc29f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    name: "Bob Doe",
-  },
-  {
-    id: "5",
-    avatar:
-      "https://plus.unsplash.com/premium_photo-1664202526475-8f43ee70166d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    name: "Bale Doe",
-  },
-  {
-    id: "6",
-    avatar:
-      "https://plus.unsplash.com/premium_photo-1664202526793-fca03a9cab29?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    name: "Bane Doe",
-  },
-];
 
 
 export const renderItem =(result) => {
@@ -89,6 +54,8 @@ function AnimeForm() {
     const [showModal,setShowModal] = useState(false)
     const [showGenresModal,setShowGenresModal] = useState(false)
     const [selectedPosterUI,setSelectedPosterUI] = useState('')
+
+    const {handleSearch,searching,results} = useSearch()
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(animeInfo);
@@ -240,30 +207,6 @@ console.log(animeInfo);
   );
 }
 
-const LabelWithBadge = ({children,htmlFor,badge = 0})=>{
 
-  const RenderBadge = ()=>{
-    if(!badge) return null;
-    return(
-        <span className="bg-light-subtle absolute top-0 right-0 w-5 h-5 rounded-full flex justify-center items-center text-black translate-x-2 -translate-y-1 text-xs">{badge <=9? badge: '9+'}</span>
-    )
-   
-  }
 
-  return(
-    <div className="relative pb-2">
-        <label htmlFor={htmlFor}>{children}</label>
-        <RenderBadge/>
-    </div>
-)
-}
-
-const ViewAllBtn =({visible,children,onClick})=>{
-    if(!visible) return null
-   return (
-
-       <button type="button" onClick={onClick} className='bg-second text-white hover:underline transition'> {children} </button>
-       )
-  
-}
 export default AnimeForm;

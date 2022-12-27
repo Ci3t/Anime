@@ -12,6 +12,7 @@ function LiveSearch({
   value='',
   onChange=null,
   onSelect=null,
+  visible,
 }) {
   const [displaySearch, setDisplaySearch] = useState(false);
   const [focusIndex, setFocusIndex] = useState(-1);
@@ -42,7 +43,7 @@ function LiveSearch({
     let nextCount;
     const keys = ["ArrowDown", "ArrowUp", "Enter", "Escape"];
 
-    console.log(key);
+
     if (!keys.includes(key)) return;
 
     //Handle Selection up and down
@@ -58,6 +59,11 @@ function LiveSearch({
     setFocusIndex(nextCount);
     if (key === "Escape") return closeSearch()
   };
+
+  useEffect(()=>{
+    if(visible) return setDisplaySearch(visible)
+    setDisplaySearch(false);
+  },[visible])
 
   return (
     <div className="relative">
