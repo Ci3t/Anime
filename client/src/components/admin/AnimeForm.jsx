@@ -173,6 +173,7 @@ console.log(animeInfo);
         <ViewAllBtn onClick={displayCastModel} visible={cast.length}>ViewAll</ViewAllBtn>
         <CastForm onSubmit={updateCast}/>
         </div>
+        <input type="date" className="border-2 rounded p-1 w-auto mt-3 mb-2" onChange={handleChange} name='releaseDate' />
         <Submit onClick={handleSubmit} value={'upload'} type={'button'} />
       </div>
       <div className="w-[30%] h-5 bg-blue-400"></div>
