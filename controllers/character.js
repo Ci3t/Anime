@@ -115,3 +115,17 @@ export const getSingleChar = async (req,res)=>{
     res.json(formatCharacter(character))
    
 }
+
+export const getCharacters = async(req,res)=>{
+    const {pageNo,limit} = req.query;
+
+  const characters =  await Character.find({})
+    .sort({createdAt: -1})
+    .skip(parseInt(pageNo) * parseInt(limit))
+    .limit(parseInt(limit))
+
+    const profiles = characters.map(char=>formatCharacter(char))
+    res.json({
+        profiles
+    })
+}

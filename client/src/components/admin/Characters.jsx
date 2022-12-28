@@ -1,15 +1,64 @@
-import React, { useState } from 'react'
+import { getToPathname } from '@remix-run/router';
+import React, { useEffect, useState } from 'react'
 import { BsPencilSquare, BsTrash } from 'react-icons/bs'
+import { getCharacters } from '../../api/character'
+import { useNotification } from '../../hooks/themeHook'
 
+let currentPageNo = 0;
+const limit = 2;
 function Characters() {
 
+  const [characters,setCharacters]=useState([])
+  const [reachedToEnd,setReachedToEnd]=useState(false)
+  const {updateNotification} = useNotification()
+  async function fetchCharacters(pageNo){
+
+    const {profiles,error} = await getCharacters(pageNo,limit)
+
+    if(error) return updateNotification('error',error)
+    if(!profiles.length){
+      currentPageNo = pageNo - 1
+      return setReachedToEnd(true)
+    }
+    setCharacters([...profiles]);
+   }
+
+const handleNextClick =()=>{
+  if(reachedToEnd) return;
+  currentPageNo += 1;
+  fetchCharacters(currentPageNo)
+}
+const handlePrevClick =()=>{
+  if(currentPageNo <= 0) return;
+  if(reachedToEnd) setReachedToEnd(false)
+  currentPageNo -= 1;
+  fetchCharacters(currentPageNo)
+}
+
+  useEffect(()=>{
+    
+    fetchCharacters(currentPageNo)
+  },[])
+
+
   return (
-    <div className="grid grid-cols-4 gap-3 my-5">
-     <CharacterProfile profile={{name:'Jane Doe',avatar:"https://images.unsplash.com/photo-1618336753974-aae8e04506aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGFuaW1lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=80",about:" Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam non expedita quod. Ducimus voluptas, fugiat dignissimos laborum beatae optio similique. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam non expedita quod. Ducimus voluptas, fugiat dignissimos laborum beatae optio similique."}}/>
-     <CharacterProfile profile={{name:'Jane Doe',avatar:"https://images.unsplash.com/photo-1618336753974-aae8e04506aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGFuaW1lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=80",about:" Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam non expedita quod. Ducimus voluptas, fugiat dignissimos laborum beatae optio similique. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam non expedita quod. Ducimus voluptas, fugiat dignissimos laborum beatae optio similique."}}/>
-     <CharacterProfile profile={{name:'Jane Doe',avatar:"https://images.unsplash.com/photo-1618336753974-aae8e04506aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGFuaW1lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=80",about:" Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam non expedita quod. Ducimus voluptas, fugiat dignissimos laborum beatae optio similique. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam non expedita quod. Ducimus voluptas, fugiat dignissimos laborum beatae optio similique."}}/>
-     <CharacterProfile profile={{name:'Jane Doe',avatar:"https://images.unsplash.com/photo-1618336753974-aae8e04506aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGFuaW1lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=80",about:" Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam non expedita quod. Ducimus voluptas, fugiat dignissimos laborum beatae optio similique. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam non expedita quod. Ducimus voluptas, fugiat dignissimos laborum beatae optio similique."}}/>
+    <div className="p-5">
+
+    <div className="grid grid-cols-4 gap-3 p-5">
+     
+     {characters.map(char=>{
+       return <CharacterProfile profile={char} key={char.id}/>
+      })}
+
+
+    
     </div>
+
+    <div className="flex justify-end items-center space-x-3 mt-5">
+      <button onClick={handlePrevClick} type='button' className='text-main hover:underline' >Prev</button>
+      <button onClick={handleNextClick} type='button' className='text-main hover:underline' >Next</button>
+    </div>
+      </div>
    
   )
 }
@@ -17,6 +66,7 @@ function Characters() {
 const CharacterProfile = ({profile})=>{
   
   const [showOptions,setShowOptions] = useState(false)
+  const acceptNameLength = 15;
 
   const handleOnMouseEnter = ()=>{
     setShowOptions(true)
@@ -24,6 +74,13 @@ const CharacterProfile = ({profile})=>{
   const handleOnMouseLeave = ()=>{
     setShowOptions(false)
   }
+
+  const getName = (name)=>{
+   if( name.length <= acceptNameLength ) return name;
+
+   return name.substring(0,acceptNameLength) + '..'
+  }
+
 
   if(!profile) return null;
 
@@ -34,7 +91,7 @@ const CharacterProfile = ({profile})=>{
       <img className='w-20 h-20 aspect-square object-cover' src={avatar} alt={name} />
 
       <div className='px-2'>
-        <h1 className='text-xl font-semibold'>{name}</h1>
+        <h1 className='text-xl font-semibold whitespace-nowrap'>{getName(name)}</h1>
         <p className='text-xs'>{about.substring(0,50)}</p>
 
       </div>
