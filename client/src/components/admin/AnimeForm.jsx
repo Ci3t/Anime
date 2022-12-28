@@ -41,7 +41,7 @@ const defaultAnimeInfo = {
     tags:[],
     cast:[],
     releaseDate:'',
-    poster:'',
+    poster:null,
     genres:[],
     type:'',
     language:'',
@@ -50,7 +50,7 @@ const defaultAnimeInfo = {
 }
 
 
-function AnimeForm({onSubmit}) {
+function AnimeForm({onSubmit,busy}) {
 
     const [animeInfo,setAnimeInfo] = useState({...defaultAnimeInfo})
     const [showCastModal,setShowCastModal] = useState(false)
@@ -204,7 +204,7 @@ console.log(animeInfo);
         <CastForm onSubmit={updateCast}/>
         </div>
         <input type="date" className="border-2 rounded p-1 w-auto mt-3 mb-2" onChange={handleChange} name='releaseDate' />
-        <Submit onClick={handleSubmit} value={'upload'} type={'button'} />
+        <Submit busy={busy} onClick={handleSubmit} value={'upload'} type={'button'} />
       </div>
       <div className="w-[30%] h-5 ">
         <PosterSelector name='poster' label='Select Poster' onChange={handleChange} selectedPoster={selectedPosterUI} accept='image/jpg,image/jpeg,image/png' />

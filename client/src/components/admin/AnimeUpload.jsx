@@ -9,6 +9,7 @@ import AnimeForm from "./AnimeForm";
 function AnimeUpload({visible,onClose}) {
   const [videoSelected, setVideoSelected] = useState(false);
   const [videoUploaded, setVideoUploaded] = useState(false);
+  const [busy, setBusy] = useState(false);
   const [videoInfo, setVideoInfo] = useState({});
   const [uploadProgress, setUploadProgress] = useState(0);
   const { updateNotification } = useNotification();
@@ -47,18 +48,24 @@ const handleUploadTrailer = async(data)=>{
   const handleSubmit =async(data) =>{
   if(!videoInfo.url || !videoInfo.public_id)
    return updateNotification('error','Trailer is missing');
-  data.append('trailer',JSON.stringify(videoInfo))
- const res = await uploadAnime(data);
- console.log(videoInfo);
- console.log(res);
+
+   setBusy(true)
+   data.append('trailer',JSON.stringify(videoInfo))
+   const res = await uploadAnime(data);
+   setBusy(false)
+
+   onClose()
+
 //  console.log(videoInfo.secure_url);
   }
   return (
     // <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center">
     //   <div className="dark:bg-main bg-white rounded w-[45rem] h-[40rem] overflow-auto custom-scroll-bar p-2">
     <ModalContainer visible={visible}  >
-      
+      <div className="mb-4">
+
       <UploadProgress visible={!videoUploaded && videoSelected} message={getUploadProgressValue()} width={uploadProgress}/>
+      </div>
 
        {!videoSelected ?  
         (<TrailerSelector
@@ -66,7 +73,7 @@ const handleUploadTrailer = async(data)=>{
           onTypeError={handleTypeError}
           handleChange={handleChange}
           /> ):
-     ( <AnimeForm onSubmit={handleSubmit}/>)}
+          ( <AnimeForm busy={busy} onSubmit={!busy ?handleSubmit:null}/>)}
           </ModalContainer>
 
     //   </div>
