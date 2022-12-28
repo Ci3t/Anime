@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createAnime,
+  getAnimes,
   removeAnime,
   updateAnimeWithoutPoster,
   updateAnimeWithPoster,
@@ -58,4 +59,11 @@ animeRoute.delete(
   isAdmin,
 
   removeAnime,
+);
+animeRoute.get(
+  "/animes",
+  isAuth,
+  isAdmin,
+
+  getAnimes,
 );

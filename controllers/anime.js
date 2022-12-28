@@ -1,260 +1,250 @@
 import { sendError } from "../utils/helper.js";
 import cloudinary from "../cloud/index.js";
 import { Anime } from "../models/anime.schema.js";
-import mongoose ,{ isValidObjectId } from "mongoose";
+import mongoose, { isValidObjectId } from "mongoose";
 
-export const uploadTrailer = async(req,res)=>{
+export const uploadTrailer = async (req, res) => {
+  const { file } = req;
 
-    const {file} = req;
+  if (!file) return sendError(res, "Video file missing!");
 
-    if(!file) return sendError(res,'Video file missing!')
+  const { secure_url: url, public_id } = await cloudinary.uploader.upload(
+    file.path,
+    { resource_type: "video" },
+  );
+  res.status(201).json({ secure_url: url, public_id });
+};
+export const createAnime = async (req, res) => {
+  const { file, body } = req;
 
-    const {secure_url:url,public_id} = await cloudinary.uploader.upload(file.path,{resource_type:'video'});
-    res.status(201).json({secure_url:url,public_id})
+  const {
+    title,
+    description,
+    releaseDate,
+    status,
+    type,
+    genres,
+    tags,
+    cast,
+    trailer,
+    language,
+  } = body;
 
-}
-export const createAnime = async(req,res)=>{
+  const newAnime = new Anime({
+    title,
+    description,
+    releaseDate,
+    status,
+    type,
+    genres,
+    tags,
+    cast,
+    trailer,
+    language,
+  });
 
-    const {file , body} = req;
+  //!uploading Poster
 
+  if (file) {
     const {
-        title,
-        description,
-        releaseDate,
-        status,
-        type,
-        genres,
-        tags,
-        cast,
-        trailer,
-        language
-
-
-
-    } = body;
-
-    const newAnime = new Anime({
-        title,
-        description,
-        releaseDate,
-        status,
-        type,
-        genres,
-        tags,
-        cast,
-        trailer,
-        language
-    })
-
-    //!uploading Poster
-
-    if(file){
-        
-   
-    const {secure_url:url,public_id,responsive_breakpoints} = await cloudinary.uploader.upload(file.path,{
-        transformation:{
-            width:1280,
-            height:720,
-        },
-        responsive_breakpoints:{
-            create_derived:true,
-            max_width: 640,
-            max_images:3
-        }
+      secure_url: url,
+      public_id,
+      responsive_breakpoints,
+    } = await cloudinary.uploader.upload(file.path, {
+      transformation: {
+        width: 1280,
+        height: 720,
+      },
+      responsive_breakpoints: {
+        create_derived: true,
+        max_width: 640,
+        max_images: 3,
+      },
     });
-    
-    
 
+    const finalPoster = { url, public_id, responsive: [] };
 
-    const finalPoster = {url , public_id,responsive:[]}
+    const { breakpoints } = responsive_breakpoints[0];
 
-    const {breakpoints} = responsive_breakpoints[0]
-
-    if(breakpoints.length){
-
-        
-        for (let imgObj of breakpoints){
-            
-            const {secure_url} = imgObj
-            finalPoster.responsive.push(secure_url)
-        }
+    if (breakpoints.length) {
+      for (let imgObj of breakpoints) {
+        const { secure_url } = imgObj;
+        finalPoster.responsive.push(secure_url);
+      }
     }
 
-    newAnime.poster = finalPoster
-}
-    await newAnime.save()
-    // console.log(secure_url)
-    // console.log(url)
-    res.status(201).json({
-        id:newAnime._id,
-        title,
+    newAnime.poster = finalPoster;
+  }
+  await newAnime.save();
+  // console.log(secure_url)
+  // console.log(url)
+  res.status(201).json({
+    id: newAnime._id,
+    title,
+  });
+};
 
-    })
-    
+export const updateAnimeWithoutPoster = async (req, res) => {
+  const { animeId } = req.params;
 
-}
+  if (!isValidObjectId(animeId)) return sendError(res, "Invalid anime id");
 
-export const updateAnimeWithoutPoster = async(req,res)=>{
+  const anime = await Anime.findById(animeId);
 
-    const {animeId} = req.params
+  if (!anime) return sendError(res, "Anime not found", 404);
 
-    if(!isValidObjectId(animeId)) return sendError(res,'Invalid anime id');
+  const {
+    title,
+    description,
+    releaseDate,
+    status,
+    type,
+    genres,
+    tags,
+    cast,
+    trailer,
+    language,
+  } = req.body;
 
-   
-    const anime = await Anime.findById(animeId);
+  anime.title = title;
+  anime.description = description;
+  anime.tags = tags;
+  anime.releaseDate = releaseDate;
+  anime.genres = genres;
+  anime.status = status;
+  anime.type = type;
+  anime.cast = cast;
+  anime.trailer = trailer;
+  anime.language = language;
 
-    if(!anime) return sendError(res,'Anime not found',404);
+  await anime.save();
 
-    const {
-        title,
-        description,
-        releaseDate,
-        status,
-        type,
-        genres,
-        tags,
-        cast,
-        trailer,
-        language
+  res.json({ message: "Anime is Updated", anime });
+};
 
+export const updateAnimeWithPoster = async (req, res) => {
+  const { animeId } = req.params;
 
+  if (!isValidObjectId(animeId)) return sendError(res, "Invalid anime id");
+  if (!req.file) return sendError(res, "Anime Poster is missing !!");
+  const anime = await Anime.findById(animeId);
 
-    } = req.body;
+  if (!anime) return sendError(res, "Anime not found", 404);
 
-    anime.title = title
-    anime.description = description
-    anime.tags = tags
-    anime.releaseDate = releaseDate
-    anime.genres = genres
-    anime.status = status
-    anime.type = type
-    anime.cast = cast
-    anime.trailer = trailer
-    anime.language = language
+  const {
+    title,
+    description,
+    releaseDate,
+    status,
+    type,
+    genres,
+    tags,
+    cast,
+    trailer,
+    language,
+  } = req.body;
 
-    
+  anime.title = title;
+  anime.description = description;
+  anime.tags = tags;
+  anime.releaseDate = releaseDate;
+  anime.genres = genres;
+  anime.status = status;
+  anime.type = type;
+  anime.cast = cast;
+  anime.trailer = trailer;
+  anime.language = language;
 
-    await anime.save()
+  const posterId = anime.poster?.public_id;
+  if (posterId) {
+    const { result } = await cloudinary.uploader.destroy(posterId);
 
-    res.json({message:'Anime is Updated', anime})
-}
-
-export const updateAnimeWithPoster = async(req,res)=>{
-
-    const {animeId} = req.params
-
-    if(!isValidObjectId(animeId)) return sendError(res,'Invalid anime id');
-    if(!req.file) return sendError(res,'Anime Poster is missing !!')
-    const anime = await Anime.findById(animeId);
-
-    if(!anime) return sendError(res,'Anime not found',404);
-
-    const {
-        title,
-        description,
-        releaseDate,
-        status,
-        type,
-        genres,
-        tags,
-        cast,
-        trailer,
-        language
-
-
-
-    } = req.body;
-
-    anime.title = title
-    anime.description = description
-    anime.tags = tags
-    anime.releaseDate = releaseDate
-    anime.genres = genres
-    anime.status = status
-    anime.type = type
-    anime.cast = cast
-    anime.trailer = trailer
-    anime.language = language
-
-    const posterId = anime.poster?.public_id
-    if(posterId){
-
-        const {result} = await cloudinary.uploader.destroy(posterId);
-
-        if(result !== 'ok'){
-            return sendError(res,'Could not update poster at the moment')
-        }
+    if (result !== "ok") {
+      return sendError(res, "Could not update poster at the moment");
     }
+  }
 
-    
+  const {
+    secure_url: url,
+    public_id,
+    responsive_breakpoints,
+  } = await cloudinary.uploader.upload(req.file.path, {
+    transformation: {
+      width: 1280,
+      height: 720,
+    },
+    responsive_breakpoints: {
+      create_derived: true,
+      max_width: 640,
+      max_images: 3,
+    },
+  });
 
-    const {secure_url:url,public_id,responsive_breakpoints} = await cloudinary.uploader.upload(req.file.path,{
-        transformation:{
-            width:1280,
-            height:720,
-        },
-                responsive_breakpoints:{
-                    create_derived:true,
-                    max_width: 640,
-                    max_images:3
-                }
-            });
-            
-       
-        
-            const finalPoster = {url , public_id,responsive:[]}
-        
-            const {breakpoints} = responsive_breakpoints[0]
-        
-            if(breakpoints.length){
-        
-                
-                for (let imgObj of breakpoints){
-                    
-                    const {secure_url} = imgObj
-                    finalPoster.responsive.push(secure_url)
-                }
-            }
-        
-           anime.poster = finalPoster
+  const finalPoster = { url, public_id, responsive: [] };
 
-    await anime.save()
+  const { breakpoints } = responsive_breakpoints[0];
 
-    res.json({message:'Anime is Updated', anime})
-}
-
-export const removeAnime = async(req,res)=>{
-
-    const {animeId} = req.params
-
-    console.log(animeId);
-    mongoose.Types.ObjectId(animeId);
-  
-
-    if(!isValidObjectId(animeId)) return sendError(res,'Invalid anime id');
-   
-    const anime = await Anime.findById(animeId);
-
-    if(!anime) return sendError(res,'Anime not found',404);
-
-    const posterId = anime.poster?.public_id
-
-    if(posterId){
-
-        const {result} = await cloudinary.uploader.destroy(posterId);
-        if(result !=='ok') return sendError(res,'Could not remove poster from cloud')
+  if (breakpoints.length) {
+    for (let imgObj of breakpoints) {
+      const { secure_url } = imgObj;
+      finalPoster.responsive.push(secure_url);
     }
+  }
 
-    const trailerId = anime.trailer?.public_id
-    if(!trailerId) return sendError(res,'Could not find trailer in the cloud')
+  anime.poster = finalPoster;
 
-    const {result} =await  cloudinary.uploader.destroy(trailerId,{
-        resource_type:'video'
-    });
-        if(result !=='ok') return sendError(res,'Could not remove trailer from cloud')
+  await anime.save();
 
-       await Anime.findByIdAndDelete(animeId);
+  res.json({ message: "Anime is Updated", anime });
+};
 
-       res.json({message:'Anime Removed Successfully '})
+export const removeAnime = async (req, res) => {
+  const { animeId } = req.params;
 
+  console.log(animeId);
+  mongoose.Types.ObjectId(animeId);
+
+  if (!isValidObjectId(animeId)) return sendError(res, "Invalid anime id");
+
+  const anime = await Anime.findById(animeId);
+
+  if (!anime) return sendError(res, "Anime not found", 404);
+
+  const posterId = anime.poster?.public_id;
+
+  if (posterId) {
+    const { result } = await cloudinary.uploader.destroy(posterId);
+    if (result !== "ok")
+      return sendError(res, "Could not remove poster from cloud");
+  }
+
+  const trailerId = anime.trailer?.public_id;
+  if (!trailerId) return sendError(res, "Could not find trailer in the cloud");
+
+  const { result } = await cloudinary.uploader.destroy(trailerId, {
+    resource_type: "video",
+  });
+  if (result !== "ok")
+    return sendError(res, "Could not remove trailer from cloud");
+
+  await Anime.findByIdAndDelete(animeId);
+
+  res.json({ message: "Anime Removed Successfully " });
+};
+
+export const getAnimes = async(req,res)=>{
+  const {pageNo =0,limit = 10} = req.query
+  const animes = await Anime.find({})
+  .sort({createdAt: -1})
+  .skip(parseInt(pageNo) * parseInt(limit))
+  .limit(parseInt(limit))
+
+  const results = animes.map(anime=>({
+    id:anime._id,
+    title:anime.title,
+    poster:anime.poster?.url,
+    genres:anime.genres,
+    status:anime.status
+  }))
+  res.json({animes:results})
 }

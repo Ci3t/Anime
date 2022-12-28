@@ -32,7 +32,26 @@ export const uploadAnime = async(formData) =>{
             },
            
         })
-        console.log(data);
+     
+        return data
+    }catch(error){
+        return catchError(error)
+     
+    }
+
+}
+export const getAnimes = async(pageNo,limit) =>{
+    const token = getToken()
+    try{
+
+        const {data} = await client(`/anime/animes?pageNo=${pageNo}&limit=${limit}`,{
+            headers:{
+                authorization: 'Bearer ' + token,
+                'content-type':'multipart/form-data'
+            },
+           
+        })
+     
         return data
     }catch(error){
         return catchError(error)
