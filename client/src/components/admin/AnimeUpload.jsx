@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { AiOutlineCloudUpload } from "react-icons/ai";
-import { uploadTrailer } from "../../api/anime";
+import { uploadAnime, uploadTrailer } from "../../api/anime";
 import { useNotification } from "../../hooks/themeHook";
 import ModalContainer from "../modals/ModalContainer";
 import AnimeForm from "./AnimeForm";
@@ -18,10 +18,9 @@ const handleUploadTrailer = async(data)=>{
     const {error,secure_url,public_id} = await uploadTrailer(data,setUploadProgress);
     if(error) return updateNotification('error',error)
 
-    console.log(secure_url);
 
         setVideoUploaded(true)
-    setVideoInfo({secure_url,public_id})
+    setVideoInfo({url:secure_url,public_id})
 }
 
   const handleChange =  (file) => {
@@ -31,7 +30,7 @@ const handleUploadTrailer = async(data)=>{
     setVideoSelected(true)
    handleUploadTrailer(formData)
   };
-console.log(videoInfo);
+
   const handleTypeError = (error) => {
     updateNotification("error", error);
   };
@@ -44,21 +43,31 @@ console.log(videoInfo);
     return `Upload Progress ${uploadProgress} %`
   }
 
+
+  const handleSubmit =async(data) =>{
+  if(!videoInfo.url || !videoInfo.public_id)
+   return updateNotification('error','Trailer is missing');
+  data.append('trailer',JSON.stringify(videoInfo))
+ const res = await uploadAnime(data);
+ console.log(videoInfo);
+ console.log(res);
+//  console.log(videoInfo.secure_url);
+  }
   return (
     // <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center">
     //   <div className="dark:bg-main bg-white rounded w-[45rem] h-[40rem] overflow-auto custom-scroll-bar p-2">
     <ModalContainer visible={visible}  >
       
-<AnimeForm/>
-     
-      </ModalContainer>
+      <UploadProgress visible={!videoUploaded && videoSelected} message={getUploadProgressValue()} width={uploadProgress}/>
 
-        // {/* <UploadProgress visible={!videoUploaded && videoSelected} message={getUploadProgressValue()} width={uploadProgress}/>
-        // <TrailerSelector
-        //   visible={!videoSelected}
-        //   onTypeError={handleTypeError}
-        //   handleChange={handleChange}
-        // /> */}
+       {!videoSelected ?  
+        (<TrailerSelector
+          visible={!videoSelected}
+          onTypeError={handleTypeError}
+          handleChange={handleChange}
+          /> ):
+     ( <AnimeForm onSubmit={handleSubmit}/>)}
+          </ModalContainer>
 
     //   </div>
     // </div>

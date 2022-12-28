@@ -82,8 +82,8 @@ export const validateAnime = [
     .custom((cast) => {
       for (let c of cast) {
         if (!isValidObjectId(c.character)) throw Error("Invalid Cast ID inside Cast");
-        if (!c.roleAs?.trim())
-          throw Error("Role as is missing inside cast!");
+        // if (!c.roleAs?.trim())
+        //   throw Error("Role as is missing inside cast!");
         if (typeof c.leadChar !== "boolean")
           throw Error("Only accepted boolean value inside leadCharacter");
         }
@@ -100,15 +100,16 @@ export const validateAnime = [
 
         const arr = url.split("/");
         const publicId = arr[arr.length - 1].split(".")[0];
-        if (public_id !== publicId) throw Error("Trailer URL is Invalid");
+        if (public_id !== publicId) throw Error("Trailer Public ID is Invalid");
         return true
       } catch (error) {
-        throw Error("Trailer URL is Invalid");
+        console.log(error);
+        throw Error("Trailer URL is Invalid",error);
       }
       
     }),
   check("poster").custom((_, { req }) => {
-    if (!req.file) throw Error("Trailer URL is Invalid");
+    if (!req.file) throw Error("Poster file is missing");
     return true
   }),
 ];
@@ -156,8 +157,8 @@ export const validateAnimeWithoutPoster = [
     .custom((cast) => {
       for (let c of cast) {
         if (!isValidObjectId(c.character)) throw Error("Invalid Cast ID inside Cast");
-        if (!c.roleAs?.trim())
-          throw Error("Role as is missing inside cast!");
+        // if (!c.roleAs?.trim())
+        //   throw Error("Role as is missing inside cast!");
         if (typeof c.leadChar !== "boolean")
           throw Error("Only accepted boolean value inside leadCharacter");
         }
@@ -194,3 +195,5 @@ export const validate = (req, res, next) => {
   }
   next();
 };
+
+

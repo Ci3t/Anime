@@ -21,3 +21,22 @@ export const uploadTrailer = async(formData,onUploadProgress) =>{
     }
 
 }
+export const uploadAnime = async(formData) =>{
+    const token = getToken()
+    try{
+
+        const {data} = await client.post('/anime/create',formData,{
+            headers:{
+                authorization: 'Bearer ' + token,
+                'content-type':'multipart/form-data'
+            },
+           
+        })
+        console.log(data);
+        return data
+    }catch(error){
+        return catchError(error)
+     
+    }
+
+}

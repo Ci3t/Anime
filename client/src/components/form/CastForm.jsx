@@ -55,7 +55,7 @@ useEffect(()=>{
     const {  profile, roleAs } = castInfo;
 
     if(!profile.name) return updateNotification('error','Profile is Missing');
-    if(!roleAs.trim()) return updateNotification('error','Role is Missing');
+    // if(!roleAs.trim()) return updateNotification('error','Role is Missing');
 
     onSubmit(castInfo);
     setCastInfo({...defaultCastInfo,profile:{name:''}})

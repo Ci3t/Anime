@@ -38,11 +38,11 @@ const animeSchema = Schema(
     cast: [
       {
         character: {
-          type: mongoose.Types.ObjectId,
+          type: mongoose.Schema.Types.ObjectId,
           ref: "Character",
-          roleAs:String,
-          leadChar: Boolean,
         },
+        roleAs:String,
+        leadChar: Boolean,
       },
     ],
     poster: {

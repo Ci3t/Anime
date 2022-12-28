@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSearch } from "../../hooks/themeHook";
+import { useNotification, useSearch } from "../../hooks/themeHook";
 import CastForm from "../form/CastForm";
 import Submit from "../form/Submit";
 import LabelWithBadge from "../LabelWithBadge";
@@ -8,6 +8,7 @@ import GenresModal from "../modals/GenresModal";
 import ModalContainer from "../modals/ModalContainer";
 import { genres } from "../utils/genres";
 import { languageOptions, statusOptions, typeOptions } from "../utils/options";
+import { validateAnime } from "../utils/validator";
 import ViewAllBtn from "../ViewAllBtn";
 import GenresSelector from "./GenresSelector";
 import LiveSearch from "./LiveSearch";
@@ -40,14 +41,16 @@ const defaultAnimeInfo = {
     tags:[],
     cast:[],
     releaseDate:'',
-    poster:null,
+    poster:'',
     genres:[],
     type:'',
     language:'',
     status: ''
 
 }
-function AnimeForm() {
+
+
+function AnimeForm({onSubmit}) {
 
     const [animeInfo,setAnimeInfo] = useState({...defaultAnimeInfo})
     const [showCastModal,setShowCastModal] = useState(false)
@@ -55,10 +58,39 @@ function AnimeForm() {
     const [showGenresModal,setShowGenresModal] = useState(false)
     const [selectedPosterUI,setSelectedPosterUI] = useState('')
 
-    const {handleSearch,searching,results} = useSearch()
+  const {updateNotification} = useNotification()
+
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(animeInfo);
+   const {error} = validateAnime(animeInfo);
+   if(error) return updateNotification('error',error);
+   
+   const {tags,genres,cast,poster} = animeInfo
+   const formData = new FormData();
+   
+   const finalAnimeInfo = {
+     ...animeInfo,
+    }
+    finalAnimeInfo.tags = JSON.stringify(tags)
+    finalAnimeInfo.genres = JSON.stringify(genres)
+    
+    const finalCast = cast.map(c=>({
+      character:c.profile.id,
+      roleAs:c.roleAs,
+      leadChar:c.leadChar
+    }))
+    finalAnimeInfo.cast = JSON.stringify(finalCast)
+    
+    if(poster) finalAnimeInfo.poster = poster
+
+    for(let key in finalAnimeInfo){
+      formData.append(key,finalAnimeInfo[key])
+      console.log(finalAnimeInfo[key] );
+    }
+
+
+   onSubmit(formData);
   };
 
   const updatePosterUI = (file) => {
@@ -71,7 +103,7 @@ function AnimeForm() {
     if(name === 'poster'){
       const poster = files[0]
       updatePosterUI(poster)
-      setAnimeInfo({...animeInfo,poster})
+     return setAnimeInfo({...animeInfo,poster})
     }
     setAnimeInfo({...animeInfo,[name]:value})
   };

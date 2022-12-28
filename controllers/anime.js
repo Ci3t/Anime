@@ -46,11 +46,16 @@ export const createAnime = async(req,res)=>{
         language
     })
 
+    //!uploading Poster
+
+    if(file){
+        
+   
     const {secure_url:url,public_id,responsive_breakpoints} = await cloudinary.uploader.upload(file.path,{
-transformation:{
-    width:1280,
-    height:720,
-},
+        transformation:{
+            width:1280,
+            height:720,
+        },
         responsive_breakpoints:{
             create_derived:true,
             max_width: 640,
@@ -58,7 +63,8 @@ transformation:{
         }
     });
     
-    console.log(req.body.genres);
+    
+
 
     const finalPoster = {url , public_id,responsive:[]}
 
@@ -75,9 +81,10 @@ transformation:{
     }
 
     newAnime.poster = finalPoster
-
+}
     await newAnime.save()
-
+    // console.log(secure_url)
+    // console.log(url)
     res.status(201).json({
         id:newAnime._id,
         title,
