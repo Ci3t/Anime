@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { BsPencilSquare, BsTrash } from 'react-icons/bs'
 import { getCharacters } from '../../api/character'
 import { useNotification } from '../../hooks/themeHook'
+import NextAndPrevBtn from '../NextAndPrevBtn';
 
 let currentPageNo = 0;
-const limit = 2;
+const limit = 4;
 function Characters() {
 
   const [characters,setCharacters]=useState([])
@@ -50,15 +51,11 @@ const handlePrevClick =()=>{
        return <CharacterProfile profile={char} key={char.id}/>
       })}
 
-
+      <NextAndPrevBtn className=' col-span-4' onNextClick={handleNextClick} onPrevClick={handlePrevClick} />
     
     </div>
 
-    <div className="flex justify-end items-center space-x-3 mt-5">
-      <button onClick={handlePrevClick} type='button' className='text-main hover:underline' >Prev</button>
-      <button onClick={handleNextClick} type='button' className='text-main hover:underline' >Next</button>
-    </div>
-      </div>
+  </div>
    
   )
 }
