@@ -36,6 +36,9 @@ function Animes() {
     currentPageNo -= 1;
     fetchAnimes(currentPageNo)
   }
+  const handleOnEditClick =(anime)=>{
+    console.log(anime);
+  }
 
   useEffect(()=>{
     fetchAnimes()
@@ -43,7 +46,7 @@ function Animes() {
   return (
     <div className='space-y-3 p-5'>
       {animes.map((anime)=>{
-        return <AnimeListItem key={anime.id} anime={anime}/>
+        return <AnimeListItem key={anime.id} anime={anime} onEditClick={()=>{handleOnEditClick(anime)}}/>
       })}
        <NextAndPrevBtn className=' col-span-4' onNextClick={handleNextClick} onPrevClick={handlePrevClick} />
     </div>

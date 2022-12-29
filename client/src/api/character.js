@@ -21,7 +21,7 @@ export const charSearch = async (query) => {
     const { data } = await client(`/character/search?name=${query}`, {
       headers: {
         authorization: "Bearer " + token,
-        "content-type": "multipart/form-data",
+    
       },
     });
 
@@ -56,6 +56,21 @@ export const updateChar = async (id,formData) => {
       headers: {
         authorization: "Bearer " + token,
         "content-type": "multipart/form-data",
+      },
+    });
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};
+
+export const deleteChar = async (id,formData) => {
+  const token = getToken();
+  try {
+    const { data } = await client.delete(`/character/${id}`, {
+      headers: {
+        authorization: "Bearer " + token,
+  
       },
     });
     return data;

@@ -85,9 +85,14 @@ export const removeChar = async (req,res)=>{
 }
 
 export const searchCharacter = async (req,res)=>{
-    const {query} = req
-    query.name
-   const result = await Character.find({$text:{$search:`"${query.name}"`}})
+    const {name} = req.query
+   
+    //!search by full name only!
+//    const result = await Character.find({$text:{$search:`"${query.name}"`}})
+//!search by initial and not full name can use short names
+
+if(!name.trim()) return sendError(res,'Invalid Request')
+   const result = await Character.find({name:{$regex:name, $options:'i'}})
 
    const characters = result.map(char => formatCharacter(char))
    res.json({results:characters})
