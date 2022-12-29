@@ -1,11 +1,11 @@
-import { set } from 'mongoose'
+
 import React, { useEffect, useState } from 'react'
 import { getAnimes } from '../../api/anime'
 import { useNotification } from '../../hooks/themeHook'
 import AnimeListItem from '../AnimeListItem'
 import NextAndPrevBtn from '../NextAndPrevBtn'
 
-const limit = 1
+const limit = 10
 let currentPageNo = 0
 function Animes() {
   const [animes,setAnimes] = useState([])

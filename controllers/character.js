@@ -56,7 +56,7 @@ character.about=about;
 character.gender=gender;
 
 await character.save()
-res.status(201).json(formatCharacter())
+res.status(201).json({character:formatCharacter(character)})
 }
 
 export const removeChar = async (req,res)=>{

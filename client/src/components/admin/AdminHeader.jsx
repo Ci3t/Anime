@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
+import AppSearchForm from "../form/AppSearchForm";
 
 function AdminHeader({onAddAnimeClick,onAddCharacterClick}) {
   const [showOptions, setShowOptions] = useState(false);
@@ -57,12 +58,8 @@ function AdminHeader({onAddAnimeClick,onAddCharacterClick}) {
 
   return (
     <div className="flex items-center justify-between">
-      <input
-        type="text"
-        className="border-2 border-light-subtle focus:border-main transition bg-transparent rounded text-lg p-1 outline-none relative"
-        placeholder="Search Anime..."
-      />
-
+   
+      <AppSearchForm placeholder='Search Anime...'/>
       <button
         onClick={() => {
           setShowOptions(!showOptions);

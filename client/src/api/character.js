@@ -48,3 +48,18 @@ export const getCharacters = async (pageNo, limit) => {
     return catchError(error);
   }
 };
+
+export const updateChar = async (id,formData) => {
+  const token = getToken();
+  try {
+    const { data } = await client.post(`/character/update/${id}`, formData, {
+      headers: {
+        authorization: "Bearer " + token,
+        "content-type": "multipart/form-data",
+      },
+    });
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};

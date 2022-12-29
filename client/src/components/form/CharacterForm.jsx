@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GiSpinningSword } from "react-icons/gi";
 import { useNotification } from "../../hooks/themeHook";
 import PosterSelector from "../admin/PosterSelector";
@@ -29,7 +29,7 @@ const validateChar = ({avatar,name,about,gender})=>{
     return {error:null};
 }
 
-function CharacterForm({ title, btnTitle,busy,onSubmit }) {
+function CharacterForm({ title, btnTitle,busy,onSubmit ,initialState}) {
   const [charInfo, setCharInfo] = useState({ ...defaultCharInfo });
   const [selectedAvatarUI, setSelectedAvatarUI] = useState("");
 
@@ -63,6 +63,13 @@ function CharacterForm({ title, btnTitle,busy,onSubmit }) {
         onSubmit(formData)
 
   }
+
+  useEffect(()=>{
+    if(initialState) {
+      setCharInfo({...initialState,avatar:null});
+      setSelectedAvatarUI(initialState.avatar)
+    }
+  },[initialState])
 
   const {name,about,gender} = charInfo
   return (
