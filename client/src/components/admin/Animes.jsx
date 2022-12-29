@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
-import { getAnimes } from '../../api/anime'
+import { getAnimes, getUpdateAnime } from '../../api/anime'
 import { useNotification } from '../../hooks/themeHook'
 import AnimeListItem from '../AnimeListItem'
 import UpdateAnime from '../modals/UpdateAnime'
@@ -12,6 +12,7 @@ function Animes() {
   const [animes,setAnimes] = useState([])
   const [reachedToEnd,setReachedToEnd]=useState(false)
   const [showUpdateModal,setShowUpdateModal]=useState(false)
+  const [selectedAnime,setSelectedAnime]=useState(null)
   const {updateNotification} = useNotification()
 
   const fetchAnimes = async(pageNo)=>{
@@ -38,10 +39,24 @@ function Animes() {
     currentPageNo -= 1;
     fetchAnimes(currentPageNo)
   }
-  const handleOnEditClick =(anime)=>{
-    console.log(anime);
-    setShowUpdateModal(true)
-  }
+  const handleOnEditClick =async({id})=>{
+ const {error,anime} = await getUpdateAnime(id)
+ 
+ if(error) return updateNotification('error',error);
+  setSelectedAnime(anime);
+  setShowUpdateModal(true)
+}
+  const handleOnUpdate =async(anime)=>{
+
+ const updatedAnime = animes.map(ani=>{
+      if(ani.id === anime.id) return anime
+      return ani
+    })
+
+    setAnimes([...updatedAnime])
+}
+  const hideUpdateForm =()=> setShowUpdateModal(false)
+
 
   useEffect(()=>{
     fetchAnimes()
@@ -54,7 +69,7 @@ function Animes() {
       })}
        <NextAndPrevBtn className=' col-span-4' onNextClick={handleNextClick} onPrevClick={handlePrevClick} />
     </div>
-    <UpdateAnime visible={showUpdateModal}/>
+    <UpdateAnime onClose={hideUpdateForm} onSuccess={handleOnUpdate} visible={showUpdateModal} initialState={selectedAnime} />
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { sendError } from "../utils/helper.js";
+import { formatCharacter, sendError } from "../utils/helper.js";
 import cloudinary from "../cloud/index.js";
 import { Anime } from "../models/anime.schema.js";
 import mongoose, { isValidObjectId } from "mongoose";
@@ -122,11 +122,12 @@ export const updateAnimeWithoutPoster = async (req, res) => {
   res.json({ message: "Anime is Updated", anime });
 };
 
-export const updateAnimeWithPoster = async (req, res) => {
+export const updateAnime = async (req, res) => {
   const { animeId } = req.params;
+  const {file} = req
 
   if (!isValidObjectId(animeId)) return sendError(res, "Invalid anime id");
-  if (!req.file) return sendError(res, "Anime Poster is missing !!");
+  // if (!req.file) return sendError(res, "Anime Poster is missing !!");
   const anime = await Anime.findById(animeId);
 
   if (!anime) return sendError(res, "Anime not found", 404);
@@ -140,7 +141,7 @@ export const updateAnimeWithPoster = async (req, res) => {
     genres,
     tags,
     cast,
-    trailer,
+
     language,
   } = req.body;
 
@@ -152,9 +153,12 @@ export const updateAnimeWithPoster = async (req, res) => {
   anime.status = status;
   anime.type = type;
   anime.cast = cast;
-  anime.trailer = trailer;
+ 
   anime.language = language;
 
+  if(file){
+
+  
   const posterId = anime.poster?.public_id;
   if (posterId) {
     const { result } = await cloudinary.uploader.destroy(posterId);
@@ -192,10 +196,16 @@ export const updateAnimeWithPoster = async (req, res) => {
   }
 
   anime.poster = finalPoster;
-
+}
   await anime.save();
 
-  res.json({ message: "Anime is Updated", anime });
+  res.json({ message: "Anime is Updated", anime:{
+    id:anime._id,
+    title:anime.title,
+    poster:anime.poster?.url,
+    genres:anime.genres,
+    status:anime.status,
+  } });
 };
 
 export const removeAnime = async (req, res) => {
@@ -247,4 +257,32 @@ export const getAnimes = async(req,res)=>{
     status:anime.status
   }))
   res.json({animes:results})
+}
+
+export const getUpdateAnime = async (req,res) =>{
+
+  const {animeId} = req.params;
+  if(!isValidObjectId(animeId)) return sendError(res,'Id is Invalid');
+
+ const anime = await Anime.findById(animeId).populate('cast.character')
+ res.json({anime:{
+  id:anime._id,
+  title:anime.title,
+  description:anime.description,
+  poster:anime.poster?.url,
+  genres:anime.genres,
+  releaseDate:anime.releaseDate,
+  status:anime.status,
+  type:anime.type,
+  language:anime.language,
+  tags:anime.tags,
+  cast:anime.cast.map(c=>{
+    return{
+      id:c.id,
+      profile: formatCharacter(c.character),
+      roleAs:c.roleAs,
+      leadChar:c.leadChar
+    }
+  }),
+ }})
 }

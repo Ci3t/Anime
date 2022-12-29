@@ -2,9 +2,10 @@ import { Router } from "express";
 import {
   createAnime,
   getAnimes,
+  getUpdateAnime,
   removeAnime,
-  updateAnimeWithoutPoster,
-  updateAnimeWithPoster,
+  updateAnime,
+
   uploadTrailer,
 } from "../controllers/anime.js";
 import { isAdmin, isAuth, isMod } from "../middlewares/auth.js";
@@ -13,7 +14,8 @@ import { uploadImage, uploadVideo } from "../middlewares/multer.js";
 import {
   validate,
   validateAnime,
-  validateAnimeWithoutPoster,
+
+  validateTrailer,
 } from "../middlewares/validator.js";
 export const animeRoute = Router();
 
@@ -31,27 +33,28 @@ animeRoute.post(
   uploadImage.single("poster"),
   parseData,
   validateAnime,
+  validateTrailer,
   validate,
   createAnime,
 );
+// animeRoute.patch(
+//   "/update-anime-without-poster/:animeId",
+//   isAuth,
+//   isAdmin,
+// //   parseData,
+//   validateAnimeWithoutPoster,
+//   validate,
+//   updateAnimeWithoutPoster,
+// );
 animeRoute.patch(
-  "/update-anime-without-poster/:animeId",
-  isAuth,
-  isAdmin,
-//   parseData,
-  validateAnimeWithoutPoster,
-  validate,
-  updateAnimeWithoutPoster,
-);
-animeRoute.patch(
-  "/update-anime-with-poster/:animeId",
+  "/update/:animeId",
   isAuth,
   isAdmin,
   uploadImage.single("poster"),
   parseData,
-  validateAnimeWithoutPoster,
+  validateAnime,
   validate,
-  updateAnimeWithPoster,
+  updateAnime,
 );
 animeRoute.delete(
   "/:animeId",
@@ -66,4 +69,11 @@ animeRoute.get(
   isAdmin,
 
   getAnimes,
+);
+animeRoute.get(
+  "/update-anime/:animeId",
+  isAuth,
+  isAdmin,
+
+  getUpdateAnime,
 );

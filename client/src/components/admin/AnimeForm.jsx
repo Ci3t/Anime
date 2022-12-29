@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNotification, useSearch } from "../../hooks/themeHook";
 import CastForm from "../form/CastForm";
 import Submit from "../form/Submit";
@@ -50,7 +50,7 @@ const defaultAnimeInfo = {
 }
 
 
-function AnimeForm({onSubmit,busy}) {
+function AnimeForm({onSubmit,initialState,busy,btnTitle}) {
 
     const [animeInfo,setAnimeInfo] = useState({...defaultAnimeInfo})
     const [showCastModal,setShowCastModal] = useState(false)
@@ -142,9 +142,15 @@ const handleCharacterRemove = (profileId) => {
       setAnimeInfo({...animeInfo,cast:[...newCast]})
  
   };
-console.log(animeInfo);
 
-  const {title,description,cast,tags,genres,type,language,status} = animeInfo
+  useEffect(()=>{
+    if(initialState){
+      setAnimeInfo({...initialState,releaseDate:initialState.releaseDate.split('T')[0],poster:null})
+      setSelectedPosterUI(initialState.poster)
+    }
+  },[initialState])
+
+  const {title,description,cast,tags,genres,type,language,status,releaseDate} = animeInfo
   return (
     <>
    
@@ -203,11 +209,11 @@ console.log(animeInfo);
         <ViewAllBtn onClick={displayCastModel} visible={cast.length}>ViewAll</ViewAllBtn>
         <CastForm onSubmit={updateCast}/>
         </div>
-        <input type="date" className="border-2 rounded p-1 w-auto mt-3 mb-2" onChange={handleChange} name='releaseDate' />
-        <Submit busy={busy} onClick={handleSubmit} value={'upload'} type={'button'} />
+        <input type="date" className="border-2 rounded p-1 w-auto mt-3 mb-2" onChange={handleChange} name='releaseDate' value={releaseDate} />
+        <Submit busy={busy} onClick={handleSubmit} value={btnTitle} type={'button'} />
       </div>
       <div className="w-[30%] h-5 ">
-        <PosterSelector name='poster' label='Select Poster' onChange={handleChange} selectedPoster={selectedPosterUI} accept='image/jpg,image/jpeg,image/png' />
+        <PosterSelector name='poster' label='Select Poster' onChange={handleChange} selectedPoster={selectedPosterUI} accept='image/jpg,image/jpeg,image/png image/webp' />
 
         <GenresSelector badge={genres.length} onClick={displayGenresModel}/>
 

@@ -92,7 +92,7 @@ function CharacterForm({ title, btnTitle,busy,onSubmit ,initialState}) {
           onChange={handleChange}
           selectedPoster={selectedAvatarUI}
           className="w-36 h-36 aspect-square object-cover"
-          accept='image/jpg,image/jpeg,image/png'
+          accept='image/jpg,image/jpeg,image/png image/webp'
         />
         <div className="flex-grow flex flex-col">
           {/* <input type="text" className='border-b-2' />

@@ -73,7 +73,7 @@ const handleUploadTrailer = async(data)=>{
           onTypeError={handleTypeError}
           handleChange={handleChange}
           /> ):
-          ( <AnimeForm busy={busy} onSubmit={!busy ?handleSubmit:null}/>)}
+          ( <AnimeForm btnTitle='Upload' busy={busy} onSubmit={!busy ?handleSubmit:null}/>)}
           </ModalContainer>
 
     //   </div>
