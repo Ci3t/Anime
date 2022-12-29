@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { getAnimes } from '../../api/anime'
 import { useNotification } from '../../hooks/themeHook'
 import AnimeListItem from '../AnimeListItem'
+import UpdateAnime from '../modals/UpdateAnime'
 import NextAndPrevBtn from '../NextAndPrevBtn'
 
 const limit = 10
@@ -10,6 +11,7 @@ let currentPageNo = 0
 function Animes() {
   const [animes,setAnimes] = useState([])
   const [reachedToEnd,setReachedToEnd]=useState(false)
+  const [showUpdateModal,setShowUpdateModal]=useState(false)
   const {updateNotification} = useNotification()
 
   const fetchAnimes = async(pageNo)=>{
@@ -38,18 +40,22 @@ function Animes() {
   }
   const handleOnEditClick =(anime)=>{
     console.log(anime);
+    setShowUpdateModal(true)
   }
 
   useEffect(()=>{
     fetchAnimes()
   },[])
   return (
+    <>
     <div className='space-y-3 p-5'>
       {animes.map((anime)=>{
         return <AnimeListItem key={anime.id} anime={anime} onEditClick={()=>{handleOnEditClick(anime)}}/>
       })}
        <NextAndPrevBtn className=' col-span-4' onNextClick={handleNextClick} onPrevClick={handlePrevClick} />
     </div>
+    <UpdateAnime visible={showUpdateModal}/>
+    </>
   )
 }
 
