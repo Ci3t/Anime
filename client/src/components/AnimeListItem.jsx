@@ -20,9 +20,9 @@ const AnimeListItem =({anime,afterDelete,afterUpdate})=>{
     
         if(error) return updateNotification('error',error);
     
+        hideConfirmModal();
         updateNotification('success',message);
         afterDelete(anime)
-        hideConfirmModal();
         
       };
 
