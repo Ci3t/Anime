@@ -1,4 +1,5 @@
 import React from 'react'
+import AnimeProvider from './AnimeProvider'
 import AuthProvider from './AuthProvider'
 import NotificationProvider from './NotificationProvider'
 import SearchProvider from './SearchProvider'
@@ -8,6 +9,7 @@ function ContextProviders({children}) {
   return (
     <NotificationProvider>
       <SearchProvider>
+    <AnimeProvider>
 
     <AuthProvider>
 
@@ -17,6 +19,7 @@ function ContextProviders({children}) {
       {children}
     </ThemeProvider>
     </AuthProvider>
+    </AnimeProvider>
       </SearchProvider>
     </NotificationProvider>
   
