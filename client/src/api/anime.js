@@ -101,3 +101,21 @@ export const deleteAnimes = async (id) => {
     return catchError(error);
   }
 };
+export const searchAnimeForAdmin = async (title) => {
+  const token = getToken();
+  try {
+    const { data } = await client(
+      `/anime/search?title=${title}`,
+      {
+        headers: {
+          authorization: "Bearer " + token,
+        
+        },
+      },
+    );
+
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import AppSearchForm from "../form/AppSearchForm";
 
 function AdminHeader({onAddAnimeClick,onAddCharacterClick}) {
   const [showOptions, setShowOptions] = useState(false);
+
+const navigate = useNavigate()
 
   const options = [{ title:'Add Anime',onClick: onAddAnimeClick },{ title:'Add Character',onClick: onAddCharacterClick }];
 
@@ -55,11 +58,18 @@ function AdminHeader({onAddAnimeClick,onAddCharacterClick}) {
       </button>
     );
   };
+  
+  const handleSearchSubmit = (query)=>{
+    
+    if(!query.trim()) return;
+    navigate(`/search?title=${query}`);
+
+  }
 
   return (
     <div className="flex items-center justify-between">
    
-      <AppSearchForm placeholder='Search Anime...'/>
+      <AppSearchForm onSubmit={handleSearchSubmit} placeholder='Search Anime...'/>
       <button
         onClick={() => {
           setShowOptions(!showOptions);

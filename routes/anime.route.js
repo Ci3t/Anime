@@ -4,6 +4,7 @@ import {
   getAnimes,
   getUpdateAnime,
   removeAnime,
+  searchAnime,
   updateAnime,
 
   uploadTrailer,
@@ -76,4 +77,11 @@ animeRoute.get(
   isAdmin,
 
   getUpdateAnime,
+);
+animeRoute.get(
+  "/search",
+  isAuth,
+  isAdmin,
+
+  searchAnime,
 );

@@ -286,3 +286,20 @@ export const getUpdateAnime = async (req,res) =>{
   }),
  }})
 }
+
+export const searchAnime = async(req,res)=>{
+  const {title} = req.query
+
+  if(!title.trim()) return sendError(res,'Invalid request!')
+const animes = await Anime.find({title:{$regex:title,$options:'i'}})
+
+res.json({results:animes.map(anime=>{
+  return{
+    id:anime._id,
+    title:anime.title,
+    poster:anime.poster?.url,
+    genres:anime.genres,
+    status:anime.status,
+  }
+})})
+}

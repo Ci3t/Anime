@@ -4,6 +4,7 @@ import AdminHeader from '../admin/AdminHeader'
 import AdminNavbar from '../admin/AdminNavbar'
 import Animes from '../admin/Animes'
 import AnimeUpload from '../admin/AnimeUpload'
+import SearchAnime from '../admin/SearchAnime'
 import Characters from '../admin/Characters'
 import Dashboard from '../admin/Dashboard'
 import CharacterUpload from '../modals/CharacterUpload'
@@ -36,6 +37,7 @@ function AdminNav() {
     <Route path='/' element={<Dashboard/>}/>
     <Route path='/animes' element={<Animes/>}/>
     <Route path='/characters' element={<Characters/>}/>
+    <Route path='/search' element={<SearchAnime/>}/>
     <Route path='*' element={<NotFound/>}/>
     
   </Routes>
