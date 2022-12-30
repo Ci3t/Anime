@@ -169,6 +169,8 @@ export const validateTrailer =   check("trailer")
   
 })
 
+export const validateRatings = check('rating',"Rating must be a number between 0 and 10").isFloat({min:0,max:10});
+
 export const validate = (req, res, next) => {
   const error = validationResult(req).array();
 
