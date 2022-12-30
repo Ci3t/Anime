@@ -4,7 +4,7 @@ import { useNotification } from '../../hooks/themeHook'
 import AnimeForm from '../admin/AnimeForm'
 import ModalContainer from './ModalContainer'
 
-function UpdateAnime({visible,onSuccess,onClose,animeId}) {
+function UpdateAnime({visible,onSuccess,animeId}) {
     const [busy,setBusy] = useState(false)
     const [ready,setReady] = useState(false)
     const [selectedAnime,setSelectedAnime] = useState(null)
@@ -20,7 +20,7 @@ function UpdateAnime({visible,onSuccess,onClose,animeId}) {
 
         updateNotification('success',message)
         onSuccess(anime)
-        onClose()
+      
     }
 
       const fetchAnimeToUpdate = async () => {
