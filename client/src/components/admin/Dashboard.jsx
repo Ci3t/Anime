@@ -9,7 +9,7 @@ function Dashboard() {
 
   return (
 
-    <div className="grid grid-cols-3 gap-5 my-5">
+    <div className="grid grid-cols-3 gap-5 p-5">
       
     <AppInfoBox title='Total Uploads' subTitle='100' />
     <AppInfoBox title='Total Reviews' subTitle='1,500' />

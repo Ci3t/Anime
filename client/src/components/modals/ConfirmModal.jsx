@@ -13,7 +13,7 @@ function ConfirmModal({ visible, onClose, busy ,onConfirm,onCancel,title,subTitl
 
         <div className="flex items-center-space-x-3  ">
           {busy ? (
-            <p className="flex  items-center space-x-2">
+            <p className="flex  items-center space-x-2 text-white">
               <GiSpinningSword className="animate-spin" />
               <span>Please Wait</span>
             </p>
