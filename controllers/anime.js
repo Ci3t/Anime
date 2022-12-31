@@ -1,4 +1,4 @@
-import { averageRatingPipeline, formatCharacter, sendError } from "../utils/helper.js";
+import { averageRatingPipeline, formatCharacter, getAverageRatings, relatedAnimeAggregation, sendError } from "../utils/helper.js";
 import cloudinary from "../cloud/index.js";
 import { Anime } from "../models/anime.schema.js";
 import mongoose, { isValidObjectId } from "mongoose";
@@ -336,15 +336,19 @@ export const getSingleAnime = async (req, res) => {
 
   const anime = await Anime.findById(animeId).populate("cast.character");
 
- const [aggregatedResponse] = await Review.aggregate(averageRatingPipeline(anime._id))
+//  const [aggregatedResponse] = await Review.aggregate(averageRatingPipeline(anime._id))
 
- const reviews = {};
+//  const reviews = {};
 
- if(aggregatedResponse){
-  const {ratingAvg,reviewCount} = aggregatedResponse;
-  reviews.ratingAvg = parseFloat(ratingAvg).toFixed(1),
-  reviews.reviewCount = reviewCount;
- }
+//  if(aggregatedResponse){
+//   const {ratingAvg,reviewCount} = aggregatedResponse;
+//   reviews.ratingAvg = parseFloat(ratingAvg).toFixed(1),
+//   reviews.reviewCount = reviewCount;
+//  }
+
+const reviews = await getAverageRatings(anime._id)
+
+
 
   const {
     _id: id,
@@ -387,3 +391,27 @@ export const getSingleAnime = async (req, res) => {
     },
   });
 };
+
+export const getRelatedAnime =async (req, res) =>{
+
+  const {animeId} = req.params;
+  if(!isValidObjectId(animeId)) sendError(res,'Invalid anime ID');
+
+  const anime = await Anime.findById(animeId);
+
+  const animes = await Anime.aggregate(relatedAnimeAggregation(anime.tags,anime._id))
+
+  const mapAnime = async (ani) => {
+    const reviews =  await getAverageRatings(ani._id)
+      return{
+        id:ani._id,
+        title:ani.title,
+        poster:ani.poster,
+        reviews:{...reviews},
+      }
+    }
+
+ const relatedAnime = await Promise.all(animes.map(mapAnime))
+
+  res.json({relatedAnime})
+}

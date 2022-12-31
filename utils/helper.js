@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import cloudinary from '../cloud/index.js';
+import { Review } from '../models/review.schema.js';
 
 
 export const sendError = (res,error,statusCode = 401)=>{
@@ -63,4 +64,48 @@ export const averageRatingPipeline = (animeId) =>{
           }
         }
       ]
+}
+
+export const relatedAnimeAggregation = (tags,id) =>{
+
+   return [
+        {
+          $lookup:{
+            from:'Anime',
+            localField:'tags',
+            foreignField:'_id',
+            as:'relatedAnime',
+          }
+        },
+        {
+          $match:{
+            tags:{$in:[...tags]},
+            _id:{$ne:id},
+          }
+        },
+        {
+          $project:{
+            
+            title: 1,
+            poster: '$poster.url',
+          }
+        },
+        {
+          $limit: 5
+        }
+      ]
+}
+
+export const getAverageRatings = async (animeId)=>{
+    const [aggregatedResponse] = await Review.aggregate(averageRatingPipeline(animeId))
+
+    const reviews = {};
+   
+    if(aggregatedResponse){
+     const {ratingAvg,reviewCount} = aggregatedResponse;
+     reviews.ratingAvg = parseFloat(ratingAvg).toFixed(1),
+     reviews.reviewCount = reviewCount;
+    }
+
+    return reviews
 }
