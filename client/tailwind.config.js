@@ -13,6 +13,8 @@ module.exports = {
         second: '#262626',
         'dark-subtle':"rgba(255,255,255,0.5)",
         'light-subtle':"rgba(39,39,39,0.5)",
+        'highlight-dark': '#ffc200',
+        'highlight': '058bfb'
       }
     },
   },

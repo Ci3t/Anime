@@ -119,3 +119,26 @@ export const searchAnimeForAdmin = async (title) => {
     return catchError(error);
   }
 };
+export const getTopRatedAnime = async (type) => {
+
+  try {
+    let endpoint = '/anime/top-rated'
+    if(type) endpoint = endpoint + '?type=' + type;
+    const { data } = await client(endpoint);
+    console.log(data);
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};
+export const getLatestUploads = async (type) => {
+
+  try {
+
+    const { data } = await client(`/anime/latest-uploads`);
+
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};

@@ -5,17 +5,19 @@ import { useNotification } from '../../hooks/themeHook'
 
 import AnimeList from './AnimeList'
 
-function TopRatedAnime() {
+function TopRatedAnimeMovies() {
     
     const [animes,setAnimes] = useState([])
     const {updateNotification} = useNotification()
 
     const fetchAnime = async() =>{
 
-      const {error,animes} = await getTopRatedAnime()
+      const {error,animes} = await getTopRatedAnime('Movie')
       if(error) return updateNotification('error',error)
 
       setAnimes([...animes])
+
+      console.log(animes);
 
     }
 
@@ -27,8 +29,9 @@ function TopRatedAnime() {
     }, [])
   
   return (
-    <AnimeList animes={animes} title='Viewers Choice (TV Series)' />
+    <AnimeList animes={animes} title='Viewers Choice (Movies)' />
   )
 }
 
-export default TopRatedAnime
+
+export default TopRatedAnimeMovies
