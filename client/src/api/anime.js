@@ -142,3 +142,14 @@ export const getLatestUploads = async (type) => {
     return catchError(error);
   }
 };
+export const getSingleAnime = async (id) => {
+
+  try {
+
+    const { data } = await client(`/anime/single/${id}`);
+
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};
