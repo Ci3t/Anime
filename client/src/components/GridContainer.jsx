@@ -1,0 +1,15 @@
+import React from "react";
+
+function GridContainer({ children, className }) {
+  return (
+    <div
+      className={
+        "grid lg:grid-cols-5 md:grid-cols-2 grid-cols gap-3 " + className
+      }
+    >
+      {children}
+    </div>
+  );
+}
+
+export default GridContainer;

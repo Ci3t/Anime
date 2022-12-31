@@ -1,4 +1,4 @@
-import { averageRatingPipeline, formatCharacter, getAverageRatings, relatedAnimeAggregation, sendError } from "../utils/helper.js";
+import { averageRatingPipeline, formatCharacter, getAverageRatings, relatedAnimeAggregation, sendError, topRatedAnimePipeline } from "../utils/helper.js";
 import cloudinary from "../cloud/index.js";
 import { Anime } from "../models/anime.schema.js";
 import mongoose, { isValidObjectId } from "mongoose";
@@ -414,4 +414,25 @@ export const getRelatedAnime =async (req, res) =>{
  const relatedAnime = await Promise.all(animes.map(mapAnime))
 
   res.json({relatedAnime})
+}
+
+export const getTopRatedAnime = async (req,res)=>{
+
+  const {type = 'TV Series'} = req.query;
+
+const animes = await Anime.aggregate(topRatedAnimePipeline(type))
+
+const mapAnimes = async (m) =>{
+ const reviews = await getAverageRatings(m._id)
+
+ return {
+  id:m._id,
+  title:m.title,
+  poster:m.poster,
+  reviews:{...reviews},
+ }
+}
+const topRatedAnime = await Promise.all(animes.map(mapAnimes))
+
+  res.json({animes:topRatedAnime})
 }

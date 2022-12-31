@@ -5,6 +5,7 @@ import {
   getLatestUploads,
   getRelatedAnime,
   getSingleAnime,
+  getTopRatedAnime,
   getUpdateAnime,
   removeAnime,
   searchAnime,
@@ -96,3 +97,5 @@ animeRoute.get(
   "/single/:animeId",getSingleAnime);
 animeRoute.get(
   "/related/:animeId",getRelatedAnime);
+animeRoute.get(
+  "/top-rated",getTopRatedAnime);

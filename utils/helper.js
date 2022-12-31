@@ -109,3 +109,38 @@ export const getAverageRatings = async (animeId)=>{
 
     return reviews
 }
+
+export const topRatedAnimePipeline = (type)=>{
+    return [
+        {
+          $lookup:{
+            from: 'Anime',
+            localField:'reviews',
+            foreignField:'_id',
+            as:'topRated'
+          }
+        },
+        {
+          $match:{
+            reviews:{$exists:true},
+            status:{$eq:'public'},
+            type:{$eq:type}
+          }
+        },
+        {
+          $project:{
+            title:1,
+            poster:'$poster.url',
+            reviewCount:{$size:'$reviews'}
+          }
+        },
+        {
+          $sort:{
+            reviewCount: -1
+          }
+        },
+        {
+          $limit:5
+        }
+      ]
+}
