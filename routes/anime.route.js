@@ -2,6 +2,8 @@ import { Router } from "express";
 import {
   createAnime,
   getAnimes,
+  getLatestUploads,
+  getSingleAnime,
   getUpdateAnime,
   removeAnime,
   searchAnime,
@@ -85,3 +87,9 @@ animeRoute.get(
 
   searchAnime,
 );
+//! Normal users routes
+
+animeRoute.get(
+  "/latest-uploads",getLatestUploads);
+animeRoute.get(
+  "/single/:animeId",getSingleAnime);

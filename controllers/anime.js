@@ -1,7 +1,8 @@
-import { formatCharacter, sendError } from "../utils/helper.js";
+import { averageRatingPipeline, formatCharacter, sendError } from "../utils/helper.js";
 import cloudinary from "../cloud/index.js";
 import { Anime } from "../models/anime.schema.js";
 import mongoose, { isValidObjectId } from "mongoose";
+import { Review } from "../models/review.schema.js";
 
 export const uploadTrailer = async (req, res) => {
   const { file } = req;
@@ -124,7 +125,7 @@ export const updateAnimeWithoutPoster = async (req, res) => {
 
 export const updateAnime = async (req, res) => {
   const { animeId } = req.params;
-  const {file} = req
+  const { file } = req;
 
   if (!isValidObjectId(animeId)) return sendError(res, "Invalid anime id");
   // if (!req.file) return sendError(res, "Anime Poster is missing !!");
@@ -153,59 +154,60 @@ export const updateAnime = async (req, res) => {
   anime.status = status;
   anime.type = type;
   anime.cast = cast;
- 
+
   anime.language = language;
 
-  if(file){
+  if (file) {
+    const posterId = anime.poster?.public_id;
+    if (posterId) {
+      const { result } = await cloudinary.uploader.destroy(posterId);
 
-  
-  const posterId = anime.poster?.public_id;
-  if (posterId) {
-    const { result } = await cloudinary.uploader.destroy(posterId);
-
-    if (result !== "ok") {
-      return sendError(res, "Could not update poster at the moment");
+      if (result !== "ok") {
+        return sendError(res, "Could not update poster at the moment");
+      }
     }
-  }
 
-  const {
-    secure_url: url,
-    public_id,
-    responsive_breakpoints,
-  } = await cloudinary.uploader.upload(req.file.path, {
-    transformation: {
-      width: 1280,
-      height: 720,
-    },
-    responsive_breakpoints: {
-      create_derived: true,
-      max_width: 640,
-      max_images: 3,
-    },
-  });
+    const {
+      secure_url: url,
+      public_id,
+      responsive_breakpoints,
+    } = await cloudinary.uploader.upload(req.file.path, {
+      transformation: {
+        width: 1280,
+        height: 720,
+      },
+      responsive_breakpoints: {
+        create_derived: true,
+        max_width: 640,
+        max_images: 3,
+      },
+    });
 
-  const finalPoster = { url, public_id, responsive: [] };
+    const finalPoster = { url, public_id, responsive: [] };
 
-  const { breakpoints } = responsive_breakpoints[0];
+    const { breakpoints } = responsive_breakpoints[0];
 
-  if (breakpoints.length) {
-    for (let imgObj of breakpoints) {
-      const { secure_url } = imgObj;
-      finalPoster.responsive.push(secure_url);
+    if (breakpoints.length) {
+      for (let imgObj of breakpoints) {
+        const { secure_url } = imgObj;
+        finalPoster.responsive.push(secure_url);
+      }
     }
-  }
 
-  anime.poster = finalPoster;
-}
+    anime.poster = finalPoster;
+  }
   await anime.save();
 
-  res.json({ message: "Anime is Updated", anime:{
-    id:anime._id,
-    title:anime.title,
-    poster:anime.poster?.url,
-    genres:anime.genres,
-    status:anime.status,
-  } });
+  res.json({
+    message: "Anime is Updated",
+    anime: {
+      id: anime._id,
+      title: anime.title,
+      poster: anime.poster?.url,
+      genres: anime.genres,
+      status: anime.status,
+    },
+  });
 };
 
 export const removeAnime = async (req, res) => {
@@ -242,64 +244,146 @@ export const removeAnime = async (req, res) => {
   res.json({ message: "Anime Removed Successfully " });
 };
 
-export const getAnimes = async(req,res)=>{
-  const {pageNo =0,limit = 10} = req.query
+export const getAnimes = async (req, res) => {
+  const { pageNo = 0, limit = 10 } = req.query;
   const animes = await Anime.find({})
-  .sort({createdAt: -1})
-  .skip(parseInt(pageNo) * parseInt(limit))
-  .limit(parseInt(limit))
+    .sort({ createdAt: -1 })
+    .skip(parseInt(pageNo) * parseInt(limit))
+    .limit(parseInt(limit));
 
-  const results = animes.map(anime=>({
-    id:anime._id,
-    title:anime.title,
-    poster:anime.poster?.url,
-    genres:anime.genres,
-    status:anime.status
-  }))
-  res.json({animes:results})
-}
+  const results = animes.map((anime) => ({
+    id: anime._id,
+    title: anime.title,
+    poster: anime.poster?.url,
+    genres: anime.genres,
+    status: anime.status,
+  }));
+  res.json({ animes: results });
+};
 
-export const getUpdateAnime = async (req,res) =>{
+export const getUpdateAnime = async (req, res) => {
+  const { animeId } = req.params;
+  if (!isValidObjectId(animeId)) return sendError(res, "Id is Invalid");
 
-  const {animeId} = req.params;
-  if(!isValidObjectId(animeId)) return sendError(res,'Id is Invalid');
+  const anime = await Anime.findById(animeId).populate("cast.character");
+  res.json({
+    anime: {
+      id: anime._id,
+      title: anime.title,
+      description: anime.description,
+      poster: anime.poster?.url,
+      genres: anime.genres,
+      releaseDate: anime.releaseDate,
+      status: anime.status,
+      type: anime.type,
+      language: anime.language,
+      tags: anime.tags,
+      cast: anime.cast.map((c) => {
+        return {
+          id: c.id,
+          profile: formatCharacter(c.character),
+          roleAs: c.roleAs,
+          leadChar: c.leadChar,
+        };
+      }),
+    },
+  });
+};
 
- const anime = await Anime.findById(animeId).populate('cast.character')
- res.json({anime:{
-  id:anime._id,
-  title:anime.title,
-  description:anime.description,
-  poster:anime.poster?.url,
-  genres:anime.genres,
-  releaseDate:anime.releaseDate,
-  status:anime.status,
-  type:anime.type,
-  language:anime.language,
-  tags:anime.tags,
-  cast:anime.cast.map(c=>{
-    return{
-      id:c.id,
-      profile: formatCharacter(c.character),
-      roleAs:c.roleAs,
-      leadChar:c.leadChar
-    }
-  }),
- }})
-}
+export const searchAnime = async (req, res) => {
+  const { title } = req.query;
 
-export const searchAnime = async(req,res)=>{
-  const {title} = req.query
+  if (!title.trim()) return sendError(res, "Invalid request!");
+  const animes = await Anime.find({ title: { $regex: title, $options: "i" } });
 
-  if(!title.trim()) return sendError(res,'Invalid request!')
-const animes = await Anime.find({title:{$regex:title,$options:'i'}})
+  res.json({
+    results: animes.map((anime) => {
+      return {
+        id: anime._id,
+        title: anime.title,
+        poster: anime.poster?.url,
+        genres: anime.genres,
+        status: anime.status,
+      };
+    }),
+  });
+};
 
-res.json({results:animes.map(anime=>{
-  return{
-    id:anime._id,
-    title:anime.title,
-    poster:anime.poster?.url,
-    genres:anime.genres,
-    status:anime.status,
-  }
-})})
-}
+export const getLatestUploads = async (req, res) => {
+  const { limit = 5 } = req.query;
+
+  const results = await Anime.find({ status: "public" })
+    .sort("-createdAt")
+    .limit(parseInt(limit));
+  const animes = results.map((ani) => {
+    return {
+      id: ani._id,
+      title: ani.title,
+      description: ani.description,
+      poster: ani.poster?.url,
+      trailer: ani.trailer?.url,
+    };
+  });
+
+  res.json({ animes });
+};
+
+export const getSingleAnime = async (req, res) => {
+  const { animeId } = req.params;
+
+  if (!isValidObjectId(animeId))
+    return sendError(res, "Anime id is not valid !");
+
+  const anime = await Anime.findById(animeId).populate("cast.character");
+
+ const [aggregatedResponse] = await Review.aggregate(averageRatingPipeline(anime._id))
+
+ const reviews = {};
+
+ if(aggregatedResponse){
+  const {ratingAvg,reviewCount} = aggregatedResponse;
+  reviews.ratingAvg = parseFloat(ratingAvg).toFixed(1),
+  reviews.reviewCount = reviewCount;
+ }
+
+  const {
+    _id: id,
+    title,
+    description,
+    cast,
+    releaseDate,
+    genres,
+    tags,
+    language,
+    poster,
+    trailer,
+    type,
+  } = anime;
+  res.json({
+    anime: {
+      id,
+      title,
+      description,
+      releaseDate,
+      genres,
+      tags,
+      type,
+      language,
+      poster:poster?.url,
+      trailer:trailer?.url,
+      cast: cast.map((c) => ({
+        id: c._id,
+        profile: {
+          id: c.character._id,
+          name: c.character.name,
+          avatar: c.character?.avatar?.url,
+        },
+        leadChar:c.leadChar,
+        roleAs:c.roleAs
+      })),
+     reviews:{...reviews}
+     
+     
+    },
+  });
+};

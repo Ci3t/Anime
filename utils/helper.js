@@ -37,3 +37,30 @@ export const formatCharacter = char =>{
     return {id:_id,name,about,gender,avatar:avatar?.url}
 }
     
+export const averageRatingPipeline = (animeId) =>{
+    return [
+        {
+          $lookup:{
+            from:"Review",
+            localField:"rating",
+            foreignField:'_id',
+            as:"avgRat"
+          },
+          
+        },
+        {
+          $match:{parentAnime:animeId}
+        },
+        {
+          $group:{
+            _id:null,
+            ratingAvg:{
+              $avg:'$rating'
+            },
+            reviewCount:{
+              $sum: 1
+            }
+          }
+        }
+      ]
+}
