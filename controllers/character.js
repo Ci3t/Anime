@@ -117,7 +117,7 @@ export const getSingleChar = async (req,res)=>{
     
     if(!character) return sendError(res,'Invalid request Character not found',404)
     
-    res.json(formatCharacter(character))
+    res.json({character:formatCharacter(character)})
    
 }
 

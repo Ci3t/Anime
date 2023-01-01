@@ -5,6 +5,7 @@ import { useAuth, useNotification } from "../../hooks/themeHook";
 import Container from "../Container";
 import CustomButtonLink from "../CustomButtonLink";
 import AddRatingModal from "../modals/AddRatingModal";
+import ProfileModal from "../modals/ProfileModal";
 import RatingStar from "../RatingStar";
 import RelatedAnime from "../RelatedAnime";
 
@@ -20,6 +21,8 @@ const convertDate = (date = "") => {
 function SingleAnime() {
   const [ready, setReady] = useState(false);
   const [showRatingModal, setShowRatingModal] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [selectedProfile, setSelectedProfile] = useState({});
   const [animes, setAnimes] = useState({});
   const { updateNotification } = useNotification();
   const { animeId } = useParams();
@@ -46,6 +49,15 @@ function SingleAnime() {
     setAnimes({ ...animes, reviews: { ...reviews } });
   };
 
+  const handleProfileClick =(profile)=>{
+      setSelectedProfile(profile)
+      setShowProfileModal(true)
+      
+    }
+    console.log(animes.cast);
+  const hideProfileModal =()=> setShowProfileModal(false)
+
+ 
   useEffect(() => {
     if (animeId) fetchAnime();
   }, [animeId, animes]);
@@ -103,7 +115,7 @@ function SingleAnime() {
             <ListWithLabel label="Cast">
               {cast.map(({ id, profile, leadChar }) => {
                 return leadChar ? (
-                  <CustomButtonLink label={profile.name} key={id} />
+                  <CustomButtonLink label={profile.name} key={id} onClick={()=>handleProfileClick(profile)}   />
                 ) : null;
               })}
             </ListWithLabel>
@@ -125,13 +137,19 @@ function SingleAnime() {
                   <CustomButtonLink label={type} clickable={false} />
             </ListWithLabel>
           
-              <CastProfiles cast={cast}/>
+              <CastProfiles cast={cast}   />
+             
        
         <RelatedAnime animeId={animeId} />
         </div>
         
 
       </Container>
+      <ProfileModal
+        profileId={selectedProfile.id}
+        visible={showProfileModal}
+        onClose={hideProfileModal }
+      />
       <AddRatingModal
         onSuccess={handleOnRatingSuccess}
         visible={showRatingModal}
@@ -150,8 +168,8 @@ const ListWithLabel = ({ children, label }) => {
   );
 };
 
-const CastProfiles = ({cast})=>{
-
+const CastProfiles = ({cast,onClick})=>{
+  
     return <div className="">
     <h1 className="font-semibold text-2xl">Characters:</h1>
     <div className="flex flex-wrap space-x-3">
@@ -163,7 +181,7 @@ const CastProfiles = ({cast})=>{
               src={profile.avatar}
               alt={profile.name}
             />
-            <CustomButtonLink label={profile.name}/>
+            <CustomButtonLink label={profile.name}  />
            
             {roleAs ? <span>as</span> : null}
             <p className="text-light-subtle">{roleAs}</p>

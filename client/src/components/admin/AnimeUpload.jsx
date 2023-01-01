@@ -14,6 +14,14 @@ function AnimeUpload({visible,onClose}) {
   const [uploadProgress, setUploadProgress] = useState(0);
   const { updateNotification } = useNotification();
 
+  const resetState = () =>{
+
+    setVideoSelected(false)
+    setVideoUploaded(false)
+    setUploadProgress(0)
+    setVideoInfo({})
+  }
+
 const handleUploadTrailer = async(data)=>{
 
     const {error,secure_url,public_id} = await uploadTrailer(data,setUploadProgress);
@@ -51,9 +59,12 @@ const handleUploadTrailer = async(data)=>{
 
    setBusy(true)
    data.append('trailer',JSON.stringify(videoInfo))
-   const res = await uploadAnime(data);
+   const {error,anime} = await uploadAnime(data);
    setBusy(false)
 
+   if(error) return updateNotification('error',error)
+   updateNotification('success','Anime Uploaded Successfully')
+   resetState()
    onClose()
 
 //  console.log(videoInfo.secure_url);

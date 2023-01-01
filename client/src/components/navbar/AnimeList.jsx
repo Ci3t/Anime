@@ -3,6 +3,7 @@ import GridContainer from '../GridContainer'
 import {AiFillStar} from 'react-icons/ai'
 import { Link } from 'react-router-dom';
 import RatingStar from '../RatingStar';
+import { getPoster } from '../utils/helper';
 
 function AnimeList({title,animes = []}) {
 
@@ -31,10 +32,10 @@ const ListItem = ({anime}) =>{
         return text.substring(0,20)+ '..'
      }
 
-    const {title,poster,reviews,id} = anime
+    const {title,poster,responsivePosters,reviews,id} = anime
     return (
          <Link to={`/anime/${id}`} >
-        <img className='aspect-video object-cover ' src={poster} alt={title} />
+        <img className='aspect-video object-cover ' src={getPoster(responsivePosters) || poster} alt={title} />
         <h1 className='text-lg text-second font-semibold' title={title}> {trimTitle(title)} </h1>
 
         <RatingStar rating={reviews.ratingAvg} />

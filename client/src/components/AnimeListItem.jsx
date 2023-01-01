@@ -4,6 +4,7 @@ import { deleteAnimes } from '../api/anime';
 import { useNotification } from '../hooks/themeHook';
 import ConfirmModal from './modals/ConfirmModal'
 import UpdateAnime from './modals/UpdateAnime';
+import { getPoster } from './utils/helper';
 
 const AnimeListItem =({anime,afterDelete,afterUpdate})=>{
     const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -63,7 +64,7 @@ const AnimeListItem =({anime,afterDelete,afterUpdate})=>{
     )
 }
 const AnimeCard =({anime,onDeleteClick,onEditClick,onOpenClick})=>{
-    const {poster,title,genres=[],status} = anime
+    const {poster,title,genres=[],status,responsivePosters} = anime
     // console.log(anime);
 return (
     <table className='w-full border-b'>
@@ -71,7 +72,7 @@ return (
             <tr>
                 <td>
                     <div className="w-24">
-                    <img className='w-full aspect-video' src={poster} alt={title} />
+                    <img className='w-full aspect-video' src={getPoster(responsivePosters) || poster} alt={title} />
                     </div>
 
                 </td>

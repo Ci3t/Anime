@@ -80,8 +80,8 @@ export const createAnime = async (req, res) => {
   // console.log(secure_url)
   // console.log(url)
   res.status(201).json({
-    id: newAnime._id,
-    title,
+    anime:{ id: newAnime._id,
+    title,}
   });
 };
 

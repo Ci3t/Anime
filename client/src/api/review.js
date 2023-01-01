@@ -20,3 +20,16 @@ export const addReview= async (animeId,reviewData) => {
       return catchError(error);
     }
   };
+export const getReviewByAnime= async (animeId) => {
+ 
+    try {
+      const { data } = await client(
+        `/review/get-reviews-by-anime/${animeId}`,
+      
+      );
+  
+      return data;
+    } catch (error) {
+      return catchError(error);
+    }
+  };

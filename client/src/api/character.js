@@ -78,3 +78,17 @@ export const deleteChar = async (id,formData) => {
     return catchError(error);
   }
 };
+
+export const getCharactersProfile = async (id) => {
+
+  try {
+    const { data } = await client(
+      `/character/single/${id}`
+     
+    );
+
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};
