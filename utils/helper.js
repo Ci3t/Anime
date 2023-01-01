@@ -149,3 +149,44 @@ export const topRatedAnimePipeline = (type)=>{
         }
       ]
 }
+
+export const getAnimeListType = (type)=>{
+
+  const matchOptions = {
+    reviews:{$exists:true},
+    status:{$eq:'public'}
+  }
+
+  if(type) matchOptions.type = {$eq:type}
+    return [
+        {
+          $lookup:{
+            from: 'Anime',
+            localField:'reviews',
+            foreignField:'_id',
+            as:'topRated'
+          }
+        },
+        {
+          $match:matchOptions
+        },
+        {
+          $project:{
+            title:1,
+            poster:'$poster.url',
+            description:'$description',
+            genres:'$genres',
+            responsivePosters: '$poster.responsive',
+            reviewCount:{$size:'$reviews'}
+          }
+        },
+        {
+          $sort:{
+            reviewCount: -1
+          }
+        },
+        // {
+        //   $limit:5
+        // }
+      ]
+}

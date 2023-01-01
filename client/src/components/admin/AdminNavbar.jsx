@@ -22,13 +22,13 @@ function AdminNavbar() {
                 </Link>
             </li>
             <li className='mb-8'>
-                <NavItem to={'/'}>Home</NavItem>
+                <NavItem to={'/admin/dashboard'}>Home</NavItem>
             </li>
             <li className='mb-8'>
-                <NavItem to={'/animes'}>Animes</NavItem>
+                <NavItem to={'/admin/animes'}>Animes</NavItem>
             </li>
             <li className='mb-8'>
-                <NavItem to={'/characters'}>Characters</NavItem>
+                <NavItem to={'/admin/characters'}>Characters</NavItem>
             </li>
         </ul>
 

@@ -34,7 +34,7 @@ function AdminNav() {
         <AdminHeader onAddAnimeClick={displayAnimeUploadModel} onAddCharacterClick={displayCharUploadModel} />
     <Routes>
         
-    <Route path='/' element={<Dashboard/>}/>
+    <Route path='/dashboard' element={<Dashboard/>}/>
     <Route path='/animes' element={<Animes/>}/>
     <Route path='/characters' element={<Characters/>}/>
     <Route path='/search' element={<SearchAnime/>}/>

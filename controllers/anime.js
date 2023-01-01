@@ -1,4 +1,4 @@
-import { averageRatingPipeline, formatCharacter, getAverageRatings, relatedAnimeAggregation, sendError, topRatedAnimePipeline } from "../utils/helper.js";
+import { averageRatingPipeline, formatCharacter, getAnimeListType, getAverageRatings, relatedAnimeAggregation, sendError, topRatedAnimePipeline } from "../utils/helper.js";
 import cloudinary from "../cloud/index.js";
 import { Anime } from "../models/anime.schema.js";
 import mongoose, { isValidObjectId } from "mongoose";
@@ -465,3 +465,29 @@ export const searchPublicAnime = async (req, res) => {
     results
   });
 };
+
+
+
+export const getAnimeListByType = async (req,res)=>{
+
+  const {type = 'TV Series'} = req.query;
+
+const animes = await Anime.aggregate( getAnimeListType(type))
+
+const mapAnimes = async (m) =>{
+ const reviews = await getAverageRatings(m._id)
+
+ return {
+  id:m._id,
+  title:m.title,
+  description:m.description,
+  poster:m.poster,
+  genres:m.genres,
+  responsivePosters:m.responsivePosters,
+  reviews:{...reviews},
+ }
+}
+const animeByType = await Promise.all(animes.map(mapAnimes))
+
+  res.json({animes:animeByType})
+}

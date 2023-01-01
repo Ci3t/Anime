@@ -175,3 +175,16 @@ export const searchPublicAnime = async (title) => {
     return catchError(error);
   }
 };
+
+export const getTvAnime = async (type,signal) => {
+
+  try {
+    let endpoint = '/anime/anime-list'
+    if(type) endpoint = endpoint + '?type=' + type;
+    const { data } = await client(endpoint,{signal});
+    console.log(data);
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};

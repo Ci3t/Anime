@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createAnime,
+  getAnimeListByType,
   getAnimes,
   getLatestUploads,
   getRelatedAnime,
@@ -23,6 +24,7 @@ import {
 
   validateTrailer,
 } from "../middlewares/validator.js";
+
 export const animeRoute = Router();
 
 animeRoute.post(
@@ -105,4 +107,9 @@ animeRoute.get(
     "/search-public",
  
     searchPublicAnime,
+  );
+  animeRoute.get(
+    "/anime-list",
+ 
+    getAnimeListByType,
   );

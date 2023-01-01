@@ -62,7 +62,7 @@ const navigate = useNavigate()
   const handleSearchSubmit = (query)=>{
     
     if(!query.trim()) return;
-    navigate(`/search?title=${query}`);
+    navigate(`/admin/search?title=${query}`);
 
   }
 
