@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 import Submit from "./Submit";
 
+const createArray = (count) =>{
+    return new Array(count).fill("");
+}
 
-const ratings = new Array(10).fill("");
+const ratings = createArray(10)
 
-function RatingForm({busy,onSubmit}) {
+function RatingForm({busy,initialState,onSubmit}) {
   const [selectedRatings, setSelectedRatings] = useState([]);
   const [content, setContent] = useState('');
 
   const handleMouseEnter = (index) => {
-    const ratings = new Array(index + 1).fill(index);
+    const ratings = createArray(index+1)
     setSelectedRatings([...ratings]);
   };
   const handleOnChange = ({target})=>{
@@ -27,6 +30,13 @@ function RatingForm({busy,onSubmit}) {
 
     onSubmit(data)
   }
+
+  useEffect(()=>{
+    if(initialState){
+        setContent(initialState.content)
+        setSelectedRatings(createArray(initialState.rating))
+    }
+  },[initialState])
   return (
     <div >
       <div className="p-5 bg-white rounded space-y-3">

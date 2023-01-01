@@ -98,7 +98,7 @@ export const getReviewsByAnime = async (req,res)=>{
                 path:'owner',
                 select:'name',
             },
-        }).select('reviews');
+        }).select('reviews title');
 
        const reviews =  anime.reviews.map(r=>{
             const {owner,content,rating,_id:reviewId} = r
@@ -114,5 +114,5 @@ export const getReviewsByAnime = async (req,res)=>{
                 rating,
             }
         })
-        res.json({reviews});
+        res.json({anime:{title:anime.title,reviews}});
 }

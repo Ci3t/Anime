@@ -33,3 +33,40 @@ export const getReviewByAnime= async (animeId) => {
       return catchError(error);
     }
   };
+
+  export const deleteReview= async (animeId) => {
+    const token = getToken();
+    try {
+      const { data } = await client.delete(
+        `/review/${animeId}`,
+        {
+          headers: {
+            authorization: "Bearer " + token,
+          
+          },
+        },
+      );
+  
+      return data;
+    } catch (error) {
+      return catchError(error);
+    }
+  };
+  export const updateReview= async (animeId,reviewData) => {
+    const token = getToken();
+    try {
+      const { data } = await client.patch(
+        `/review/${animeId}`,reviewData,
+        {
+          headers: {
+            authorization: "Bearer " + token,
+          
+          },
+        },
+      );
+  
+      return data;
+    } catch (error) {
+      return catchError(error);
+    }
+  };
