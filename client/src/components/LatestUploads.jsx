@@ -60,7 +60,7 @@ const {latestUploads,fetchLatestAnimes} = useAnime()
   
   useEffect(() => {
     fetchLatestAnimes();
-  }, []);
+  }, [latestUploads]);
   const handleUIUpdate = () => fetchLatestAnimes()
 
   return (
