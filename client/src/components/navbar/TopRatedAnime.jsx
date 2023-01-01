@@ -10,9 +10,9 @@ function TopRatedAnime() {
     const [animes,setAnimes] = useState([])
     const {updateNotification} = useNotification()
 
-    const fetchAnime = async() =>{
+    const fetchAnime = async(signal) =>{
 
-      const {error,animes} = await getTopRatedAnime()
+      const {error,animes} = await getTopRatedAnime(null,signal)
       if(error) return updateNotification('error',error)
 
       setAnimes([...animes])
@@ -22,8 +22,12 @@ function TopRatedAnime() {
  
 
     useEffect(() => {
-
-     fetchAnime()
+        const ac = new AbortController()
+        fetchAnime(ac.signal)
+        return ()=>{
+            ac.abort()
+        }
+    
     }, [])
   
   return (

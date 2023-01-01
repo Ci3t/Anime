@@ -1,7 +1,7 @@
 import { isValidObjectId } from "mongoose";
 import { Anime } from "../models/anime.schema.js";
 import { Review } from "../models/review.schema.js";
-import { sendError } from "../utils/helper.js";
+import { getAverageRatings, sendError } from "../utils/helper.js";
 
 
 export const addReview = async(req,res)=>{
@@ -35,7 +35,8 @@ export const addReview = async(req,res)=>{
     //saving new rating || review
     await newReview.save()
 
-    res.json({message:'Your review has been added!'})
+   const reviews = await getAverageRatings(anime.id)
+    res.json({message:'Your review has been added!',reviews})
 
 };
 

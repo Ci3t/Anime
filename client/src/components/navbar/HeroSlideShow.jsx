@@ -18,8 +18,8 @@ function HeroSlideShow() {
 
   const { updateNotification } = useNotification();
 
-  const fetchLatestUploads = async () => {
-    const { error, animes } = await getLatestUploads();
+  const fetchLatestUploads = async (signal) => {
+    const { error, animes } = await getLatestUploads(signal);
 
     if (error) return updateNotification("error", error);
 
@@ -104,12 +104,14 @@ function HeroSlideShow() {
   }
 
   useEffect(() => {
-    fetchLatestUploads();
+      const ac = new AbortController()
+    fetchLatestUploads(ac.signal);
     document.addEventListener('visibilitychange',handleOnVisibilityChange)
 
     return () => {
       pauseSlideShow();
       document.removeEventListener('visibilitychange',handleOnVisibilityChange)
+      ac.abort()
     };
   }, []);
 
@@ -178,7 +180,7 @@ const Slide = forwardRef((props,ref) =>{
         src={src}
         alt={title}
         /> : null}
-      { title?  <div className="absolute inset-0 flex flex-col justify-end p-3 ">
+      { title?  <div className="absolute inset-0 flex flex-col justify-end p-3 bg-gradient-to-t from-white via-transparent">
             <h1 className="font-semibold text-4xl text-highlight-dark">{title}</h1>
         </div>:null}
         </Link>

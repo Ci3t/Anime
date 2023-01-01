@@ -88,6 +88,7 @@ export const relatedAnimeAggregation = (tags,id) =>{
             
             title: 1,
             poster: '$poster.url',
+            responsivePosters:'$poster.responsive'
           }
         },
         {
@@ -131,6 +132,7 @@ export const topRatedAnimePipeline = (type)=>{
           $project:{
             title:1,
             poster:'$poster.url',
+            responsivePosters: '$poster.responsive',
             reviewCount:{$size:'$reviews'}
           }
         },

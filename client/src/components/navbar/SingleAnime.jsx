@@ -3,27 +3,30 @@ import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { getSingleAnime } from "../../api/anime";
 import { useAuth, useNotification } from "../../hooks/themeHook";
 import Container from "../Container";
+import CustomButtonLink from "../CustomButtonLink";
+import AddRatingModal from "../modals/AddRatingModal";
 import RatingStar from "../RatingStar";
 import RelatedAnime from "../RelatedAnime";
 
-const convertReviewCount = (count) => {
+const convertReviewCount = (count = 0) => {
   if (count <= 999) return count;
 
   return parseFloat(count / 1000).toFixed(2) + "k";
 };
-const convertDate = (date = '') => {
-    
-    return date.split('T')[0]
+const convertDate = (date = "") => {
+  return date.split("T")[0];
 };
 
 function SingleAnime() {
   const [ready, setReady] = useState(false);
+  const [showRatingModal, setShowRatingModal] = useState(false);
   const [animes, setAnimes] = useState({});
   const { updateNotification } = useNotification();
   const { animeId } = useParams();
-   const { isLoggedIn } = useAuth()
+  const { authInfo } = useAuth();
+  const { isLoggedIn } = authInfo;
 
-   const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const fetchAnime = async () => {
     const { error, anime } = await getSingleAnime(animeId);
@@ -33,13 +36,19 @@ function SingleAnime() {
     setAnimes(anime);
   };
 
-  const handleOnRateAnime = ()=>{
-    if(!isLoggedIn) return navigate('/auth/signin')
-  }
+  const handleOnRateAnime = () => {
+    if (!isLoggedIn) return navigate("/auth/signin");
+
+    setShowRatingModal(true);
+  };
+  const hideRatingModal = () => setShowRatingModal(false);
+  const handleOnRatingSuccess = (reviews) => {
+    setAnimes({ ...animes, reviews: { ...reviews } });
+  };
 
   useEffect(() => {
     if (animeId) fetchAnime();
-  }, [animeId]);
+  }, [animeId, animes]);
 
   if (!ready)
     return (
@@ -59,123 +68,109 @@ function SingleAnime() {
     type,
     reviews = {},
     cast = [],
-    genres=[],
+    genres = [],
   } = animes;
   return (
     <div className="bg-white min-h-screen pb-10 ">
-      <Container>
+      <Container className='xl:px-0 px-2'>
         <video poster={poster} controls src={trailer}></video>
         <div className="flex justify-between">
-          <h1 className="text-4xl text-highlight-dark font-semibold py-3">
+          <h1 className="xl:text-4xl lg:text-3xl text-2xl  text-highlight-dark font-semibold py-3">
             {title}
           </h1>
           <div className="flex flex-col items-end">
             <RatingStar rating={reviews.ratingAvg} />
-            <Link
-              className="text-highlight-dark no-underline hover:underline"
-              to={"/anime/reviews/" + id}
-            >
-              {convertReviewCount(reviews.reviewCount)} Reviews
-            </Link>
-            <button
+            <CustomButtonLink
+              label={convertReviewCount(reviews.reviewCount) + "Reviews"}
+              onClick={() => navigate("/anime/reviews/" + id)}
+            />
+            <CustomButtonLink label="Rate Anime" onClick={handleOnRateAnime} />
+
+            {/* <button
               type="button"
               className="text-highlight-dark no-underline hover:underline"
               onClick={handleOnRateAnime}
             >
               {" "}
               Rate Anime
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="">
           <p className="text-light-subtle"> {description} </p>
 
-          <div className="flex ">
-            <p className="text-light-subtle mr-2">Cast:</p>
-           
           
-          <div className="flex space-x-2">
-              {cast.map((c) => {
-                return c.leadChar ? (
-                  <p
-                    key={c.profile.id}
-                    className="text-highlight-dark hover:underline cursor-pointer"
-                  >
-                    {" "}
-                    {c.profile.name}{" "}
-                  </p>
+            <ListWithLabel label="Cast">
+              {cast.map(({ id, profile, leadChar }) => {
+                return leadChar ? (
+                  <CustomButtonLink label={profile.name} key={id} />
                 ) : null;
               })}
-            </div>
-            </div>
-            <div className="flex space-x-2">
-                <p className="text-light-subtle font-semibold">
-                    Release Date :
-                </p>
-                <p className="text-highlight-dark">
-                    {convertDate(releaseDate)}
-                </p>
-            </div>
-            <div className="flex space-x-2">
-                <p className="text-light-subtle font-semibold">
-                    Language:
-                </p>
-                <p className="text-highlight-dark">
-                    {language}
-                </p>
-            </div>
-            <div className="flex ">
-            <p className="text-light-subtle mr-2">Genres:</p>
-           
-          
-          <div className="flex space-x-2">
-              {genres.map((g) => {
-                return  (
-                  <p
-                    key={g}
-                    className="text-highlight-dark hover:underline"
-                  >
-                    {" "}
-                    {g}{" "}
-                  </p>
-                ) 
-              })}
-            </div>
-            </div>
-            <div className="flex space-x-2">
-                <p className="text-light-subtle font-semibold">
-                    Type :
-                </p>
-                <p className="text-highlight-dark">
-                    {type}
-                </p>
-            </div>
-        </div>
-        <div className="mt-5">
-
-            <h1 className="font-semibold text-2xl">Characters:</h1>
-        <div className="grid grid-cols-12 ">
-            {cast.map(c=>{
-                return <div key={c.profile.id} className="flex  items-center flex-col">
-                    <img className="w-20 h-20 aspect-square object-cover rounded-full" src={c.profile.avatar} alt={c.profile.name} />
-                    
-
-                    <p className="hover:underline cursor-pointer text-highlight-dark">{c.profile.name}</p>
-
-                    {c.roleAs ?
-                    <span>as</span>: null
-                     }
-                     <p className="text-light-subtle">{c.roleAs}</p> 
-                    </div>
+            </ListWithLabel>
               
-            })}
-        </div>
-            </div>
+            <ListWithLabel label="Release Date:">
+                  <CustomButtonLink label={convertDate(releaseDate)} clickable={false} />
+            </ListWithLabel>
+            <ListWithLabel label="Language:">
+                  <CustomButtonLink label={language} clickable={false} />
+            </ListWithLabel>
+            <ListWithLabel label="Genres:">
+                <div className="flex flex-wrap space-x-3">
 
-            <RelatedAnime animeId={animeId}/>
+            {genres.map((g) => <CustomButtonLink label={g} key={g} clickable={false} /> )}
+                </div>
+            
+            </ListWithLabel>
+            <ListWithLabel label="Type:">
+                  <CustomButtonLink label={type} clickable={false} />
+            </ListWithLabel>
+          
+              <CastProfiles cast={cast}/>
+       
+        <RelatedAnime animeId={animeId} />
+        </div>
+        
+
       </Container>
+      <AddRatingModal
+        onSuccess={handleOnRatingSuccess}
+        visible={showRatingModal}
+        onClose={hideRatingModal}
+      />
     </div>
   );
 }
 
+const ListWithLabel = ({ children, label }) => {
+  return (
+    <div className="flex space-x-2 items-start">
+      <p className="text-light-subtle font-semibold">{label}</p>
+      {children}
+    </div>
+  );
+};
+
+const CastProfiles = ({cast})=>{
+
+    return <div className="">
+    <h1 className="font-semibold text-2xl">Characters:</h1>
+    <div className="flex flex-wrap space-x-3">
+      {cast.map(({profile,id,roleAs}) => {
+        return (
+          <div key={profile.id} className="basis-28 flex items-center flex-col text-center mb-4">
+            <img
+              className="w-20 h-20 aspect-square object-cover rounded-full"
+              src={profile.avatar}
+              alt={profile.name}
+            />
+            <CustomButtonLink label={profile.name}/>
+           
+            {roleAs ? <span>as</span> : null}
+            <p className="text-light-subtle">{roleAs}</p>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+}
 export default SingleAnime;

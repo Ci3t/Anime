@@ -17,15 +17,16 @@ function TopRatedAnimeMovies() {
 
       setAnimes([...animes])
 
-      console.log(animes);
+  
 
     }
 
  
 
     useEffect(() => {
-
+    
      fetchAnime()
+    
     }, [])
   
   return (

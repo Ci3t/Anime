@@ -255,6 +255,7 @@ export const getAnimes = async (req, res) => {
     id: anime._id,
     title: anime.title,
     poster: anime.poster?.url,
+    responsivePosters:anime.poster.responsive,
     genres: anime.genres,
     status: anime.status,
   }));
@@ -321,6 +322,7 @@ export const getLatestUploads = async (req, res) => {
       title: ani.title,
       description: ani.description,
       poster: ani.poster?.url,
+      responsivePosters:ani.poster.responsive,
       trailer: ani.trailer?.url,
     };
   });
@@ -407,6 +409,7 @@ export const getRelatedAnime =async (req, res) =>{
         id:ani._id,
         title:ani.title,
         poster:ani.poster,
+        responsivePosters:ani.responsivePosters,
         reviews:{...reviews},
       }
     }
@@ -429,6 +432,7 @@ const mapAnimes = async (m) =>{
   id:m._id,
   title:m.title,
   poster:m.poster,
+  responsivePosters:m.responsivePosters,
   reviews:{...reviews},
  }
 }
