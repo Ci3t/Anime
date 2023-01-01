@@ -413,7 +413,7 @@ export const getRelatedAnime =async (req, res) =>{
 
  const relatedAnime = await Promise.all(animes.map(mapAnime))
 
-  res.json({relatedAnime})
+  res.json({animes:relatedAnime})
 }
 
 export const getTopRatedAnime = async (req,res)=>{

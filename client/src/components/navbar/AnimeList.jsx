@@ -2,6 +2,7 @@ import React from 'react'
 import GridContainer from '../GridContainer'
 import {AiFillStar} from 'react-icons/ai'
 import { Link } from 'react-router-dom';
+import RatingStar from '../RatingStar';
 
 function AnimeList({title,animes = []}) {
 
@@ -36,12 +37,7 @@ const ListItem = ({anime}) =>{
         <img className='aspect-video object-cover ' src={poster} alt={title} />
         <h1 className='text-lg text-second font-semibold' title={title}> {trimTitle(title)} </h1>
 
-     { reviews.ratingAvg ?  <p className="text-highlight-dark flex items-center space-x-1">
-            <span>
-                {reviews?.ratingAvg}
-            </span>
-            <AiFillStar/>
-        </p> : <p className="text-highlight-dark">No Reviews</p> }
+        <RatingStar rating={reviews.ratingAvg} />
     </Link>
     )
 }

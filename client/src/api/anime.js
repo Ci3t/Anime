@@ -153,3 +153,14 @@ export const getSingleAnime = async (id) => {
     return catchError(error);
   }
 };
+export const getRelatedAnime = async (id) => {
+
+  try {
+
+    const { data } = await client(`/anime/related/${id}`);
+
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};
