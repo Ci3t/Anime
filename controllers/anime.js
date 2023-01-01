@@ -440,3 +440,28 @@ const topRatedAnime = await Promise.all(animes.map(mapAnimes))
 
   res.json({animes:topRatedAnime})
 }
+
+
+
+export const searchPublicAnime = async (req, res) => {
+  const { title } = req.query;
+
+  if (!title.trim()) return sendError(res, "Invalid request!");
+  const animes = await Anime.find({ title: { $regex: title, $options: "i" } ,status:'public'});
+
+  const mapAnimes = async (m) =>{
+    const reviews = await getAverageRatings(m._id)
+   
+    return {
+     id:m._id,
+     title:m.title,
+     poster:m.poster?.uploader,
+     responsivePosters:m.poster?.responsive,
+     reviews:{...reviews},
+    }
+   }
+   const results = await Promise.all(animes.map(mapAnimes))
+  res.json({
+    results
+  });
+};

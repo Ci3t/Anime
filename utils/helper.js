@@ -112,6 +112,13 @@ export const getAverageRatings = async (animeId)=>{
 }
 
 export const topRatedAnimePipeline = (type)=>{
+
+  const matchOptions = {
+    reviews:{$exists:true},
+    status:{$eq:'public'}
+  }
+
+  if(type) matchOptions.type = {$eq:type}
     return [
         {
           $lookup:{
@@ -122,11 +129,7 @@ export const topRatedAnimePipeline = (type)=>{
           }
         },
         {
-          $match:{
-            reviews:{$exists:true},
-            status:{$eq:'public'},
-            type:{$eq:type}
-          }
+          $match:matchOptions
         },
         {
           $project:{

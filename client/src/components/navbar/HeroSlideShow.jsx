@@ -6,6 +6,9 @@ import { getLatestUploads } from "../../api/anime";
 import { useNotification } from "../../hooks/themeHook";
 let count = 0;
 let intervalId;
+
+let newTime = 0;
+let lastTime = 0;
 function HeroSlideShow() {
   const [slide, setSlide] = useState({});
   const [cloneSlide, setCloneSlide] = useState({});
@@ -28,14 +31,21 @@ function HeroSlideShow() {
   };
 
   const startSlideShow = () => {
-    intervalId = setInterval(handleOnNextClick, 3500);
+    intervalId = setInterval(()=>{
+      newTime = Date.now()
+      const delta = newTime -lastTime;
+      
+      if(delta < 4000) return clearInterval(intervalId);
+
+      handleOnNextClick()
+    }, 3500);
   };
   const pauseSlideShow = () => {
     clearInterval(intervalId);
   };
 
   const updateUpNext = (currentIndex)=>{
-
+    lastTime = Date.now()
     if(!slides.length) return;
     const upNextCount = currentIndex + 1;
     const end = upNextCount + 3
@@ -125,7 +135,7 @@ function HeroSlideShow() {
 const {title} = slide
   return (
     <div className="w-full flex">
-      <div className="w-4/5 aspect-video relative overflow-hidden">
+      <div className="md:w-4/5 w-full aspect-video relative overflow-hidden">
       <Slide title={slide.title} src={slide.poster} ref={slideRef} id={slide.id}  />
       <Slide ref={cloneSlideRef}
           onAnimationEnd={handleAnimationEnd}
@@ -141,7 +151,7 @@ const {title} = slide
           onNextClick={handleOnNextClick}
         />
       </div>
-      <div className="w-1/5 aspect-video space-y-3 px-3">
+      <div className=" md:block hidden w-1/5 aspect-video space-y-3 px-3">
         <h1 className="font-semibold text-2xl text-main">
             Up Next
         </h1>

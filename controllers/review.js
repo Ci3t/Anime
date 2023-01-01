@@ -10,6 +10,8 @@ export const addReview = async(req,res)=>{
     const {content,rating} = req.body;
     const userId = req.user._id;
 
+    if(!req.user.isVerified) return sendError(res,'Please Verify your email first')
+
     if(!isValidObjectId(animeId)) return sendError(res,'Invalid Anime!!!');
 
    const anime = await Anime.findOne({_id:animeId,status:'public'});

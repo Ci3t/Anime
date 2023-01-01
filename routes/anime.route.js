@@ -9,6 +9,7 @@ import {
   getUpdateAnime,
   removeAnime,
   searchAnime,
+  searchPublicAnime,
   updateAnime,
 
   uploadTrailer,
@@ -99,3 +100,9 @@ animeRoute.get(
   "/related/:animeId",getRelatedAnime);
 animeRoute.get(
   "/top-rated",getTopRatedAnime);
+
+  animeRoute.get(
+    "/search-public",
+ 
+    searchPublicAnime,
+  );

@@ -35,8 +35,8 @@ const ListItem = ({anime}) =>{
     const {title,poster,responsivePosters,reviews,id} = anime
     return (
          <Link to={`/anime/${id}`} >
-        <img className='aspect-video object-cover ' src={getPoster(responsivePosters) || poster} alt={title} />
-        <h1 className='text-lg text-second font-semibold' title={title}> {trimTitle(title)} </h1>
+        <img className='aspect-video object-cover w-full ' src={getPoster(responsivePosters) || poster} alt={title} />
+        {title ? <h1 className='text-lg text-second font-semibold' title={title}> {trimTitle(title)} </h1> : null}
 
         <RatingStar rating={reviews.ratingAvg} />
     </Link>

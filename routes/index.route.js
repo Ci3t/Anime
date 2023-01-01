@@ -1,4 +1,5 @@
 import {Router} from 'express'
+import { adminRoute } from './admin.route.js'
 import { animeRoute } from './anime.route.js'
 import { characterRoute } from './character.route.js'
 import { reviewRoute } from './review.route.js'
@@ -9,3 +10,4 @@ indexRoute.use('/api/user',userRoute)
 indexRoute.use('/api/character',characterRoute)
 indexRoute.use('/api/anime',animeRoute)
 indexRoute.use('/api/review',reviewRoute)
+indexRoute.use('/api/admin',adminRoute)

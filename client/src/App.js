@@ -13,6 +13,7 @@ import { useAuth } from './hooks/themeHook';
 import AdminNav from './components/navigator/AdminNav';
 import SingleAnime from './components/navbar/SingleAnime';
 import AnimeReviews from './components/navbar/AnimeReviews';
+import AnimeSearch from './components/navbar/AnimeSearch';
 
 
 function App() {
@@ -38,6 +39,7 @@ if(isAdmin) return <AdminNav/>
       <Route path='/auth/reset-password' element={<ConfirmPassword/>}/>
       <Route path='/anime/:animeId' element={<SingleAnime/>}/>
       <Route path='/anime/reviews/:animeId' element={<AnimeReviews/>}/>
+      <Route path='/anime/search' element={<AnimeSearch/>}/>
       <Route path='*' element={<NotFound/>}/>
       
     </Routes>

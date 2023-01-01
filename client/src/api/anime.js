@@ -164,3 +164,14 @@ export const getRelatedAnime = async (id) => {
     return catchError(error);
   }
 };
+export const searchPublicAnime = async (title) => {
+
+  try {
+
+    const { data } = await client(`/anime/search-public?title=${title}`);
+
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};
