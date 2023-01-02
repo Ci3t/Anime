@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { getTvAnime } from '../api/anime'
 import { useNotification } from '../hooks/themeHook';
 import RatingStar from './RatingStar';
-import { convertReviewCount } from './utils/helper';
+
+import './animeListTv.scss'
 
 function AnimeListTV() {
     const [animes,setAnimes]=useState([])
@@ -33,7 +34,7 @@ function AnimeListTV() {
   return (
     <div>
         {animes.map(anime=>
-            <div>
+            <div className='cardAnimeListHomePage'>
                 <h1>{anime.title}</h1>
                 <img src={anime.responsivePosters?.[1]} alt={anime.title} />
                 <p>{trimTitle(anime.description)}</p>

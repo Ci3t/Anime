@@ -5,16 +5,19 @@ import { Link } from 'react-router-dom';
 import RatingStar from '../RatingStar';
 import { getPoster } from '../utils/helper';
 
+import styles from  './animelist.module.css'
+
 function AnimeList({title,animes = []}) {
 
 
     if(!animes.length) return null;
     return (
-        <div>
+        <div >
     
-            <h1 className='text-2xl mb-5 font-semibold'>{title}</h1>
+            <h1 className={styles.infoCardAnimeListHomePageTitle +' text-2xl my-4 py-2 font-semibold'}>{title}</h1>
         
-        <GridContainer>
+        <GridContainer className={'gap-3 '}>
+
             {animes.map((anime)=>{
              return <ListItem key={anime.id} anime={anime}/>
             })}
@@ -34,11 +37,22 @@ const ListItem = ({anime}) =>{
 
     const {title,poster,responsivePosters,reviews,id} = anime
     return (
-         <Link to={`/anime/${id}`} >
-        <img className='aspect-video object-cover w-full ' src={getPoster(responsivePosters) || poster} alt={title} />
-        {title ? <h1 className='text-lg text-second font-semibold' title={title}> {trimTitle(title)} </h1> : null}
+        <Link className='no-underline ' to={`/anime/${id}`} >
+            
+
+        <div className={
+            styles.cardAnimeListHomePage +
+            ' max-w-sm  rounded-lg shadow-md'
+            }>
+        <img className={  'aspect-video object-cover w-full rounded-t-xl '} src={getPoster(responsivePosters) || poster} alt={title} />
+            <div className={styles.infoCardAnimeListHomePage + ' py-1 px-2 flex justify-between'}>
+
+        {title ? <h1 className='text-lg font-semibold' title={title}> {trimTitle(title)} </h1> : null}
 
         <RatingStar rating={reviews.ratingAvg} />
+            </div>
+        </div>
+           
     </Link>
     )
 }

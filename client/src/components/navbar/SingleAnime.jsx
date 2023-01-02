@@ -10,6 +10,8 @@ import RatingStar from "../RatingStar";
 import RelatedAnime from "../RelatedAnime";
 import { convertReviewCount } from "../utils/helper";
 
+import styles from './singleanime.module.scss'
+
 
 
 const convertDate = (date = "") => {
@@ -81,11 +83,11 @@ function SingleAnime() {
     genres = [],
   } = animes;
   return (
-    <div className="bg-white min-h-screen pb-10 ">
-      <Container className='xl:px-0 px-2'>
-        <video poster={poster} controls src={trailer}></video>
+    <div className={styles.backgroundForSingleAnime +" min-h-screen pb-10 "}>
+      <Container className='xl:px-0 px-2 pt-5'>
+        <video className="border-2 border-fuchsia-400 rounded" poster={poster} controls src={trailer}></video>
         <div className="flex justify-between">
-          <h1 className="xl:text-4xl lg:text-3xl text-2xl  text-highlight-dark font-semibold py-3">
+          <h1 className={styles.singleAnimeTitle + " xl:text-4xl lg:text-3xl text-2xl  font-semibold py-3"}>
             {title}
           </h1>
           <div className="flex flex-col items-end">
@@ -106,8 +108,8 @@ function SingleAnime() {
             </button> */}
           </div>
         </div>
-        <div className="">
-          <p className="text-light-subtle"> {description} </p>
+        <div className={styles.singleAnimeBlurContainer + " p-3 mt-3"}>
+          <p className={" first-letter:text-light-subtle text-highlight-dark"}> {description} </p>
 
           
             <ListWithLabel label="Cast">
@@ -138,8 +140,8 @@ function SingleAnime() {
               <CastProfiles cast={cast}   />
              
        
-        <RelatedAnime animeId={animeId} />
         </div>
+        <RelatedAnime animeId={animeId} />
         
 
       </Container>
@@ -160,7 +162,7 @@ function SingleAnime() {
 const ListWithLabel = ({ children, label }) => {
   return (
     <div className="flex space-x-2 items-start">
-      <p className="text-light-subtle font-semibold">{label}</p>
+      <p className={styles.singleAnimeGenres + " font-semibold"}>{label}</p>
       {children}
     </div>
   );
@@ -169,7 +171,7 @@ const ListWithLabel = ({ children, label }) => {
 const CastProfiles = ({cast,onClick})=>{
   
     return <div className="">
-    <h1 className="font-semibold text-2xl">Characters:</h1>
+    <h1 className={styles.singleAnimeGenres +" font-semibold text-2xl"}>Characters:</h1>
     <div className="flex flex-wrap space-x-3">
       {cast.map(({profile,id,roleAs}) => {
         return (

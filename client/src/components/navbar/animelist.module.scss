@@ -1,0 +1,214 @@
+
+
+// .cardAnimeListHomePage{
+  
+// 	width: 280px;
+// 	height: 160px;
+// 	border-radius: 15px;
+// 	padding: 1.5rem;
+//     gap: 2em;
+// 	background: rgb(230, 3, 3);
+// 	position: relative;
+// 	display: flex;
+// 	align-items: flex-end;
+// 	transition: 0.4s ease-out;
+// 	box-shadow: 0px 7px 10px rgba(rgb(224, 154, 49), 0.5);
+// 	&:hover{
+// 		transform: translateY(20px);
+
+// 		&:before{
+// 			opacity: 1;
+//         }
+// 		.infoCardAnimeListHomePage{
+// 			opacity: 1;
+// 			transform: translateY(0px);
+//         }
+//     }
+// 	&:before{
+// 		content: "";
+// 		position: absolute;
+// 		top: 0;
+// 		left: 0;
+// 		display: block;
+// 		width: 100%;
+// 		height: 100%;
+// 		border-radius: 15px;
+// 		background: rgb(255,214,0);
+//         background: linear-gradient(0deg, rgba(233,126,17,1) 0%, rgba(255,214,0,0) 77%);
+// 		z-index: 2;
+// 		transition: 0.5s;
+// 		opacity: 0;
+//     }
+//     img{
+// 		width: 100%;
+// 		height: 100%;
+// 		object-fit: cover;
+// 		position: absolute;
+// 		top: 0;
+// 		left: 0;
+// 		border-radius: 15px;
+//     }
+
+// 	.infoCardAnimeListHomePage{
+// 		position: relative;
+// 		z-index: 3;
+// 		color: white;
+// 		opacity: 0;
+// 		transform: translateY(30px);
+// 		transition: 0.5s;
+// 		h1{
+//             color: red;
+//             margin: 0px;
+//         }
+// 		p{
+
+//             letter-spacing: 1px;
+// 			font-size: 15px;
+// 			margin-top: 8px;
+//         }
+		
+//     }
+// }
+
+.cardAnimeListHomePage{
+	/* From https://css.glass */
+	// max-width: 230px;
+	max-height: 320px;
+background: rgba(27, 0, 27, 0.46);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(8px);
+-webkit-backdrop-filter: blur(8px);
+border: 1px solid rgba(199, 95, 240, 0.42);
+
+&:hover{
+	// transform: scale(1.1);
+	
+		// -webkit-animation: rotate-scale-up 0.65s linear both;
+		// 		animation: rotate-scale-up 0.65s linear both;
+		-webkit-animation: jello-vertical 0.9s both;
+	        animation: jello-vertical 0.9s both;
+	
+}
+}
+@-webkit-keyframes jello-vertical {
+	0% {
+	  -webkit-transform: scale3d(1, 1, 1);
+			  transform: scale3d(1, 1, 1);
+	}
+	30% {
+	  -webkit-transform: scale3d(0.75, 1.25, 1);
+			  transform: scale3d(0.75, 1.25, 1);
+	}
+	40% {
+	  -webkit-transform: scale3d(1.25, 0.75, 1);
+			  transform: scale3d(1.25, 0.75, 1);
+	}
+	50% {
+	  -webkit-transform: scale3d(0.85, 1.15, 1);
+			  transform: scale3d(0.85, 1.15, 1);
+	}
+	65% {
+	  -webkit-transform: scale3d(1.05, 0.95, 1);
+			  transform: scale3d(1.05, 0.95, 1);
+	}
+	75% {
+	  -webkit-transform: scale3d(0.95, 1.05, 1);
+			  transform: scale3d(0.95, 1.05, 1);
+	}
+	100% {
+	  -webkit-transform: scale3d(1, 1, 1);
+			  transform: scale3d(1, 1, 1);
+	}
+  }
+  @keyframes jello-vertical {
+	0% {
+	  -webkit-transform: scale3d(1, 1, 1);
+			  transform: scale3d(1, 1, 1);
+	}
+	30% {
+	  -webkit-transform: scale3d(0.75, 1.25, 1);
+			  transform: scale3d(0.75, 1.25, 1);
+	}
+	40% {
+	  -webkit-transform: scale3d(1.25, 0.75, 1);
+			  transform: scale3d(1.25, 0.75, 1);
+	}
+	50% {
+	  -webkit-transform: scale3d(0.85, 1.15, 1);
+			  transform: scale3d(0.85, 1.15, 1);
+	}
+	65% {
+	  -webkit-transform: scale3d(1.05, 0.95, 1);
+			  transform: scale3d(1.05, 0.95, 1);
+	}
+	75% {
+	  -webkit-transform: scale3d(0.95, 1.05, 1);
+			  transform: scale3d(0.95, 1.05, 1);
+	}
+	100% {
+	  -webkit-transform: scale3d(1, 1, 1);
+			  transform: scale3d(1, 1, 1);
+	}
+  }
+
+// @-webkit-keyframes rotate-scale-up {
+// 	0% {
+// 	  -webkit-transform: scale(1) rotateZ(0);
+// 			  transform: scale(1) rotateZ(0);
+// 	}
+// 	50% {
+// 	  -webkit-transform: scale(2) rotateZ(180deg);
+// 			  transform: scale(2) rotateZ(180deg);
+// 	}
+// 	100% {
+// 	  -webkit-transform: scale(1) rotateZ(360deg);
+// 			  transform: scale(1) rotateZ(360deg);
+// 	}
+//   }
+//   @keyframes rotate-scale-up {
+// 	0% {
+// 	  -webkit-transform: scale(1) rotateZ(0);
+// 			  transform: scale(1) rotateZ(0);
+// 	}
+// 	50% {
+// 	  -webkit-transform: scale(2) rotateZ(180deg);
+// 			  transform: scale(2) rotateZ(180deg);
+// 	}
+// 	100% {
+// 	  -webkit-transform: scale(1) rotateZ(360deg);
+// 			  transform: scale(1) rotateZ(360deg);
+// 	}
+//   }
+  
+
+.infoCardAnimeListHomePage{
+	
+	h1{
+		color:rgb(221, 154, 248);
+		text-shadow: -1px 0 rgb(90, 18, 80), 0 1px rgb(55, 18, 187), 1px 0 rgb(0, 2, 3), 0 -1px rgb(31, 49, 131);
+
+		&:hover{
+			color:rgb(92, 182, 243);
+			
+			border-radius: 30px;
+			transition: ease;
+		}
+	}
+}
+
+.infoCardAnimeListHomePageTitle{
+	color:rgb(221, 154, 248);
+		text-shadow: -1px 0 rgb(90, 18, 80), 0 1px rgb(55, 18, 187), 1px 0 rgb(0, 2, 3), 0 -1px rgb(31, 49, 131);
+		background: rgba(75, 1, 44, 0.4);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(8px);
+-webkit-backdrop-filter: blur(8px);
+border: 1px solid rgba(199, 95, 240, 0.42);
+// background: #333;
+border: 1px solid black;
+	text-align: center;
+	
+}
+

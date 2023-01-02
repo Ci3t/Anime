@@ -1,0 +1,83 @@
+.cardAnimeListHomePage {
+  /* From https://css.glass */
+  max-height: 320px;
+  background: rgba(27, 0, 27, 0.46);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(199, 95, 240, 0.42);
+}
+.cardAnimeListHomePage:hover {
+  -webkit-animation: jello-vertical 0.9s both;
+  animation: jello-vertical 0.9s both;
+}
+
+@-webkit-keyframes jello-vertical {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  40% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  50% {
+    transform: scale3d(0.85, 1.15, 1);
+  }
+  65% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  75% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes jello-vertical {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  40% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  50% {
+    transform: scale3d(0.85, 1.15, 1);
+  }
+  65% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  75% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+.infoCardAnimeListHomePage h1 {
+  color: rgb(221, 154, 248);
+  text-shadow: -1px 0 rgb(90, 18, 80), 0 1px rgb(55, 18, 187), 1px 0 rgb(0, 2, 3), 0 -1px rgb(31, 49, 131);
+}
+.infoCardAnimeListHomePage h1:hover {
+  color: rgb(92, 182, 243);
+  border-radius: 30px;
+  transition: ease;
+}
+
+.infoCardAnimeListHomePageTitle {
+  color: rgb(221, 154, 248);
+  text-shadow: -1px 0 rgb(90, 18, 80), 0 1px rgb(55, 18, 187), 1px 0 rgb(0, 2, 3), 0 -1px rgb(31, 49, 131);
+  background: rgba(75, 1, 44, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(199, 95, 240, 0.42);
+  border: 1px solid black;
+  text-align: center;
+}

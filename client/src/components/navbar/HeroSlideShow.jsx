@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 
 import { getLatestUploads } from "../../api/anime";
 import { useNotification } from "../../hooks/themeHook";
+
+import styles from './heroSlideShow.module.scss'
+
 let count = 0;
 let intervalId;
 
@@ -134,12 +137,12 @@ function HeroSlideShow() {
   }, [slides.length,visible]);
 const {title} = slide
   return (
-    <div className="w-full flex">
-      <div className="md:w-4/5 w-full aspect-video relative overflow-hidden">
-      <Slide title={slide.title} src={slide.poster} ref={slideRef} id={slide.id}  />
+    <div className="w-full flex pt-4">
+      <div className={" md:w-4/5 w-full aspect-video relative overflow-hidden rounded"}>
+      <Slide title={slide.title} src={slide.poster} ref={slideRef} id={slide.id} className={styles.bigSliderImages } />
       <Slide ref={cloneSlideRef}
           onAnimationEnd={handleAnimationEnd}
-          className="aspect-video object-cover absolute inset-0 "
+          className={styles.bigSliderImages +" aspect-video object-cover absolute inset-0 "}
           src={cloneSlide.poster}
           title={cloneSlide.title}
           id={slide.id}
@@ -151,12 +154,12 @@ const {title} = slide
           onNextClick={handleOnNextClick}
         />
       </div>
-      <div className=" md:block hidden w-1/5 aspect-video space-y-3 px-3">
-        <h1 className="font-semibold text-2xl text-main">
+      <div className={styles.heroSmallRightSideUpNext +" md:block hidden w-1/5 aspect-video space-y-3 px-3"}>
+        <h1 className="font-semibold text-2xl text-pink-300 text-center">
             Up Next
         </h1>
         {upNext.map(({poster,id})=>{
-            return <img key={id} src={poster} alt="" className="aspect-video object-cover rounded" />
+            return <img key={id} src={poster} alt="" className={styles.upNextImage +" aspect-video object-cover rounded "} />
         })}
       </div>
     </div>
@@ -165,7 +168,7 @@ const {title} = slide
 
 const SlideShowController = ({ onPrevClick, onNextClick }) => {
   const btnClass =
-    "bg-main rounded border-2 text-white text-2xl p-2 outline-none";
+    " rounded text-purple-600  text-2xl p-2 outline-none ";
   return (
     <div className="absolute top-1/2 -translate-y-1/2 w-full flex items-center justify-between px-2">
       <button onClick={onPrevClick} className={btnClass} type="button">
@@ -186,12 +189,12 @@ const Slide = forwardRef((props,ref) =>{
        { src? <img
    
         //   onAnimationEnd={handleAnimationEnd}
-        className="aspect-video object-cover "
+        className="aspect-video object-cover rounded-t"
         src={src}
         alt={title}
         /> : null}
-      { title?  <div className="absolute inset-0 flex flex-col justify-end p-3 bg-gradient-to-t from-white via-transparent">
-            <h1 className="font-semibold text-4xl text-highlight-dark">{title}</h1>
+      { title?  <div className="absolute inset-0 flex flex-col justify-end p-3 bg-gradient-to-t from-purple-800 via-transparent">
+            <h1 className="font-semibold text-4xl text-fuchsia-200">{title}</h1>
         </div>:null}
         </Link>
     )

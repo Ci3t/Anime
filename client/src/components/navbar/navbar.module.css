@@ -1,0 +1,69 @@
+.burgerMenu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding-left: 0;
+  padding-right: 0;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.burgerMenu:focus {
+  outline: none;
+}
+.burgerMenu__text {
+  margin-left: 10px;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.burgerMenu__bars {
+  display: block;
+  position: relative;
+  width: 30px;
+  height: 4px;
+  background-color: white;
+  transition: 0.3s;
+}
+.burgerMenu__bars:before, .burgerMenu__bars:after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  transition: 0.3s;
+}
+.burgerMenu__bars:before {
+  transform: translate(0, -12px);
+}
+.burgerMenu__bars:after {
+  transform: translate(0, 12px);
+}
+.menuOpen .burgerMenu .burgerMenu__bars {
+  background-color: transparent;
+}
+.menuOpen .burgerMenu .burgerMenu__bars:before {
+  transform: rotate(45deg);
+}
+.menuOpen .burgerMenu .burgerMenu__bars:after {
+  transform: rotate(-45deg);
+}
+
+.backgroundImageForNav {
+  background-image: url("../../../public/images/Sprinkle (3).svg");
+  background-position: center;
+  background-size: cover;
+}
+
+.backgroundForNav {
+  background: rgba(32, 1, 32, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(238, 167, 226, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {BsFillSunFill} from 'react-icons/bs'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth, useTheme } from '../../hooks/themeHook'
@@ -6,8 +6,10 @@ import Container from '../Container'
 import AppSearchForm from '../form/AppSearchForm'
 import AdminNav from '../navigator/AdminNav'
 
-function Navbar() {
+import styles from './navbar.module.scss'
 
+function Navbar() {
+    const [toggleMenu,setToggleMenu] = useState(false)
     const {toggleTheme} = useTheme()
     const {authInfo,handleLogOut} = useAuth()
     const {isLoggedIn,profile} = authInfo
@@ -27,7 +29,8 @@ function Navbar() {
         if(profile?.role === 'admin') return <AdminNav/>
     }
   return (
-    <div className="bg-second">
+    <div className={styles.backgroundImageForNav +" "}>
+        <div className={styles.backgroundForNav}>
             <Container className="p-2">
                 <div className="flex justify-between items-center">
                     <Link to={'/'}>
@@ -36,11 +39,14 @@ function Navbar() {
                     </Link>
                 <ul className='flex items-center sm:space-x-4 space-x-2'>
                 <li>
-                    <button onClick={toggleTheme} className='bg-dark-subtle p-1 rounded sm:text-2xl text-lg'>
-
+                {/* onClick={toggleTheme} */}
+                    <button type='button' onClick={()=>setToggleMenu(!toggleMenu)} className={toggleMenu ? styles.burgerMenu : styles.menuOpen +' p-1 rounded sm:text-2xl text-lg '}>
+                    <i className={styles.burgerMenu__bars } aria-hidden="true"></i>
+                    <span className="visually-hidden">Menu</span>
                     <BsFillSunFill className='text-second' size={24}/>
                     </button>
                     </li>
+                    
                     <li>
                         <AppSearchForm placeholder={'Search...'} inputClassName='border-dark-subtle border-white focus:border-white text-white sm:w-auto w-40 sm:text-lg' onSubmit={handleSearchSubmit} />
                     </li>
@@ -61,6 +67,7 @@ function Navbar() {
                 </ul>
                 </div>
             </Container>
+            </div>
         </div>
   )
 }
