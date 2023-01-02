@@ -109,7 +109,7 @@ function SingleAnime() {
           </div>
         </div>
         <div className={styles.singleAnimeBlurContainer + " p-3 mt-3"}>
-          <p className={" first-letter:text-light-subtle text-highlight-dark"}> {description} </p>
+          <p className={" first-letter:text-fuchsia-400 first-letter:text-3xl text-highlight-dark"}> {description} </p>
 
           
             <ListWithLabel label="Cast">

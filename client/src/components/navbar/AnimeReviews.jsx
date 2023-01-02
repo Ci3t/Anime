@@ -9,6 +9,9 @@ import ConfirmModal from "../modals/ConfirmModal";
 import EditRatingModal from "../modals/EditRatingModal";
 import NotFoundText from "../NotFoundText";
 import RatingStar from "../RatingStar";
+import styles from './animeReviews.module.css'
+
+
 const getNameInitial = (name = "") => {
   return name[0].toUpperCase();
 };
@@ -26,6 +29,8 @@ function AnimeReviews() {
   const profileId = authInfo.profile?.id;
 
   const { updateNotification } = useNotification();
+
+
 
   const fetchReviews = async () => {
     const { anime, error } = await getReviewByAnime(animeId);
@@ -91,11 +96,11 @@ function AnimeReviews() {
   }, [animeId]);
 
   return (
-    <div className="pb-10 min-h-screen">
-      <Container className="xl:px-0 px-2 py-8">
+    <div className={ styles.animeReviewContainerAll+"  min-h-screen"}>
+      <Container className={styles.animeReviewCenterContainer +" xl:px-0 px-4 py-8 min-h-screen"}>
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-semibold">
-            <span className="text-red-300">Reviews for :</span> {animeTitle}
+          <h1 className="text-2xl font-semibold text-[#c29cee] ">
+            <span className="text-[#f0c452] ">Reviews for :</span> <span className="underline">{animeTitle}</span>
           </h1>
 
           {profileId ? (
@@ -138,13 +143,13 @@ const ReviewCard = ({ review }) => {
   const { owner, content, rating } = review;
   return (
     <div className="flex space-x-3">
-      <div className="flex items-center justify-center w-14 h-14 rounded-full bg-main select-none">
+      <div className="flex items-center justify-center w-14 h-14 rounded-full text-white bg-[#f35d97] select-none">
         {getNameInitial(owner.name)}
       </div>
-      <div>
-        <h1 className="text-second font-semibold text-lg">{owner.name}</h1>
+      <div className="border-b-2 w-full border-[#84f2fa] border-dashed border-opacity-30">
+        <h1 className="text-[#f35d97] font-semibold text-lg first-letter:capitalize">{owner.name}</h1>
         <RatingStar rating={rating} />
-        <p>{content}</p>
+        <p className="text-[#eecb59] ">{content}</p>
       </div>
     </div>
   );

@@ -39,12 +39,12 @@ const ListItem = ({anime}) =>{
     return (
         <Link className='no-underline ' to={`/anime/${id}`} >
             
-
+            {/* rounded-lg  */}
         <div className={
             styles.cardAnimeListHomePage +
-            ' max-w-sm  rounded-lg shadow-md'
+            '  max-w-sm  shadow-md'
             }>
-        <img className={  'aspect-video object-cover w-full rounded-t-xl '} src={getPoster(responsivePosters) || poster} alt={title} />
+        <img className={  'aspect-video object-cover w-full rounded-tl-xl '} src={getPoster(responsivePosters) || poster} alt={title} />
             <div className={styles.infoCardAnimeListHomePage + ' py-1 px-2 flex justify-between'}>
 
         {title ? <h1 className='text-lg font-semibold' title={title}> {trimTitle(title)} </h1> : null}

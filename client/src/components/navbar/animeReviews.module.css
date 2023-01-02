@@ -1,0 +1,15 @@
+.animeReviewContainerAll {
+  background-image: url("../../../public/images/very_cool.png");
+  background-position: top;
+  background-size: cover;
+  font-family: "Quicksand", sans-serif;
+}
+
+.animeReviewCenterContainer {
+  background: rgba(12, 44, 65, 0.45);
+  box-shadow: 0 8px 32px 0 rgba(223, 63, 202, 0.37);
+  backdrop-filter: blur(11.5px);
+  -webkit-backdrop-filter: blur(11.5px);
+  border-left: 1px solid rgba(255, 255, 255, 0.18);
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+}
