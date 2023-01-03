@@ -1,3 +1,7 @@
+*{
+    margin: 0;
+}
+
 .sideNavImg{
     background-image: url('../../../public/images/Sprinkle\ \(3\).svg');
     // background-position: top;
@@ -14,6 +18,12 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 backdrop-filter: blur(8px);
 -webkit-backdrop-filter: blur(8px);
 // border: 1px solid rgba(199, 95, 240, 0.42);
+// min-height: 100vh;
+
+}
+
+#mbSideNav{
+    margin-bottom: 0 !important;
 }
 
 .ulNavAdmin{

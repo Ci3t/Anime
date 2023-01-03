@@ -102,7 +102,7 @@ function Characters() {
           />
         </div>
         <NotFoundText text="Character Not Found" visible={resultNotFound} />
-        <div className="grid grid-cols-4 gap-3 p-5">
+        <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-3 p-5">
           {results.length || resultNotFound
             ? results.map((char) => (
                 <CharacterProfile
