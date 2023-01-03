@@ -66,7 +66,7 @@ const {latestUploads,fetchLatestAnimes} = useAnime()
 
   return (
     <>
-      <div className={classBlur +" bg-[#22215c] shadow  p-5 rounded col-span-2"}>
+      <div className={classBlur +" bg-[#22215c] shadow sm:mb-0 mb-3 md:p-5 rounded col-span-2"}>
         <h1 className="text-2xl mb-2 text-[#a2dafa] font-semibold">Recent Uploads</h1>
         <div className="space-y-3 text-white">
           {latestUploads.map((anime) => {

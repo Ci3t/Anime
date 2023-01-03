@@ -26,11 +26,11 @@ function MostRatedAnime() {
         fetchMostRatedAnimes()
     },[])
   return (
-    <div className={classBlur +' bg-[#22215c] shadow p-5 rounded'}>
-        <h1 className="font-semibold text-[#a2dafa] text-2xl mb-2">
+    <div className={classBlur +' bg-[#22215c] shadow md:p-5 sm:mb-0 mb-4 rounded'}>
+        <h1 className="font-semibold text-[#a2dafa] md:pl-0 pl-2 text-2xl mb-2">
             Most Rated Anime's
         </h1>
-        <ul className="space-y-3 text-white">
+        <ul className="space-y-3 pl-2 text-white">
 
         {animes.map(anime=>{
             return (

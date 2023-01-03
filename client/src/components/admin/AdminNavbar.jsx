@@ -14,27 +14,27 @@ function AdminNavbar() {
     const {handleLogOut} = useAuth()
      
   return (
-    <nav className={styles.sideNavImg +' w-48 min-h-screen  border-gray-300 '}>
-        <div className={styles.sideNav +" flex flex-col justify-between pl-3  h-screen sticky top-0"}>
+    <nav className={styles.sideNavImg +'  lg:w-48 lg:min-h-screen  border-gray-300 '}>
+        <div className={styles.sideNav +" flex lg:flex p-2 lg:flex-col  justify-between pl-3  max-h-20 mb-5 lg:h-screen sticky top-0"}>
 
-        <ul className={styles.ulNavAdmin}>
+        <ul className={styles.ulNavAdmin + ' lg:block flex lg:gap-0 gap-4 justify-between'}>
             <li className='mb-8'>
                 <Link to='/'>
                     <img src='./images/cap_logo.png' alt='logo' className='sm:h-16 pr-2 pt-2 pl-0 h-10'/>
                 </Link>
             </li>
-            <li className='mb-8 '>
+            <li className='mt-3 '>
                 <NavItem  to={'/admin/dashboard'}>Home</NavItem>
             </li>
-            <li className='mb-8 no-underline'>
+            <li className='mt-3 no-underline'>
                 <NavItem to={'/admin/animes'}>Animes</NavItem>
             </li>
-            <li className='mb-8 no-underline'>
+            <li className='mt-3 no-underline'>
                 <NavItem to={'/admin/characters'}>Characters</NavItem>
             </li>
         </ul>
 
-        <div className='flex flex-col items-start pb-4'>
+        <div className='flex gap-4 p-2 lg:flex-col items-start pb-4'>
             <span className='font-semibold text-white text-xl'>Admin</span>
             <button onClick={handleLogOut} className='flex items-center text-white'>Log Out</button>
         </div>

@@ -30,7 +30,7 @@ function AdminNav() {
   }
   return (
     <>
-    <div className={styles.adminFullPageBg +' flex '}>
+    <div className={styles.adminFullPageBg +' lg:flex '}>
     <AdminNavbar/>
     <div className="flex-1 p-2 max-w-screen-xl ">
         <AdminHeader onAddAnimeClick={displayAnimeUploadModel} onAddCharacterClick={displayCharUploadModel} />

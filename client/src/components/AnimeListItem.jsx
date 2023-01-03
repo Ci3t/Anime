@@ -69,16 +69,16 @@ const AnimeCard =({anime,onDeleteClick,onEditClick,onOpenClick})=>{
     const {poster,title,genres=[],status,responsivePosters} = anime
     // console.log(anime);
 return (
-    <table className={classBlur +' w-full border-b '}>
+    <table className={classBlur +' w-full border-b sm:mb-0 mb-3 '}>
         <tbody>
-            <tr>
+            <tr className='sm:block flex flex-col'>
                 <td>
                     <div className="w-24">
                     <img className='w-full aspect-video' src={getPoster(responsivePosters) || poster} alt={title} />
                     </div>
 
                 </td>
-                <td className='w-full pl-5'>
+                <td className='w-full md:pl-5 pl-1'>
                     <div>
                         <div className='space-x-1'>
                         <h1  className='text-xl font-semibold'>{title}</h1>
@@ -89,11 +89,11 @@ return (
                         </div>
                     </div>
                 </td>
-                <td className='px-5'>
+                <td className='md:px-5 px-1'>
                     <p >{status}</p>
                 </td>
                 <td className='space-y-2' >
-                    <div className='flex items-center space-x-3 px-2'>
+                    <div className='flex items-center space-x-3 md:px-2 px-1'>
                       
                         <button onClick={onDeleteClick} type='button'>
                         <BsTrash/>

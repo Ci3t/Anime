@@ -67,7 +67,7 @@ const navigate = useNavigate()
   }
 
   return (
-    <div className="flex items-center justify-between relative">
+    <div className="flex items-center mb-4 justify-between relative">
    
       <AppSearchForm className='text-white' onSubmit={handleSearchSubmit} placeholder='Search Anime...'/>
       <div>

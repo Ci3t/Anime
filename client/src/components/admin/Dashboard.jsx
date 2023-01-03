@@ -30,7 +30,7 @@ useEffect(()=>{
 },[])
   return (
 
-    <div className="grid grid-cols-3 gap-5 p-5 ">
+    <div className="sm:grid sm:grid-cols-2  block grid-col xl:grid-cols-3 gap-5 lg:p-5 p-0 ">
       
     <AppInfoBox title='Total Uploads' subTitle={appInfo.animeCount.toLocaleString()} />
     <AppInfoBox title='Total Reviews' subTitle={appInfo.reviewCount.toLocaleString()}/>
