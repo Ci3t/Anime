@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import {BsFillSunFill} from 'react-icons/bs'
+
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth, useTheme } from '../../hooks/themeHook'
 import Container from '../Container'
 import AppSearchForm from '../form/AppSearchForm'
 import AdminNav from '../navigator/AdminNav'
+import { Sling as Hamburger, Sling } from 'hamburger-react'
 
 import styles from '../style/navbar.module.css'
 
@@ -35,30 +36,21 @@ function Navbar() {
                 <div className="flex justify-between items-center">
                     <Link to={'/'}>
 
-                <img src="./images/logo.png" alt="logo" className="sm:h-10 h-8" />
+                <img src="./images/cap_logo.png" alt="logo" className="sm:h-16 h-12" />
                     </Link>
                 <ul className='flex items-center sm:space-x-4 space-x-2'>
                 <li>
                 {/* onClick={toggleTheme} */}
-                    <button type='button' onClick={()=>setToggleMenu(!toggleMenu)} className={toggleMenu ? styles.burgerMenu : styles.menuOpen +' p-1 rounded sm:text-2xl text-lg '}>
-                    <i className={styles.burgerMenu__bars } aria-hidden="true"></i>
-                    <span className="visually-hidden">Menu</span>
-                    <BsFillSunFill className='text-second' size={24}/>
-                    </button>
+                    <div type='button' onClick={()=>setToggleMenu(!toggleMenu)} className={' p-1 rounded sm:text-2xl text-lg text-[#fac156] '}>
+                      
+                      <Sling toggled={toggleMenu} toggle={setToggleMenu}/>
+                    </div>
                     </li>
                     
                     <li>
                         <AppSearchForm placeholder={'Search...'} inputClassName='border-dark-subtle border-white focus:border-white text-white sm:w-auto w-40 sm:text-lg' onSubmit={handleSearchSubmit} />
                     </li>
-                    <li>
-                    {profile?.role === 'admin' ? <Link to='/admin/dashboard' className='text-white' >Admin Panel</Link>:null}
-                    </li>
-                    <li>
-                    <Link to='/anime/tv-series' className='text-white' >Anime List</Link>
-                    </li>
-                    <li>
-                    <Link to='/anime/movies' className='text-white' >Anime Movies</Link>
-                    </li>
+                   
                     <li >
                        {isLoggedIn? <button onClick={handleLogOut} className="text-white font-semibold-text-lg">Log Out</button> : <Link to={'/auth/signin'} className="text-white font-semibold-text-lg">
                         Login
@@ -67,6 +59,25 @@ function Navbar() {
                 </ul>
                 </div>
             </Container>
+            </div>
+            <div className={styles.bgColor2ndNav +' flex'}>
+               {toggleMenu &&
+              
+
+               <Container className={styles.navbarAnimation }>
+                    <ul className='flex space-x-6'>
+                    <li>
+                    {profile?.role === 'admin' ? <Link to='/admin/dashboard' className={styles.menuText} >Admin Panel</Link>:null}
+                    </li>
+                    <li>
+                    <Link to='/anime/tv-series' className={styles.menuText} >Anime List</Link>
+                    </li>
+                    <li>
+                    <Link to='/anime/movies' className={styles.menuText}  >Anime Movies</Link>
+                    </li>
+                    </ul>
+                </Container>
+             }
             </div>
         </div>
   )

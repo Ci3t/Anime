@@ -1,0 +1,73 @@
+.signBgImage {
+  background-image: url("../../../public/images/Sprinkle (3).svg");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.signFormBlur {
+  background: rgba(61, 64, 209, 0.18);
+  box-shadow: 0 8px 18px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.submitSignIn {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(111, 102, 240, 0.18);
+  color: white;
+}
+.submitSignIn:hover {
+  background: rgba(61, 64, 209, 0.18);
+  -webkit-animation: jello-vertical 0.9s both;
+  animation: jello-vertical 0.9s both;
+}
+
+@-webkit-keyframes jello-vertical {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  40% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  50% {
+    transform: scale3d(0.85, 1.15, 1);
+  }
+  65% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  75% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes jello-vertical {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  40% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  50% {
+    transform: scale3d(0.85, 1.15, 1);
+  }
+  65% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  75% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}

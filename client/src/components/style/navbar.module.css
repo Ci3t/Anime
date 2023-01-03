@@ -1,57 +1,44 @@
 .burgerMenu {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 28px;
-  padding-left: 0;
-  padding-right: 0;
-  border: none;
-  background-color: transparent;
-  color: inherit;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-.burgerMenu:focus {
-  outline: none;
-}
-.burgerMenu__text {
-  margin-left: 10px;
-  font-size: 1.125rem;
-  font-weight: 700;
-  line-height: 1;
-}
-.burgerMenu__bars {
-  display: block;
+  width: 60px;
+  height: 45px;
   position: relative;
-  width: 30px;
-  height: 4px;
-  background-color: white;
-  transition: 0.3s;
+  margin: 50px auto;
+  transform: rotate(0deg);
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
 }
-.burgerMenu__bars:before, .burgerMenu__bars:after {
-  content: "";
+.burgerMenu span {
   display: block;
   position: absolute;
-  left: 0;
+  height: 9px;
   width: 100%;
-  height: 100%;
-  background-color: white;
-  transition: 0.3s;
+  background: #d3531a;
+  border-radius: 9px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: 0.25s ease-in-out;
 }
-.burgerMenu__bars:before {
-  transform: translate(0, -12px);
+.burgerMenu span:nth-child(1) {
+  top: 0px;
 }
-.burgerMenu__bars:after {
-  transform: translate(0, 12px);
+.burgerMenu span:nth-child(2) {
+  top: 18px;
 }
-.menuOpen .burgerMenu .burgerMenu__bars {
-  background-color: transparent;
+.burgerMenu span:nth-child(3) {
+  top: 36px;
 }
-.menuOpen .burgerMenu .burgerMenu__bars:before {
-  transform: rotate(45deg);
+.burgerMenu .menuOpen span:nth-child(1) {
+  top: 18px;
+  transform: rotate(135deg);
 }
-.menuOpen .burgerMenu .burgerMenu__bars:after {
-  transform: rotate(-45deg);
+.burgerMenu .menuOpen span:nth-child(2) {
+  opacity: 0;
+  left: -60px;
+}
+.burgerMenu .menuOpen span:nth-child(3) {
+  top: 18px;
+  transform: rotate(-135deg);
 }
 
 .backgroundImageForNav {
@@ -66,4 +53,66 @@
   border-bottom: 1px solid rgba(238, 167, 226, 0.3);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+}
+
+.navbarAnimation {
+  -webkit-animation: roll-in-blurred-top 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: roll-in-blurred-top 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@-webkit-keyframes roll-in-blurred-top {
+  0% {
+    transform: translateY(-800px) rotate(-720deg);
+    filter: blur(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+@keyframes roll-in-blurred-top {
+  0% {
+    transform: translateY(-800px) rotate(-720deg);
+    filter: blur(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+.bgColor2ndNav {
+  background: rgba(70, 3, 55, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(238, 167, 226, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+@-webkit-keyframes SHOW-BOX {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes SHOW-BOX {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.menuText {
+  color: rgb(223, 161, 238);
+  text-decoration: none;
+}
+.menuText:hover {
+  color: yellow;
 }

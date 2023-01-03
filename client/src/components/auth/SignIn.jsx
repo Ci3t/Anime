@@ -9,6 +9,8 @@ import Submit from "../form/Submit";
 import Title from "../form/Title";
 import { isValidEmail } from "../utils/helper";
 
+import styles from '../style/signin.module.css'
+
 const validateUserInfo = ({  email, password }) => {
 
 
@@ -57,9 +59,10 @@ function SignIn() {
   // },[isLoggedIn])
 
   return (
-    <div className="fixed inset-0 dark:bg-main -z-10 flex justify-center items-center">
-      <Container>
-        <form onSubmit={handleSubmit} className="dark:bg-second rounder p-6 w-72 space-y-6">
+    <div className={ styles.signBgImage +" fixed inset-0 -z-10 flex justify-center items-center"}>
+      <Container className={" w-80"}>
+        <img className="rounded-t" src="./images/Fullstacker_anime.png" alt="signin" />
+        <form onSubmit={handleSubmit} className={styles.signFormBlur +"  rounded-b p-6  space-y-6"}>
           <Title>Sign In</Title>
           <FormInput
             label="Email"
@@ -76,7 +79,7 @@ function SignIn() {
             onChange={handleChange}
             type='password'
           />
-          <Submit value="Sign In" busy={isPending}/>
+          <Submit value="Sign In" className={styles.submitSignIn} busy={isPending}/>
 
           <div className="flex justify-between">
             <CustomLink to="/auth/forget-password">Forget password</CustomLink>

@@ -9,6 +9,7 @@ import Title from "../form/Title";
 import { GiSpinningSword } from "react-icons/gi";
 import { resetPassword, verifyPasswordResetToken } from "../../api/auth";
 import { useNotification } from "../../hooks/themeHook";
+import styles from '../style/confirmPass.module.css'
 
 function ConfirmPassword() {
   const [isVerifying, setIsVerifying] = useState(true);
@@ -92,9 +93,10 @@ function ConfirmPassword() {
     );
 
   return (
-    <div className="fixed inset-0 bg-main -z-10 flex justify-center items-center">
-      <Container>
-        <form onSubmit={handleSubmit} className="bg-second rounder p-6 w-96 space-y-6">
+    <div className={ styles.signBgImage +" fixed inset-0 -z-10 flex justify-center items-center"}>
+      <Container className={" w-96"}>
+      <img className="rounded-t" src="./images/very_cool.png" alt="signin" />
+        <form onSubmit={handleSubmit} className={styles.signFormBlur +"  rounded-b p-6  space-y-6"}>
           <Title>Enter New Password</Title>
           <FormInput
             label="New Password"
@@ -113,7 +115,7 @@ function ConfirmPassword() {
             onChange={handleChange}
           />
 
-          <Submit value="Submit" />
+          <Submit value="Submit" className={styles.submitSignIn}/>
         </form>
       </Container>
     </div>

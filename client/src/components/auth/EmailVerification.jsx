@@ -6,6 +6,7 @@ import Container from "../Container";
 
 import Submit from "../form/Submit";
 import Title from "../form/Title";
+import styles from '../style/emailVerify.module.css'
 
 const OTP_LENGTH = 6;
 
@@ -103,11 +104,12 @@ const isVerified = profile?.isVerified
   }, [user,isLoggedIn,isVerified]);
 
   return (
-    <div className="fixed inset-0 bg-main -z-10 flex justify-center items-center">
-      <Container>
+    <div className={ styles.signBgImage +" fixed inset-0 -z-10 flex justify-center items-center"}>
+      <Container className={" w-96"}>
+      <img className="rounded-t" src="./images/very_cool.png" alt="signin" />
         <form
           onSubmit={handleSubmit}
-          className="bg-second rounder p-6  space-y-6"
+          className={styles.signFormBlur +"  rounded-b p-6  space-y-6"}
         >
           <div>
             <Title>Please enter the OTP Code to verify your account</Title>
@@ -136,7 +138,7 @@ const isVerified = profile?.isVerified
           </div>
             <div>
 
-          <Submit value="Verify" />
+          <Submit value="Verify" className={styles.submitSignIn} />
           <button onClick={handleOTPResend} type="button" className="dark:text-white text-blue-500 font-semibold hover:underline mt-2">I don't have OTP</button>
             </div>
         </form>

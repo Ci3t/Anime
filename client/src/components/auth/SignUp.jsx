@@ -8,6 +8,7 @@ import Submit from "../form/Submit";
 import Title from "../form/Title";
 import { useAuth, useNotification } from "../../hooks/themeHook";
 import { isValidEmail } from "../utils/helper";
+import styles from '../style/signup.module.css'
 
 const validateUserInfo = ({ name, email, password }) => {
  
@@ -66,13 +67,14 @@ function SignUp() {
   },[isLoggedIn])
   const { name, email, password } = userInfo;
   return (
-    <div className="fixed inset-0 bg-main -z-10 flex justify-center items-center">
-      <Container>
+    <div className={ styles.signBgImage +" fixed inset-0 -z-10 flex justify-center items-center"}>
+      <Container className={" w-80"}>
+      <img className="rounded-t" src="./images/Fullstacker_anime.png" alt="signup" />
 
         
         <form
           onSubmit={handleSubmit}
-          className="bg-second rounder p-6 w-72 space-y-6"
+          className={styles.signFormBlur +"  rounded-b p-6  space-y-6"}
         >
           <Title>Sign Up</Title>
           <FormInput
@@ -97,7 +99,7 @@ function SignUp() {
             name="password"
             onChange={handleChange}
           />
-          <Submit value="Sign Up" />
+          <Submit value="Sign Up"  className={styles.submitSignIn} />
 
           <div className="flex justify-between">
             <CustomLink to="/auth/forget-password">Forgot Password</CustomLink>

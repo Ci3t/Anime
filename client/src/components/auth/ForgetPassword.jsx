@@ -9,6 +9,8 @@ import Submit from '../form/Submit'
 import Title from '../form/Title'
 import { isValidEmail } from '../utils/helper'
 
+import styles from '../style/forgotPass.module.css'
+
 function ForgetPassword() {
 
   const [email,setEmail] = useState('')
@@ -32,15 +34,16 @@ function ForgetPassword() {
   };
 
   return (
-    <div className='fixed inset-0 bg-main -z-10 flex justify-center items-center'>
-      <Container>
-        <form onSubmit={handleSubmit} className='bg-second rounder p-6 w-96 space-y-6'>
+    <div className={ styles.signBgImage +" fixed inset-0 -z-10 flex justify-center items-center"}>
+      <Container className={" w-96"}>
+      <img className="rounded-t" src="./images/very_cool.png" alt="signin" />
+        <form onSubmit={handleSubmit} className={styles.signFormBlur +"  rounded-b p-6  space-y-6"}>
           <Title>
             Enter Your Email
           </Title>
          <FormInput onChange={handleChange} value={email} label='Email' placeholder='bob@doe.com' name='email'/>
         
-         <Submit value='Send Link'/>
+         <Submit value='Send Link' className={styles.submitSignIn}/>
 
          <div className="flex justify-between">
           <CustomLink to='/auth/signin'>Sign In</CustomLink>

@@ -38,12 +38,13 @@ function AnimeListTV() {
   return (
     <div className={styles.animeListMoviesBackground +' mx-auto px-2'}>
     <Container className={'mx-2 xl:p-0 max-w-[72%] pt-4'}>
+    <img className='max-h-[54em]' src="./images/cap_anime3.png" alt="pic" />
     <GridContainer  className={'gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4'}>
     {/* px-2 xl:p-0 */}
     {animes.map(anime=>
     
     
-        <Link to={`/anime/${anime.id}`} className={styles.animeListMoviesBackgroundBlur +' overflow-hidden shadow-lg transition rounded-lg md:w-80 cursor-pointer mt-3 mb-3 no-underline '}>
+        <Link to={`/anime/${anime.id}`} className={styles.animeListMoviesBackgroundBlur +' overflow-hidden shadow-lg transition rounded-lg md:w-80 cursor-pointer mt-4 mb-3 no-underline '}>
              
             <img className={styles.animeListTvSeries +' w-full'} src={anime.responsivePosters?.[0]} alt={anime.title} />
             <div className=" px-2">
