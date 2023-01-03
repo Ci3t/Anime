@@ -16,7 +16,7 @@ function NextAndPrevBtn({onNextClick,onPrevClick,className}) {
 const Button = ({title,onclick})=>{
     return(
 
-        <button onClick={onclick} type='button' className='text-main hover:underline' >{title}</button>
+        <button onClick={onclick} type='button' className='text-white hover:underline' >{title}</button>
     )
 }
 export default NextAndPrevBtn

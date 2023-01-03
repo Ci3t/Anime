@@ -10,6 +10,8 @@ import Dashboard from '../admin/Dashboard'
 import CharacterUpload from '../modals/CharacterUpload'
 import NotFound from '../NotFound'
 
+import styles from '../style/adminNavHome.module.css'
+
 function AdminNav() {
   const [showAnimeUploadModel,setShowAnimeUploadModel] = useState(false)
   const [showCharUploadModel,setShowCharUploadModel] = useState(false)
@@ -28,9 +30,9 @@ function AdminNav() {
   }
   return (
     <>
-    <div className='flex'>
+    <div className={styles.adminFullPageBg +' flex '}>
     <AdminNavbar/>
-    <div className="flex-1 p-2 max-w-screen-xl">
+    <div className="flex-1 p-2 max-w-screen-xl ">
         <AdminHeader onAddAnimeClick={displayAnimeUploadModel} onAddCharacterClick={displayCharUploadModel} />
     <Routes>
         

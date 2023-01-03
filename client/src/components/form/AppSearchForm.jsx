@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-
-const defaultInputStyle = "border-light-subtle focus:border-main";
+import styles from '../style/appSearchForm.module.css'
+const defaultInputStyle = styles.searchNaveBlur + " text-white focus:border-[#6989f1] focus:no-outline  border-[#4e57d8] ";
 export default function AppSearchForm({
   placeholder,
   onSubmit,
@@ -23,7 +23,7 @@ export default function AppSearchForm({
     <form className="relative" onSubmit={handleOnSubmit}>
       <input
         type="text"
-        className={"border-2 transition bg-transparent rounded text-lg p-1 outline-none relative "+ inputClassName}
+        className={"border-2  transition bg-transparent rounded text-lg p-1 outline-none relative "+ inputClassName}
         placeholder={placeholder}
         value={value}
         onChange={({ target }) => setValue(target.value)}

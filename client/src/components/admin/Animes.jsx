@@ -61,7 +61,7 @@ function Animes() {
   }, []);
   return (
     <>
-      <div className="space-y-3 p-5">
+      <div className="space-y-3 p-5 text-white ">
         {newAnimes.map((anime) => {
           return (
             <AnimeListItem
@@ -75,7 +75,7 @@ function Animes() {
           );
         })}
         <NextAndPrevBtn
-          className=" col-span-4"
+          className=" col-span-4 text-white"
           onNextClick={fetchPrevPage}
           onPrevClick={fetchNextPage}
         />

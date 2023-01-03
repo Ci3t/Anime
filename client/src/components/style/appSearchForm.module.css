@@ -1,0 +1,5 @@
+.searchNaveBlur {
+  background: rgba(15, 37, 136, 0.26);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}

@@ -5,7 +5,8 @@ import { useAnime, useNotification } from "../hooks/themeHook";
 import AnimeListItem from "./AnimeListItem";
 import ConfirmModal from "./modals/ConfirmModal";
 import UpdateAnime from "./modals/UpdateAnime";
-
+import styles from './style/appInfoBox.module.css'
+const classBlur = styles.blurAppInfo
 const pageNo = 0;
 const limit = 5;
 
@@ -65,9 +66,9 @@ const {latestUploads,fetchLatestAnimes} = useAnime()
 
   return (
     <>
-      <div className="bg-white shadow  p-5 rounded col-span-2">
-        <h1 className="text-2xl mb-2 font-semibold">Recent Uploads</h1>
-        <div className="space-y-3">
+      <div className={classBlur +" bg-[#22215c] shadow  p-5 rounded col-span-2"}>
+        <h1 className="text-2xl mb-2 text-[#a2dafa] font-semibold">Recent Uploads</h1>
+        <div className="space-y-3 text-white">
           {latestUploads.map((anime) => {
             return (
               <AnimeListItem

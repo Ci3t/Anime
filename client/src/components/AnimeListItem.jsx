@@ -5,6 +5,8 @@ import { useNotification } from '../hooks/themeHook';
 import ConfirmModal from './modals/ConfirmModal'
 import UpdateAnime from './modals/UpdateAnime';
 import { getPoster } from './utils/helper';
+import styles from './style/appInfoBox.module.css'
+const classBlur = styles.blurAppInfo
 
 const AnimeListItem =({anime,afterDelete,afterUpdate})=>{
     const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -67,7 +69,7 @@ const AnimeCard =({anime,onDeleteClick,onEditClick,onOpenClick})=>{
     const {poster,title,genres=[],status,responsivePosters} = anime
     // console.log(anime);
 return (
-    <table className='w-full border-b'>
+    <table className={classBlur +' w-full border-b '}>
         <tbody>
             <tr>
                 <td>
@@ -91,7 +93,7 @@ return (
                     <p >{status}</p>
                 </td>
                 <td className='space-y-2' >
-                    <div className='flex items-center space-x-3 '>
+                    <div className='flex items-center space-x-3 px-2'>
                       
                         <button onClick={onDeleteClick} type='button'>
                         <BsTrash/>
@@ -99,9 +101,7 @@ return (
                         <button onClick={onEditClick} type='button'>
                         <BsPencilSquare/>
                         </button>
-                        <button onClick={onOpenClick} type='button'>
-                        <BsBoxArrowUpRight/>
-                        </button>
+                       
                     </div>
                 </td>
             </tr>
