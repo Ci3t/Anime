@@ -1,5 +1,5 @@
 import React from "react";
-import  '../components/navbar/animelist.module.scss'
+
 function GridContainer({ children, className }) {
   return (
     <div

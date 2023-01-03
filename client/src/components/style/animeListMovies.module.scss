@@ -1,12 +1,24 @@
+@import '_vars.scss';
+
 .animeListTvSeries{
     height: 12em;
     // max-width: 21em;
 }
 
 .animeListMoviesBackground{
-    background-image: url('../../public/images/Sprinkle\ \(3\).svg');
+    background-image: url("../../../public/images/Sprinkle (3).svg");
     background-position: top;
     background-size: cover;
+}
+.animeMoviesTitle{
+        font-family: $merienda;
+        font-size: 64px;
+        // position: absolute;
+        z-index: 23;
+        // padding-bottom: -30em;
+        span{
+            color: rgb(240, 78, 140);
+        }
 }
 .animeListMoviesBackgroundBlur{
     background: rgba(61, 40, 80, 0.25);

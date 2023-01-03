@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { getLatestUploads } from "../../api/anime";
 import { useNotification } from "../../hooks/themeHook";
 
-import styles from './heroSlideShow.module.scss'
+import styles from '../style/heroSlideShow.module.css'
 
 let count = 0;
 let intervalId;

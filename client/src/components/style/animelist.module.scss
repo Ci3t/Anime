@@ -70,6 +70,7 @@
 //     }
 // }
 
+@import '_vars.scss';
 .cardAnimeListHomePage{
 	/* From https://css.glass */
 	// max-width: 230px;
@@ -82,6 +83,10 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 backdrop-filter: blur(8px);
 -webkit-backdrop-filter: blur(8px);
 border: 1px solid rgba(199, 95, 240, 0.42);
+
+font-family: $merienda;
+
+
 
 
 -webkit-backface-visibility: hidden;
@@ -96,6 +101,19 @@ border: 1px solid rgba(199, 95, 240, 0.42);
 	        animation: jello-vertical 0.9s both;
 	
 }
+}
+
+.infoCardAnimeListHomePage{
+	h1{
+		max-width: 12em;
+
+		font-size: 16px;
+		letter-spacing: 0.1em;
+	}
+	p{
+		// font-size: 12px;
+
+	}
 }
 
 @-webkit-keyframes jello-vertical {

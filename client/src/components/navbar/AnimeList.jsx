@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import RatingStar from '../RatingStar';
 import { getPoster } from '../utils/helper';
 
-import styles from  './animelist.module.css'
+import styles from  '../style/animelist.module.css'
 
 function AnimeList({title,animes = []}) {
 
@@ -31,8 +31,8 @@ const ListItem = ({anime}) =>{
 
     const trimTitle = (text = '')=>{
 
-        if (text.length <= 20 ) return text;
-        return text.substring(0,20)+ '..'
+        if (text.length <= 17 ) return text;
+        return text.substring(0,17)+ '..'
      }
 
     const {title,poster,responsivePosters,reviews,id} = anime
@@ -47,7 +47,7 @@ const ListItem = ({anime}) =>{
         <img className={  'aspect-video object-cover w-full rounded-tl-xl '} src={getPoster(responsivePosters) || poster} alt={title} />
             <div className={styles.infoCardAnimeListHomePage + ' py-1 px-2 flex justify-between'}>
 
-        {title ? <h1 className='text-lg font-semibold' title={title}> {trimTitle(title)} </h1> : null}
+        {title ? <h1 className='' title={title}> {trimTitle(title)} </h1> : null}
 
         <RatingStar rating={reviews.ratingAvg} />
             </div>

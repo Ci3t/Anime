@@ -8,6 +8,7 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(199, 95, 240, 0.42);
+  font-family: "Merienda One", cursive;
   -webkit-backface-visibility: hidden;
 }
 .cardAnimeListHomePage:hover {
@@ -15,6 +16,11 @@
   animation: jello-vertical 0.9s both;
 }
 
+.infoCardAnimeListHomePage h1 {
+  max-width: 12em;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+}
 @-webkit-keyframes jello-vertical {
   0% {
     transform: scale3d(1, 1, 1);

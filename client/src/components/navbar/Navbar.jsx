@@ -6,7 +6,7 @@ import Container from '../Container'
 import AppSearchForm from '../form/AppSearchForm'
 import AdminNav from '../navigator/AdminNav'
 
-import styles from './navbar.module.scss'
+import styles from '../style/navbar.module.css'
 
 function Navbar() {
     const [toggleMenu,setToggleMenu] = useState(false)

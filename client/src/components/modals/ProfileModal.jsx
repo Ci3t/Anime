@@ -4,7 +4,7 @@ import {  getCharactersProfile } from '../../api/character';
 import { useNotification } from '../../hooks/themeHook';
 import ModalContainer from './ModalContainer';
 
-import styles from './profileModal.module.css'
+import styles from '../style/profileModal.module.css'
 
 function ProfileModal({visible,profileId,onClose}) {
     const [profile,setProfile] = useState({});

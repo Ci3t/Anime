@@ -9,7 +9,7 @@ import ConfirmModal from "../modals/ConfirmModal";
 import EditRatingModal from "../modals/EditRatingModal";
 import NotFoundText from "../NotFoundText";
 import RatingStar from "../RatingStar";
-import styles from './animeReviews.module.css'
+import styles from '../style/animeReviews.module.css'
 
 
 const getNameInitial = (name = "") => {

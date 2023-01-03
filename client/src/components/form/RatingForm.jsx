@@ -3,6 +3,8 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 import Submit from "./Submit";
 
+import styles from '../style/ratingForm.module.css'
+
 const createArray = (count) =>{
     return new Array(count).fill("");
 }
@@ -39,7 +41,7 @@ function RatingForm({busy,initialState,onSubmit}) {
   },[initialState])
   return (
     <div >
-      <div className="p-5 bg-white rounded space-y-3">
+      <div className={styles.ratingFormBg + " p-5 rounded space-y-3"}>
         <div className="text-highlight-dark flex items-center relative">
          <StarsOutlined ratings={ratings} onMouseEnter={handleMouseEnter}/>
         <div className="flex items-center absolute top-1/2 -translate-y-1/2">
@@ -48,9 +50,9 @@ function RatingForm({busy,initialState,onSubmit}) {
         </div>
       
 
-        <textarea value={content} onChange={handleOnChange} className="w-full h-24 border-2 p-2 text-second rounded outline-none bg-transparent resize-none"></textarea>
+        <textarea value={content} onChange={handleOnChange} className="w-full h-24 border-2 p-2 text-highlight-dark rounded outline-none bg-transparent resize-none"></textarea>
 
-        <Submit busy={busy} onClick={handleSubmit} value="Rate This Anime" />
+        <Submit busy={busy} className={styles.submitButtonRateForm} onClick={handleSubmit} value="Rate This Anime" />
       </div>
     </div>
   );

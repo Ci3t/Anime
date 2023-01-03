@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,300;0,400;1,100&family=Bree+Serif&family=Comforter+Brush&family=Indie+Flower&family=Montserrat+Subrayada:wght@400;700&family=Poppins:ital,wght@0,600;1,100;1,200&family=Quicksand:wght@500;700&display=swap");
+@font-face {
+  font-family: "fa-brand";
+  src: local("fa-solid-900"), url("./fonts/SuperaGothic-Book.otf") format("otf");
+}
 .spin-button-none::-webkit-outer-spin-button,
 .spin-button-none::-webkit-inner-spin-button {
   -webkit-appearance: none;

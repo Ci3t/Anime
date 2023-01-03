@@ -10,7 +10,7 @@ import RatingStar from "../RatingStar";
 import RelatedAnime from "../RelatedAnime";
 import { convertReviewCount } from "../utils/helper";
 
-import styles from './singleanime.module.scss'
+import styles from '../style/singleanime.module.css'
 
 
 
@@ -85,7 +85,7 @@ function SingleAnime() {
   return (
     <div className={styles.backgroundForSingleAnime +" min-h-screen pb-10 "}>
       <Container className='xl:px-0 px-2 pt-5'>
-        <video className="border-2 border-fuchsia-400 rounded" poster={poster} controls src={trailer}></video>
+        <video width="1320" height="940" className="border-2 border-fuchsia-400 rounded aspect-video " poster={poster} controls src={trailer}></video>
         <div className="flex justify-between">
           <h1 className={styles.singleAnimeTitle + " xl:text-4xl lg:text-3xl text-2xl  font-semibold py-3"}>
             {title}

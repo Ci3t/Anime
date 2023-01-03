@@ -3,7 +3,7 @@ import { getTvAnime } from '../api/anime'
 import { useNotification } from '../hooks/themeHook';
 import RatingStar from './RatingStar';
 
-import styles from './animeListTv.module.css'
+import styles from './style/animeListTv.module.css'
 import GridContainer from './GridContainer';
 import Container from './Container';
 import { Link } from 'react-router-dom';
@@ -38,7 +38,7 @@ function AnimeListTV() {
   return (
     <div className={styles.animeListMoviesBackground +' mx-auto px-2'}>
     <Container className={'mx-2 xl:p-0 max-w-[72%] pt-4'}>
-    <GridContainer  className={'gap-4s md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4'}>
+    <GridContainer  className={'gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4'}>
     {/* px-2 xl:p-0 */}
     {animes.map(anime=>
     

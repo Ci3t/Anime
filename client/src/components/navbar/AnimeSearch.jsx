@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { searchPublicAnime } from "../../api/anime";
-
-
 import { useNotification } from "../../hooks/themeHook";
 import Container from "../Container";
-
 import NotFoundText from "../NotFoundText";
 import AnimeList from "./AnimeList";
+
+import styles from '../style/animeSearch.module.css'
 
 function AnimeSearch() {
   const [animes, setAnimes] = useState([]);
@@ -44,9 +43,9 @@ function AnimeSearch() {
     if (query.trim()) searchAnimes(query);
   }, [query]);
   return (
-    <div className="min-h-screen py-8">
+    <div className={styles.searchAnimeContainerBGImage +" min-h-screen py-8 "}>
         <Container className='px-2 xl:p-0'>
-
+        <h1 className="text-center text-highlight-dark">Search Result</h1>
       <NotFoundText text="Anime Not Found..." visible={resultsNotFound} />
         <AnimeList animes={animes} />
         </Container>
