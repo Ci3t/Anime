@@ -41,7 +41,7 @@ function SearchAnime() {
     if (query.trim()) searchAnimes(query);
   }, [query]);
   return (
-    <div className="p-5 space-y-3">
+    <div className="p-5 space-y-3 text-white ">
       <NotFoundText text="Anime Not Found..." visible={resultsNotFound} />
       {!resultsNotFound &&
         animes.map((anime) => {

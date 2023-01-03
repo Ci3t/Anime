@@ -1,4 +1,6 @@
 import React from 'react'
+import styles from '../style/appInfoBox.module.css'
+const classBlur = styles.blurAppInfo
 
 function ModalContainer({visible,children,onClose,ignoreContainer}) {
 
@@ -13,7 +15,7 @@ function ModalContainer({visible,children,onClose,ignoreContainer}) {
         if(ignoreContainer) return children;
 
         return(
-          <div className="dark:bg-main bg-white rounded w-[45rem] h-[40rem] overflow-auto custom-scroll-bar p-2">
+          <div className={classBlur +" rounded w-[45rem] h-[40rem] overflow-auto custom-scroll-bar p-2"}>
       {children} </div>
         )
 

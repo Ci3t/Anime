@@ -5,6 +5,9 @@ import { uploadAnime, uploadTrailer } from "../../api/anime";
 import { useNotification } from "../../hooks/themeHook";
 import ModalContainer from "../modals/ModalContainer";
 import AnimeForm from "./AnimeForm";
+import styles from '../style/appInfoBox.module.css'
+const classBlur = styles.blurAppInfo
+
 
 function AnimeUpload({visible,onClose}) {
   const [videoSelected, setVideoSelected] = useState(false);
@@ -95,15 +98,15 @@ const handleUploadTrailer = async(data)=>{
 function TrailerSelector({ visible, handleChange, onTypeError }) {
   if (!visible) return null;
   return (
-    <div className="h-full flex items-center justify-center">
+    <div className={classBlur +" h-full flex items-center justify-center border-[#61cbf5] "}>
       <FileUploader
         handleChange={handleChange}
         onTypeError={onTypeError}
         types={["mp4", "avi"]}
       >
-        <div className="w-48 h-48 border border-dashed dark:border-dark-subtle rounded-full flex items-center justify-center flex-col dark:text-light-subtle cursor-pointer">
-          <AiOutlineCloudUpload size={80} />
-          <p>Drop your file here!</p>
+        <div className="w-48 h-48 border border-dashed dark:border-[#61cbf5] rounded-full flex items-center justify-center flex-col  cursor-pointer">
+          <AiOutlineCloudUpload className="text-[#61cbf5] " size={80} />
+          <p className="text-[#61cbf5] ">Drop your file here!</p>
         </div>
       </FileUploader>
     </div>
@@ -115,8 +118,8 @@ function UploadProgress ({width,message,visible}){
     if(!visible) return null
     return (
        
-        <div className="rounded p-3 dark:bg-second  drop-shadow-lg ">
-            <div className="h-3 overflow-hidden relative bg-light-subtle dark:bg-dark-subtle">
+        <div className="rounded p-3 bg-[#062e77]  drop-shadow-lg ">
+            <div className="h-3 overflow-hidden relative bg-[#1371a7] ">
                 <div style={{width:width + '%'}} className="h-full absolute left-0 bg-second dark:bg-white"/>
                 
             </div>

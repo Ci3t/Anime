@@ -15,7 +15,8 @@ import LiveSearch from "./LiveSearch";
 import PosterSelector from "./PosterSelector";
 import Selector from "./Selector";
 import TagsInput from "./TagsInput";
-
+import styles from '../style/appInfoBox.module.css'
+const classBlur = styles.blurAppInfo
 
 
 export const renderItem =(result) => {
@@ -154,14 +155,14 @@ const handleCharacterRemove = (profileId) => {
   return (
     <>
    
-    <div  className="flex space-x-3 ">
+    <div  className={classBlur +" flex space-x-3 "}>
       <div className="relative z-0 mb-6  group w-[70%] space-x-3">
         <div>
           <input
             type="text"
             name="title"
             id="title"
-            className="block pt-3 px-0 w-full text-sm text-gray-900 bg-transparent border-b-2 border-t-0 border-x-0 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            className="block pt-3 px-2 w-full text-sm text-white bg-transparent border-b-2 border-t-0 border-x-0 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
             value={title}
             onChange={handleChange}
@@ -177,7 +178,7 @@ const handleCharacterRemove = (profileId) => {
         <div className="mx-0 space-x-1">
           <label
             htmlFor="description"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black mt-2"
+            className="block mb-2 text-sm font-medium text-[#90bee4]  mt-2"
           >
             Description
           </label>
@@ -186,7 +187,7 @@ const handleCharacterRemove = (profileId) => {
           onChange={handleChange}
           name='description'
             id="description"
-            className="block pt-3 px-0 w-full text-sm text-gray-900 bg-transparent border-b-2 border-t-0 border-x-0 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 resize-none peer"
+            className="block pt-3 px-0 w-full text-sm text-white bg-transparent border-b-2 border-t-0 border-x-0 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 resize-none peer"
             placeholder="Enter Anime Story..."
           ></textarea>
           {/* <button type="button" onClick={()=>setShowModal(true)}>Close</button> */}
@@ -203,7 +204,7 @@ const handleCharacterRemove = (profileId) => {
             onSelect={(result)=>console.log(result)}
           />
         </div> */}
-        <div className="mt-3">
+        <div className="mt-3 text-white">
 
         <LabelWithBadge  badge={cast.length} >Add Characters</LabelWithBadge>
         <ViewAllBtn onClick={displayCastModel} visible={cast.length}>ViewAll</ViewAllBtn>
@@ -239,7 +240,7 @@ const handleCharacterRemove = (profileId) => {
     />
 
     <ModalContainer visible={showModal} onClose={()=>setShowModal(false)} >
-        <div className="p-20 bg-red-200"></div>
+        <div className="p-20 "></div>
     </ModalContainer>
     </>
   );

@@ -4,7 +4,7 @@ const ViewAllBtn =({visible,children,onClick})=>{
     if(!visible) return null
    return (
 
-       <button type="button" onClick={onClick} className='bg-second text-white hover:underline transition'> {children} </button>
+       <button type="button" onClick={onClick} className='bg-[#3967ad] text-white px-2 py-1 rounded hover:underline transition'> {children} </button>
        )
   
 }

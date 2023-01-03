@@ -3,7 +3,8 @@ import { GiSpinningSword } from "react-icons/gi";
 import { useNotification } from "../../hooks/themeHook";
 import PosterSelector from "../admin/PosterSelector";
 import Selector from "../admin/Selector";
-
+import styles from '../style/appInfoBox.module.css'
+const classBlur = styles.blurAppInfo
 const defaultCharInfo = {
   name: "",
   about: "",
@@ -74,11 +75,11 @@ function CharacterForm({ title, btnTitle,busy,onSubmit ,initialState}) {
   const {name,about,gender} = charInfo
   return (
     
-      <form onSubmit={handleSubmit} className="p-3 w-[35rem] bg-white rounded">
+      <form onSubmit={handleSubmit} className={classBlur+"  p-3 w-[35rem]  rounded"}>
       <div className="flex justify-between items-center mb-2">
-        <h1 className="font-semibold text-xl text-main">{title}</h1>
+        <h1 className="font-semibold text-xl text-white">{title}</h1>
         <button
-          className="h-8 w-24 bg-main text-white hover:opacity-80 tranisiton flex items-center justify-center"
+          className="h-8 w-24 bg-[#4879e2] text-white hover:opacity-80 tranisiton flex items-center justify-center"
           type="submit"
         >
           {busy ? <GiSpinningSword className='animate-spin'/> :btnTitle }
@@ -91,7 +92,7 @@ function CharacterForm({ title, btnTitle,busy,onSubmit ,initialState}) {
           label='Select Avatar'
           onChange={handleChange}
           selectedPoster={selectedAvatarUI}
-          className="w-36 h-36 aspect-square object-cover"
+          className="w-36 h-36 aspect-square object-cover placeholder:text-[#598af5] "
           accept='image/jpg,image/jpeg,image/png image/webp'
         />
         <div className="flex-grow flex flex-col">
@@ -102,7 +103,7 @@ function CharacterForm({ title, btnTitle,busy,onSubmit ,initialState}) {
             name="name"
             value={name}
           onChange={handleChange}
-            className="block pt-1 px-0  text-sm text-gray-900 bg-transparent border-b-2 border-t-0 border-x-0 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+            className="block pt-1 px-0  text-sm text-white bg-transparent border-b-2 border-t-0 border-x-0 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 placeholder:text-[#598af5]  focus:border-blue-600 peer"
             placeholder="Enter Name..."
             // value={title}
             // onChange={handleChange}
@@ -111,7 +112,7 @@ function CharacterForm({ title, btnTitle,busy,onSubmit ,initialState}) {
           name="about"
           value={about}
           onChange={handleChange}
-            className="block pt-3 px-0 h-full text-sm text-gray-900 bg-transparent border-b-2 border-t-0 border-x-0 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 resize-none peer"
+            className="block pt-3 px-0 h-full text-sm text-white bg-transparent border-b-2 border-t-0 border-x-0 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none placeholder:text-[#598af5] focus:ring-0 focus:border-blue-600 resize-none peer"
             placeholder="Enter About Character..."
           ></textarea>
         </div>

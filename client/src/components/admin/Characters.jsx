@@ -7,6 +7,8 @@ import ConfirmModal from "../modals/ConfirmModal";
 import UpdateCharacter from "../modals/UpdateCharacter";
 import NextAndPrevBtn from "../NextAndPrevBtn";
 import NotFoundText from "../NotFoundText";
+import styles from '../style/appInfoBox.module.css'
+const classBlur = styles.blurAppInfo
 
 let currentPageNo = 0;
 const limit = 20;
@@ -167,7 +169,7 @@ const CharacterProfile = ({ profile, onEditClick, onDeleteClick }) => {
 
   const { name, avatar, about = "" } = profile;
   return (
-    <div className="h-20 rounded overflow-hidden bg-slate-500">
+    <div className={classBlur +" h-20 rounded overflow-hidden"}>
       <div
         onMouseEnter={handleOnMouseEnter}
         onMouseLeave={handleOnMouseLeave}
@@ -180,10 +182,10 @@ const CharacterProfile = ({ profile, onEditClick, onDeleteClick }) => {
         />
 
         <div className="px-2">
-          <h1 className="text-xl font-semibold whitespace-nowrap">
+          <h1 className="text-xl font-semibold whitespace-nowrap text-[#a5cdfa]">
             {getName(name)}
           </h1>
-          <p className="text-xs">{about.substring(0, 50)}</p>
+          <p className="text-xs text-white pb-2">{about.substring(0, 42)}</p>
         </div>
         <Options
           onEditClick={onEditClick}

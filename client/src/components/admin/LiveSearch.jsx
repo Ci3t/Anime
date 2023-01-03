@@ -74,7 +74,7 @@ function LiveSearch({
         type="text"
         name={name}
         id={name}
-        className="block pt-3 px-0  text-sm text-gray-900 bg-transparent border-b-2 border-t-0 border-x-0 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+        className="block pt-3 px-0  text-sm text-white bg-transparent border-b-2 border-t-0 border-x-0 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
         placeholder=" "
         value={value}
         onChange={onChange}
@@ -118,7 +118,7 @@ const SearchResult = ({
   }, [focusIndex]);
   if (!visible) return null;
   return (
-    <div className="absolute z-50 right-0 left-0 top-10 bg-white shadow-md mt-1 space-y-2 p-2 max-h-64 overflow-auto pMargin-0 custom-scroll-bar">
+    <div className="absolute z-50 right-0 left-0 top-10 bg-[#3b42aa] shadow-md mt-1 space-y-2 p-2 max-h-64 overflow-auto pMargin-0 custom-scroll-bar">
       {results.map((result, index) => {
         const getSelectedClass = () => {
           return selectedResultStyle ? selectedResultStyle : "bg-dark-subtle";

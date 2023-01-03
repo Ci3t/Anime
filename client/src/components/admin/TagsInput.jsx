@@ -58,7 +58,7 @@ function TagsInput({name,onChange,value}) {
 
     const Tag = ({children,onClick}) =>{
        return (
-        <span className=" bg-gray-700 text-white text-sm whitespace-nowrap ">{children}
+        <span className=" bg-[#7a40c7] text-white text-sm whitespace-nowrap ">{children}
         <button type="button" onClick={onClick}>
             <AiOutlineClose size={12}/>
         </button>
@@ -67,14 +67,14 @@ function TagsInput({name,onChange,value}) {
     }
   return (
 
-    <div className="mt-3">
+    <div className="mt-3 text-[#6ca1e6]">
         Tags
       <div 
       ref={tagsInput}
       
       onKeyDown={handleKeyDown} className="TagsInputContainer TagsInputContainerBlurColor flex items-center space-x-2 px-2  overflow-x-auto custom-scroll-bar transition">
        {tags.map(t=> <Tag onClick={()=>removeTag(t)} key={t}>{t}</Tag>)}
-        <input ref={inputRef} type="text" className="TagsInputField outline-none " placeholder="Tag 4, Tag 5"
+        <input ref={inputRef} type="text" className="TagsInputField outline-none " placeholder="Tag 1, Tag 2"
         value={tag}
         onChange ={handleOnChange}
         onFocus={handleOnFocus}
