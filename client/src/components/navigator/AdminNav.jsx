@@ -11,6 +11,7 @@ import CharacterUpload from '../modals/CharacterUpload'
 import NotFound from '../NotFound'
 
 import styles from '../style/adminNavHome.module.css'
+import Stats from '../admin/Stats'
 
 function AdminNav() {
   const [showAnimeUploadModel,setShowAnimeUploadModel] = useState(false)
@@ -40,6 +41,7 @@ function AdminNav() {
     <Route path='/animes' element={<Animes/>}/>
     <Route path='/characters' element={<Characters/>}/>
     <Route path='/search' element={<SearchAnime/>}/>
+    <Route path='/stats' element={<Stats/>}/>
     <Route path='*' element={<NotFound/>}/>
     
   </Routes>

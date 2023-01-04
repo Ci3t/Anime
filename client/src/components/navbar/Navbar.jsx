@@ -70,10 +70,16 @@ function Navbar() {
                     {profile?.role === 'admin' ? <Link to='/admin/dashboard' className={styles.menuText} >Admin Panel</Link>:null}
                     </li>
                     <li>
-                    <Link to='/anime/tv-series' className={styles.menuText} >Anime List</Link>
+                    <Link to='/anime/tv-series' className={styles.menuText} >Anime Series</Link>
                     </li>
                     <li>
                     <Link to='/anime/movies' className={styles.menuText}  >Anime Movies</Link>
+                    </li>
+                    <li>
+                    <Link to='/anime/search-anime' className={styles.menuText}  >Find Anime</Link>
+                    </li>
+                    <li>
+                    <Link to='/anime/search-manga' className={styles.menuText}  >Find Manga</Link>
                     </li>
                     </ul>
                 </Container>

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { catchError, getToken } from "../components/utils/helper";
 import client from "./client";
 
@@ -183,6 +184,29 @@ export const getTvAnime = async (type,signal) => {
     if(type) endpoint = endpoint + '?type=' + type;
     const { data } = await client(endpoint,{signal});
     console.log(data);
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};
+
+export const findAnimeByName = async (name,type) => {
+
+  try {
+
+    const { data } = await axios.get(`https://api.jikan.moe/v4/anime?q=${name}&type=${type}`);
+
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};
+export const findMangaByName = async (name,type) => {
+
+  try {
+
+    const { data } = await axios.get(`https://api.jikan.moe/v4/manga?q=${name}&type=${type}`);
+
     return data;
   } catch (error) {
     return catchError(error);

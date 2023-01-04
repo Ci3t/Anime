@@ -38,7 +38,7 @@ function HeroSlideShow() {
       newTime = Date.now()
       const delta = newTime -lastTime;
       
-      if(delta < 4000) return clearInterval(intervalId);
+      if(delta < 3000) return clearInterval(intervalId);
 
       handleOnNextClick()
     }, 3500);
@@ -64,12 +64,16 @@ function HeroSlideShow() {
   }
 
   const handleOnNextClick = () => {
-    pauseSlideShow()
+    
+    
+    
     setCloneSlide(slides[count]);
-
+    pauseSlideShow()
     count = (count + 1) % slides.length;
     setSlide(slides[count]);
+    
 
+    
     cloneSlideRef.current.classList.add("slide-out-to-left");
     slideRef.current.classList.add("slide-in-from-right");
 
@@ -82,11 +86,12 @@ function HeroSlideShow() {
   };
 
   const handleOnPrevClick = () => {
-    pauseSlideShow()
     setCloneSlide(slides[count]);
-
+   
+    pauseSlideShow()
     count = (count + slides.length - 1) % slides.length;
     setSlide(slides[count]);
+
 
     cloneSlideRef.current.classList.add("slide-out-to-right");
     slideRef.current.classList.add("slide-in-from-left");
@@ -95,6 +100,7 @@ function HeroSlideShow() {
     //     handleAnimationEnd()
     // }, 500);
   };
+  
   const handleAnimationEnd = () => {
     const classes = [
         "slide-out-to-left",
@@ -105,6 +111,7 @@ function HeroSlideShow() {
     ]
     slideRef.current.classList.remove(...classes);
     cloneSlideRef.current.classList.remove(...classes);
+   
     setCloneSlide({});
     startSlideShow()
   };
@@ -135,18 +142,19 @@ function HeroSlideShow() {
     }
     else pauseSlideShow()
   }, [slides.length,visible]);
-const {title} = slide
+
   return (
     <div className="w-full flex pt-4">
       <div className={" md:w-4/5 w-full aspect-video relative overflow-hidden rounded"}>
-      <Slide title={slide.title} src={slide.poster} ref={slideRef} id={slide.id} className={styles.bigSliderImages } />
-      <Slide ref={cloneSlideRef}
-          onAnimationEnd={handleAnimationEnd}
+      <Slide title={slide.title} src={slide.poster} ref={slideRef} id={slide.id} className={styles.bigSliderImages } onAnimationEnd={handleAnimationEnd} />
+       <Slide ref={cloneSlideRef}
+          // onAnimationEnd={handleAnimationEnd}
           className={styles.bigSliderImages +" aspect-video object-cover absolute inset-0 "}
           src={cloneSlide.poster}
           title={cloneSlide.title}
           id={slide.id}
-          />
+          /> 
+          
           
        
         <SlideShowController

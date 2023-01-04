@@ -6,16 +6,29 @@ dotenv.config()
 
 export const generateTransporter = ()=>{
  const transport =  nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
-    port: 2525,
+    host: "smtp.gmail.com",
+    // port: 2525,
+    service:'gmail',
     auth: {
-      user: process.env.MAILTRAP_USER,
-      pass: process.env.MAILTRAP_PASS,
+      user: process.env.NODEMAILER_EMAIL,
+      pass: process.env.NODEMAILER_APP_PSWD,
      
     }
   });
   return transport
 }
+// export const generateTransporter = ()=>{
+//  const transport =  nodemailer.createTransport({
+//     host: "smtp.mailtrap.io",
+//     port: 2525,
+//     auth: {
+//       user: process.env.MAILTRAP_USER,
+//       pass: process.env.MAILTRAP_PASS,
+     
+//     }
+//   });
+//   return transport
+// }
 
 
 
@@ -31,7 +44,7 @@ export const verificationOTP = async(user)=>{
 
 
       transport.sendMail({
-        from: 'verification@Ci3tAnime.com',
+        from: process.env.NODEMAILER_EMAIL,
         to: user.email,
         subject: 'Email Verification',
         html: HTML_TEMPLATE('Your Verification Code',OTP,'Enjoy your stay')
@@ -49,7 +62,7 @@ export const resendVerificationOTP = async(user)=>{
 
 
       transport.sendMail({
-        from: 'verification@Ci3tAnime.com',
+        from: process.env.NODEMAILER_EMAIL,
         to: user.email,
         subject: 'Email Verification',
         html: HTML_TEMPLATE('Your Verification Code',OTP,'Enjoy your stay')
@@ -62,7 +75,7 @@ export const verifiedOTP = async(userID)=>{
 
 
       transport.sendMail({
-        from: 'verification@Ci3tAnime.com',
+        from: process.env.NODEMAILER_EMAIL,
         to: userID.email,
         subject: 'Welcome',
         html: HTML_TEMPLATE('Welcome to Our Site','Enjoy Your Stay and have fun','thanks for choosing us')
@@ -75,7 +88,7 @@ export const resetPasswordOTP = async(userID,passLink)=>{
 
 
       transport.sendMail({
-        from: 'Security@Ci3tAnime.com',
+        from: process.env.NODEMAILER_EMAIL,
         to: userID.email,
         subject: 'Reset Password Link',
         html: `
@@ -91,7 +104,7 @@ export const resetPasswordSuccess = async(userID)=>{
 
 
       transport.sendMail({
-        from: 'Security@Ci3tAnime.com',
+        from: process.env.NODEMAILER_EMAIL,
         to: userID.email,
         subject: 'Reset Password Successfully ',
         html: `

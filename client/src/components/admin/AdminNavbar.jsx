@@ -32,6 +32,9 @@ function AdminNavbar() {
             <li className='mt-3 no-underline'>
                 <NavItem to={'/admin/characters'}>Characters</NavItem>
             </li>
+            <li className='mt-3 no-underline'>
+                <NavItem to={'/admin/stats'}>Stats</NavItem>
+            </li>
         </ul>
 
         <div className='flex gap-4 p-2 lg:flex lg:flex-col items-start pb-4'>

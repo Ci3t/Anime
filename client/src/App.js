@@ -16,6 +16,8 @@ import AnimeReviews from './components/navbar/AnimeReviews';
 import AnimeSearch from './components/navbar/AnimeSearch';
 import AnimeListTV from './components/AnimeListTV';
 import AnimeListMovies from './components/AnimeListMovies';
+import GetAnimeByName from './components/navbar/GetAnimeByName';
+import GetMangaByName from './components/navbar/GetMangaByName';
 
 
 
@@ -31,7 +33,7 @@ const isMod = authInfo.profile?.role === "moderator"
 // if(isAdmin) return <AdminNav/>
   //  { isAdmin? <Route path='/admin' element={<AdminNav/>}/> : null}
   
-  const excludedRoutes = ['/admin/dashboard', '/admin/animes','/admin/characters','/admin/search','/admin/','/admin/*'];
+  const excludedRoutes = ['/admin/dashboard', '/admin/animes','/admin/characters','/admin/search','/admin/','/admin/*','/admin/stats'];
   
   return (
     <>
@@ -50,6 +52,8 @@ const isMod = authInfo.profile?.role === "moderator"
       <Route path='/anime/search' element={<AnimeSearch/>}/>
       <Route path='/anime/tv-series' element={<AnimeListTV/>}/>
       <Route path='/anime/movies' element={<AnimeListMovies/>}/>
+      <Route path='/anime/search-anime' element={<GetAnimeByName/>}/>
+      <Route path='/anime/search-manga' element={<GetMangaByName/>}/>
       <Route path='*' element={<NotFound/>}/>
 
       </Routes>
