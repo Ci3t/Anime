@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createChar, updateChar } from "../../api/character";
+import { updateChar } from "../../api/character";
 import { useNotification } from "../../hooks/themeHook";
 import CharacterForm from "../form/CharacterForm";
 import ModalContainer from "./ModalContainer";

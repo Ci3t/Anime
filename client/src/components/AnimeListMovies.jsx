@@ -49,7 +49,7 @@ const AnimeMoviesHeader = ()=>{
 
     return (
         <React.Fragment className='relative'>
-    <img className='max-h-[54em]' src="./images/cap_anime2.png" alt="" />
+    <img className='max-h-[54em]' src="./images/cap_anime2.png" alt="pic" />
     {/* <h1 className={ styles.animeMoviesTitle+' text-center'}> <span>Anime </span> Movies</h1> */}
         </React.Fragment>
     )
