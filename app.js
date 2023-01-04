@@ -31,7 +31,7 @@ app.use('/',indexRoute)
 const publicPath = path.join(__dirname, 'build');
 app.use(express.static(publicPath));
 
-app.use('/api', indexRouter);
+app.use('/api', indexRoute);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
