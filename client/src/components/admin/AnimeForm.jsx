@@ -204,7 +204,7 @@ const handleCharacterRemove = (profileId) => {
         <CastForm onSubmit={updateCast}/>
         </div>
         <input type="date" className="border-2 rounded p-1 w-auto mt-3 mb-2" onChange={handleChange} name='releaseDate' value={releaseDate} />
-        <Submit busy={busy} onClick={handleSubmit} value={btnTitle} type={'button'} />
+        <Submit busy={busy} className='text-white bg-[#4b89e6] rounded hover:opacity-80' onClick={handleSubmit} value={btnTitle} type={'button'} />
       </div>
       <div className="w-[30%] h-5 ">
         <PosterSelector name='poster' label='Select Poster' onChange={handleChange} selectedPoster={selectedPosterUI} accept='image/jpg,image/jpeg,image/png image/webp' />
