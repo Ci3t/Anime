@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
-import { charSearch, deleteChar, getCharacters } from "../../api/character";
+import { charSearch, getCharacters } from "../../api/character";
 import { useNotification, useSearch } from "../../hooks/themeHook";
 import AppSearchForm from "../form/AppSearchForm";
 import ConfirmModal from "../modals/ConfirmModal";

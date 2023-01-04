@@ -157,7 +157,7 @@ const ResultCard = forwardRef((props, ref) => {
       selectedResultStyle +
       ` cursor-pointer rounded overflow-hidden hover:bg-dark-subtle hover:flex transition`
     );
-    // `${index ===focusIndex? 'bg-blue-300':''} cursor-pointer rounded overflow-hidden hover:bg-dark-subtle hover:flex transition`
+  
   };
   return (
     <div onClick={onClick} ref={ref} className={getClasses()}>

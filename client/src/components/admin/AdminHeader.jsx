@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
-import { useRef } from "react";
+
 import { useNavigate } from "react-router-dom";
 import AppSearchForm from "../form/AppSearchForm";
 
@@ -11,29 +10,10 @@ const navigate = useNavigate()
 
   const options = [{ title:'Add Anime',onClick: onAddAnimeClick },{ title:'Add Character',onClick: onAddCharacterClick }];
 
-  console.log(showOptions);
+
 
   const CreateOptions = ({ options, visible, onClose }) => {
-    // const container = useRef()
-    // useEffect(()=>{
-    //     const handleClose = (e)=>{
-    //         console.log(e.target);
-
-    //         if(!visible) return
-
-    //        container.current.classList.remove("animate-scale")
-    //        container.current.classList.add("animate-scale-reverse");
-
-    //     };
-
-    //     document.addEventListener('click',handleClose);
-    //     return ()=>{
-    //         document.removeEventListener('click',handleClose);
-
-    //     }
-    // },[visible])
-
-    // ref={container}
+ 
 
     const handleClick =(fn)=>{
       fn()

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useNotification, useSearch } from "../../hooks/themeHook";
+import { useNotification } from "../../hooks/themeHook";
 import CastForm from "../form/CastForm";
 import Submit from "../form/Submit";
 import LabelWithBadge from "../LabelWithBadge";
 import CastModel from "../modals/CastModel";
 import GenresModal from "../modals/GenresModal";
 import ModalContainer from "../modals/ModalContainer";
-import { genres } from "../utils/genres";
+
 import { languageOptions, statusOptions, typeOptions } from "../utils/options";
 import { validateAnime } from "../utils/validator";
 import ViewAllBtn from "../ViewAllBtn";
@@ -190,20 +190,13 @@ const handleCharacterRemove = (profileId) => {
             className="block pt-3 px-0 w-full text-sm text-white bg-transparent border-b-2 border-t-0 border-x-0 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 resize-none peer"
             placeholder="Enter Anime Story..."
           ></textarea>
-          {/* <button type="button" onClick={()=>setShowModal(true)}>Close</button> */}
+         
         </div>
 
         <TagsInput value={tags} name="tags" onChange={updateTags} />
 
        
-        {/* <div>
-          <LiveSearch
-            results={results}
-            renderItem={renderItem}
-            name='search'
-            onSelect={(result)=>console.log(result)}
-          />
-        </div> */}
+       
         <div className="mt-3 text-white">
 
         <LabelWithBadge  badge={cast.length} >Add Characters</LabelWithBadge>

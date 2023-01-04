@@ -24,7 +24,7 @@ function GetMangaByName() {
         setSearchAnime('')
     }
 
-  console.log(searchAnime);
+
 
 
   

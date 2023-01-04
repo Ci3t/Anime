@@ -38,7 +38,7 @@ function AdminNavbar() {
         </ul>
 
         <div className='flex gap-4 p-2 lg:flex lg:flex-col items-start pb-4'>
-            {/* <span className='font-semibold text-white text-xl'>Admin</span> */}
+           
             <button onClick={handleLogOut} className='flex items-center text-white'>Log Out</button>
         </div>
         </div>

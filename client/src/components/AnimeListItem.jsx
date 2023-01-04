@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BsBoxArrowUpRight, BsPencilSquare, BsTrash } from 'react-icons/bs'
+import {  BsPencilSquare, BsTrash } from 'react-icons/bs'
 import { deleteAnimes } from '../api/anime';
 import { useNotification } from '../hooks/themeHook';
 import ConfirmModal from './modals/ConfirmModal'
