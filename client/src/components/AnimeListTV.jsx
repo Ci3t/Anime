@@ -38,7 +38,7 @@ function AnimeListTV() {
   return (
     <div className={styles.animeListMoviesBackground +' mx-auto px-2'}>
     <Container className={'mx-2 xl:p-0 max-w-[72%] pt-4'}>
-    <img className='max-h-[54em]' src="./images/cap_anime3.png" alt="pic" />
+    <img className='max-h-[54em]' src="./images/Cap_anime3.png" alt="pic" />
     <GridContainer  className={'gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4'}>
     {/* px-2 xl:p-0 */}
     {animes.map(anime=>

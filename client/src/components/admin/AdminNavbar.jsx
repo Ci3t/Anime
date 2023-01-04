@@ -17,7 +17,7 @@ function AdminNavbar() {
     <nav className={styles.sideNavImg +'  lg:w-48 lg:min-h-screen  border-gray-300 '}>
         <div id='mbSideNav' className={styles.sideNav +" flex lg:flex p-2 lg:flex-col  justify-between pl-3 max-h-20 lg:mb-0 lg:min-h-screen mb-5 lg:h-screen lg:fixed sticky top-0 lg:w-[11.4em] "}>
 
-        <ul className={styles.ulNavAdmin + ' lg:block flex lg:gap-0 gap-4 justify-between'}>
+        <ul className={styles.ulNavAdmin + ' lg:block flex lg:gap-0 gap-1 sm:gap-4 justify-between'}>
             <li className='mb-8'>
                 <Link to='/'>
                     <img src='./images/Cap_logo.png' alt='logo' className='sm:h-16 pr-2 pt-2 pl-0 h-10'/>

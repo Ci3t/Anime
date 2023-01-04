@@ -22,7 +22,7 @@ function Animes() {
   }, []);
   return (
     <>
-      <div className="space-y-3 p-5 text-white ">
+      <div className="space-y-3 md:p-5 text-white ">
         {newAnimes.map((anime) => {
           return (
             <AnimeListItem

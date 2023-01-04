@@ -49,7 +49,7 @@ const AnimeMoviesHeader = ()=>{
 
     return (
         <React.Fragment className='relative'>
-    <img className='max-h-[54em]' src="./images/cap_anime2.png" alt="pic" />
+    <img className='max-h-[54em]' src="./images/Cap_anime2.png" alt="pic" />
     {/* <h1 className={ styles.animeMoviesTitle+' text-center'}> <span>Anime </span> Movies</h1> */}
         </React.Fragment>
     )
@@ -69,7 +69,7 @@ return (
     {animes.map(anime=>
 
 
-<Link to={`/anime/${anime.id}`} className={styles.animeListMoviesBackgroundBlur +' overflow-hidden shadow-lg transition rounded-lg md:w-80 cursor-pointer mt-3 mb-3 no-underline w-[7em]'}>
+<Link to={`/anime/${anime.id}`} className={styles.animeListMoviesBackgroundBlur +' overflow-hidden shadow-lg transition rounded-lg md:w-80 cursor-pointer mt-3 mb-3 no-underline '}>
      
     <img className={styles.animeListTvSeries +' w-full'} src={anime.responsivePosters?.[0]} alt={anime.title} />
     <div className=" px-2">
