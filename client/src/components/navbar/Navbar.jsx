@@ -36,7 +36,7 @@ function Navbar() {
                 <div className="flex justify-between items-center">
                     <Link to={'/'}>
 
-                <img src="./images/cap_logo.png" alt="logo" className="sm:h-16 h-12" />
+                <img src="./images/Cap_logo.png" alt="logo" className="sm:h-16 h-12" />
                     </Link>
                 <ul className='flex items-center sm:space-x-4 space-x-2'>
                 <li>

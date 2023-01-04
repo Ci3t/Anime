@@ -20,7 +20,7 @@ function AdminNavbar() {
         <ul className={styles.ulNavAdmin + ' lg:block flex lg:gap-0 gap-4 justify-between'}>
             <li className='mb-8'>
                 <Link to='/'>
-                    <img src='./images/cap_logo.png' alt='logo' className='sm:h-16 pr-2 pt-2 pl-0 h-10'/>
+                    <img src='./images/Cap_logo.png' alt='logo' className='sm:h-16 pr-2 pt-2 pl-0 h-10'/>
                 </Link>
             </li>
             <li className='mt-3 '>
