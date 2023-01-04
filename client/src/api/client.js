@@ -1,12 +1,12 @@
 import axios from "axios";
 
-let baseURL = 'http://localhost:5000/api';
+let myUrl = 'http://localhost:5000/api';
 
 if (process.env.NODE_ENV === 'production') {
-    baseURL = 'api';
+    myUrl = '/api';
 }
 
 
-const client = axios.create({baseURL})
+const client = axios.create({baseURL:myUrl})
 
 export default client
