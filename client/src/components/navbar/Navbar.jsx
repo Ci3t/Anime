@@ -67,7 +67,7 @@ function Navbar() {
                <Container className={styles.navbarAnimation }>
                     <ul className='flex space-x-6'>
                     <li>
-                    {profile?.role === 'admin' ? <Link to='/admin/dashboard' className={styles.menuText} >Admin Panel</Link>:null}
+                    {profile?.role !== 'user' ? <Link to='/admin/dashboard' className={styles.menuText} >Admin Panel</Link>:null}
                     </li>
                     <li>
                     <Link to='/anime/tv-series' className={styles.menuText} >Anime Series</Link>

@@ -22,7 +22,7 @@ function ModalContainer({visible,children,onClose,ignoreContainer}) {
     }
 
   return (
-    <div id='modal-container' onClick={handleClick} className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center">
+    <div id='modal-container' onClick={handleClick} className="fixed inset-0 z-10 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center">
       {renderChildren()}
         </div>
   )

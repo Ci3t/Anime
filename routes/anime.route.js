@@ -74,21 +74,21 @@ animeRoute.delete(
 animeRoute.get(
   "/animes",
   isAuth,
-  isAdmin,
+  isMod,
 
   getAnimes,
 );
 animeRoute.get(
   "/update-anime/:animeId",
   isAuth,
-  isAdmin,
+  isMod,
 
   getUpdateAnime,
 );
 animeRoute.get(
   "/search",
   isAuth,
-  isAdmin,
+  isMod,
 
   searchAnime,
 );

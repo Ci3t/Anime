@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { useAuth, useNotification } from "../../hooks/themeHook";
 
 import Container from "../Container";
@@ -52,7 +53,18 @@ function SignIn() {
     handleLogin(userInfo.email,userInfo.password)
  
   };
+const handleMod = ()=>{
+  setUserInfo({...userInfo, email:'moderator@email.com', password:'mod12341234' })
+ 
 
+  handleSubmit()
+}
+const handleGuest = ()=>{
+  setUserInfo({...userInfo, email:'guest@email.com', password:'g12341234' })
+ 
+
+  handleSubmit()
+}
   // useEffect(()=>{
 
   //   if(isLoggedIn) navigate('/')
@@ -80,7 +92,10 @@ function SignIn() {
             type='password'
           />
           <Submit value="Sign In" className={styles.submitSignIn} busy={isPending}/>
-
+          <p className="text-red-500 ">Note:</p>
+            <p className="text-white p-0 m-0">Mod Admin Panel is view mode Only!</p>
+            <button onClick={handleMod} className={styles.submitSignIn + ' px-2 py-1 rounded'} >Log As Moderator</button>
+            <button onClick={handleGuest} className={styles.submitSignIn + ' ml-3 px-2 py-1 rounded'} >Log As Guest</button>
           <div className="flex justify-between">
             <CustomLink to="/auth/forget-password">Forget password</CustomLink>
             <CustomLink to="/auth/signup">Sign up</CustomLink>

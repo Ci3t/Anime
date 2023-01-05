@@ -27,7 +27,8 @@ function App() {
   const location = useLocation()
 const {authInfo} = useAuth()
 
-const isAdmin = authInfo.profile?.role === "admin"
+// const isAdmin = authInfo.profile?.role === "admin"
+const isAdmin = authInfo.profile?.role !== "user"
 const isMod = authInfo.profile?.role === "moderator"
 
 // if(isAdmin) return <AdminNav/>

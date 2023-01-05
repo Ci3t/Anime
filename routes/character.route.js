@@ -12,8 +12,8 @@ characterRoute.post('/update/:charId',isAuth,isAdmin,uploadImage.single('avatar'
 
 characterRoute.delete('/:charId',isAuth,isAdmin,removeChar)
 
-characterRoute.get('/search',isAuth,isAdmin,searchCharacter)
-characterRoute.get('/latest-uploads',isAuth,isAdmin,getLatestCharacters)
-characterRoute.get('/characters',isAuth,isAdmin,getCharacters)
+characterRoute.get('/search',isAuth,isMod,searchCharacter)
+characterRoute.get('/latest-uploads',isAuth,isMod,getLatestCharacters)
+characterRoute.get('/characters',isAuth,isMod,getCharacters)
 
 characterRoute.get('/single/:id',getSingleChar)
