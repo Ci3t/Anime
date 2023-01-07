@@ -24,6 +24,18 @@ related animes by tags will be displayed at the bottom of the page (limited to 5
 
 </div>
 
+<div align="center">
+
+# Live Demo :
+https://anime-j2s0.onrender.com/
+<div>
+<img width='700px' src='https://i.postimg.cc/ChHc207T/Untitled.jpg' alt='screenshot'/>
+<img width='700px' src='https://i.postimg.cc/yx3gCBM4/Untitled2.jpg' alt='screenshot'/>
+<img width='700px' src='https://i.postimg.cc/bJW0t68P/Untitled3.jpg' alt='screenshot'/>
+<img width='700px' src='https://i.postimg.cc/J4PnYsDD/Untitled4.jpg' alt='screenshot'/>
+<img width='700px' src='https://i.postimg.cc/Ph1CBx18/Untitled5.jpg' alt='screenshot'/>
+<img width='700px' src='https://i.postimg.cc/pd8PvrTB/Untitled6.jpg' alt='screenshot'/>
+</div>
 
 
 <div align="center">
@@ -65,18 +77,7 @@ related animes by tags will be displayed at the bottom of the page (limited to 5
 
 
 
-<div align="center">
 
-# Live Demo :
-https://anime-j2s0.onrender.com/
-<div>
-<img width='700px' src='https://i.postimg.cc/ChHc207T/Untitled.jpg' alt='screenshot'/>
-<img width='700px' src='https://i.postimg.cc/yx3gCBM4/Untitled2.jpg' alt='screenshot'/>
-<img width='700px' src='https://i.postimg.cc/bJW0t68P/Untitled3.jpg' alt='screenshot'/>
-<img width='700px' src='https://i.postimg.cc/J4PnYsDD/Untitled4.jpg' alt='screenshot'/>
-<img width='700px' src='https://i.postimg.cc/Ph1CBx18/Untitled5.jpg' alt='screenshot'/>
-<img width='700px' src='https://i.postimg.cc/pd8PvrTB/Untitled6.jpg' alt='screenshot'/>
-</div>
 
 ## API Reference
 
