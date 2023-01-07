@@ -23,7 +23,23 @@ related animes by tags will be displayed at the bottom of the page (limited to 5
 
 
 </div>
+<div align="left">
+ ### FAQ
 
+#### i am trying to open the site live demo but it's not loading / taking a while ?
+
+- the site is hosted onrender.com so if the site not active the server will go into sleep moderator
+please wait like 2-3 min while the onrender server wake up and the site will load without any issues
+
+
+#### Can i rate and review an anime ? 
+
+- yes if you are logged as verified user
+
+#### can i view admin panel ?
+
+ - you can view admin panel with all data if you click login as moderator button
+</div>
 <div align="center">
 
 # Live Demo :
@@ -90,21 +106,6 @@ those i used Jikan api
    https://docs.api.jikan.moe/
 ```
 
-## FAQ
-
-### i am trying to open the site live demo but it's not loading / taking a while ?
-
-the site is hosted onrender.com so if the site not active the server will go into sleep moderator
-please wait like 2-3 min while the onrender server wake up and the site will load without any issues
-
-
-#### Can i rate and review an anime ? 
-
-yes if you are logged as verified user
-
-#### can i view admin panel ?
-
-you can view admin panel with all data if you click login as moderator button
 
 
 ## License
