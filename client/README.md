@@ -1,70 +1,118 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<br/>
+<div align="center">
+ 
+# Anime Site & Admin Panel
 
-## Available Scripts
+project was made as my final bootcamp project to interdouce people to the anime world
 
-In the project directory, you can run:
+this site has been made as real world site would look like 
 
-### `npm start`
+homepage of image slider of latest anime that been added to website with up next
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+top 5 of viewers choice that will calculate the average reviews and display in homepage 
+depend on people reviews
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+a page for anime tv series and another for anime movies 
 
-### `npm test`
+in each single anime there is video player and info about the anime itself 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+info about the lead characters in the anime once you click on the name you can read about the character itself
 
-### `npm run build`
+related animes by tags will be displayed at the bottom of the page (limited to 5)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+</div>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<div align="center">
 
-### `npm run eject`
+# Live Demo :
+https://anime-j2s0.onrender.com/
+<div>
+<img width='700px' src='https://i.postimg.cc/ChHc207T/Untitled.jpg' alt='screenshot'/>
+<img width='700px' src='https://i.postimg.cc/yx3gCBM4/Untitled2.jpg' alt='screenshot'/>
+<img width='700px' src='https://i.postimg.cc/bJW0t68P/Untitled3.jpg' alt='screenshot'/>
+<img width='700px' src='https://i.postimg.cc/J4PnYsDD/Untitled4.jpg' alt='screenshot'/>
+<img width='700px' src='https://i.postimg.cc/Ph1CBx18/Untitled5.jpg' alt='screenshot'/>
+<img width='700px' src='https://i.postimg.cc/pd8PvrTB/Untitled6.jpg' alt='screenshot'/>
+</div>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<div align="center">
+# Features 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### - Login / Register
+</div>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- advanced login/register methods in my website 
+- including sending an OTP to your email to verify your account 
+- restoring your password if you forget
+- sending an OTP again if you misclick somewhere or didnt recive the first one
+- must be verfied to add review to the website
 
-## Learn More
+### - Review & Rating System
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- add review and rating to the anime 
+- with delete or edit your own review (can add 1 review per anime)
+- avg review will be calculated and sending the the highest 5 animes with good avg reviews to home page
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### - Latest uploaded 
 
-### Code Splitting
+- adding recent uploaded anime by admin to homepage image slider
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+### - Admin Panel
+#### -  to view admin panel click Login and choose Log as Moderator 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- complete CRUD option for the admin 
+- ability to add /remove anime 
+- advanced form with upload trailer in background and filling advance form + adding poster
+- selecting tags and genres for the anime
+- adding characters as lead or not with live search option 
+- searching for a certain anime or characters
+- ability to add a certain character to the characters with info and image
+- dashboard for displaying webpage stats like review count / anime count/ users count
+- ability to see recent added animes and most rated animes
+- stats page with Chart for better view 
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+## API Reference
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+the whole website is full CRUD of my own stored in MongoDB beside 2 pages anime find and mange find 
+those i used Jikan api 
 
-### `npm run build` fails to minify
+#### Jikan api was used only for find anime/manga page so credit to them
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```http
+   https://docs.api.jikan.moe/
+```
+
+## FAQ
+
+### i am trying to open the site live demo but it's not loading / taking a while ?
+
+the site is hosted onrender.com so if the site not active the server will go into sleep moderator
+please wait like 2-3 min while the onrender server wake up and the site will load without any issues
+
+
+#### Can i rate and review an anime ? 
+
+yes if you are logged as verified user
+
+#### can i view admin panel ?
+
+you can view admin panel with all data if you click login as moderator button
+
+
+## License
+This project is licensed under the terms of the MIT license.
+
+
+## Authors
+
+- [@Ci3t](https://www.github.com/Ci3t) AppleSeeds Fullstack Bootcamp Student 
+
+
