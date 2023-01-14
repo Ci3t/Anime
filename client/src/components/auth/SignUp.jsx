@@ -67,14 +67,14 @@ function SignUp() {
   },[isLoggedIn])
   const { name, email, password } = userInfo;
   return (
-    <div className={ styles.signBgImage +" fixed inset-0 -z-10 flex justify-center items-center"}>
+    <div className={ styles.signBgImage +" flex justify-center items-center"}>
       <Container className={" w-80"}>
-      <img className="rounded-t" src="./images/Fullstacker_anime.png" alt="signup" />
+      <img className="rounded-t pt-2" src="./images/Fullstacker_anime.png" alt="signup" />
 
         
         <form
           onSubmit={handleSubmit}
-          className={styles.signFormBlur +"  rounded-b p-6  space-y-6"}
+          className={styles.signFormBlur +"  rounded-b p-6 mb-2  space-y-6"}
         >
           <Title>Sign Up</Title>
           <FormInput

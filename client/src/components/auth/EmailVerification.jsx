@@ -104,12 +104,12 @@ const isVerified = profile?.isVerified
   }, [user,isLoggedIn,isVerified]);
 
   return (
-    <div className={ styles.signBgImage +" fixed inset-0 -z-10 flex justify-center items-center"}>
-      <Container className={" w-96"}>
-      <img className="rounded-t" src="./images/very_cool.png" alt="signin" />
+    <div className={ styles.signBgImage +" flex justify-center items-center"}>
+      <Container className={" w-96 "}>
+      <img className="rounded-t pt-2" src="./images/very_cool.png" alt="signin" />
         <form
           onSubmit={handleSubmit}
-          className={styles.signFormBlur +"  rounded-b p-6  space-y-6"}
+          className={styles.signFormBlur +"  rounded-b p-6 mb-2 space-y-6"}
         >
           <div>
             <Title>Please enter the OTP Code to verify your account</Title>

@@ -93,10 +93,10 @@ function ConfirmPassword() {
     );
 
   return (
-    <div className={ styles.signBgImage +" fixed inset-0 -z-10 flex justify-center items-center"}>
+    <div className={ styles.signBgImage +"  flex justify-center items-center"}>
       <Container className={" w-96"}>
-      <img className="rounded-t" src="./images/very_cool.png" alt="signin" />
-        <form onSubmit={handleSubmit} className={styles.signFormBlur +"  rounded-b p-6  space-y-6"}>
+      <img className="rounded-t pt-2" src="./images/very_cool.png" alt="signin" />
+        <form onSubmit={handleSubmit} className={styles.signFormBlur +"  rounded-b p-6 mb-2 space-y-6"}>
           <Title>Enter New Password</Title>
           <FormInput
             label="New Password"

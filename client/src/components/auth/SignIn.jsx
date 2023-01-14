@@ -71,10 +71,10 @@ const handleGuest = ()=>{
   // },[isLoggedIn])
 
   return (
-    <div className={ styles.signBgImage +" fixed inset-0 -z-10 flex justify-center items-center"}>
+    <div className={ styles.signBgImage +" flex justify-center items-center"}>
       <Container className={" w-80"}>
-        <img className="rounded-t" src="./images/Fullstacker_anime.png" alt="signin" />
-        <form onSubmit={handleSubmit} className={styles.signFormBlur +"  rounded-b p-6  space-y-6"}>
+        <img className=" pt-2 rounded-t" src="./images/Fullstacker_anime.png" alt="signin" />
+        <form onSubmit={handleSubmit} className={styles.signFormBlur +"  rounded-b p-6  space-y-6 mb-2"}>
           <Title>Sign In</Title>
           <FormInput
             label="Email"
