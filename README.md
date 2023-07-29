@@ -45,12 +45,20 @@ please wait like 2-3 min while the onrender server wake up and the site will loa
 # Live Demo :
 https://anime-j2s0.onrender.com/
 <div>
-<img width='700px' src='https://i.postimg.cc/ChHc207T/Untitled.jpg' alt='screenshot'/>
+<!-- <img width='700px' src='https://i.postimg.cc/ChHc207T/Untitled.jpg' alt='screenshot'/>
 <img width='700px' src='https://i.postimg.cc/yx3gCBM4/Untitled2.jpg' alt='screenshot'/>
 <img width='700px' src='https://i.postimg.cc/bJW0t68P/Untitled3.jpg' alt='screenshot'/>
 <img width='700px' src='https://i.postimg.cc/J4PnYsDD/Untitled4.jpg' alt='screenshot'/>
 <img width='700px' src='https://i.postimg.cc/Ph1CBx18/Untitled5.jpg' alt='screenshot'/>
-<img width='700px' src='https://i.postimg.cc/pd8PvrTB/Untitled6.jpg' alt='screenshot'/>
+<img width='700px' src='https://i.postimg.cc/pd8PvrTB/Untitled6.jpg' alt='screenshot'/> -->
+
+<img src="https://github.com/Ci3t/Anime/blob/main/preview/adminAddChar.jpg?raw=true" width="700"  alt='screenshot'>
+<img src="https://github.com/Ci3t/Anime/blob/main/preview/adminChar.jpg?raw=true" width="700"  alt='screenshot'>
+<img src="https://github.com/Ci3t/Anime/blob/main/preview/adminHome.jpg?raw=true" width="700"  alt='screenshot'>
+<img src="https://github.com/Ci3t/Anime/blob/main/preview/adminUpload.jpg?raw=true" width="700"  alt='screenshot'>
+<img src="https://github.com/Ci3t/Anime/blob/main/preview/animePage.jpg?raw=true" width="700"  alt='screenshot'>
+<img src="https://github.com/Ci3t/Anime/blob/main/preview/homePage.jpg?raw=true" width="700"  alt='screenshot'>
+
 </div>
 
 
